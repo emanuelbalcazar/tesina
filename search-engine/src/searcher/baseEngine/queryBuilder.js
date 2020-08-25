@@ -1,5 +1,4 @@
 const querystring = require('querystring');
-const axios = require('axios');
 const config = require('../../config/config');
 
 /**
@@ -11,8 +10,7 @@ const config = require('../../config/config');
 async function getQuery(params) {
     try {
         let baseURL = config.GOOGLE_API + querystring.stringify(params);
-        let response = await axios.get(baseURL);
-        return response.data;
+        return baseURL;
     } catch (error) {
         throw new Error(error);
     }

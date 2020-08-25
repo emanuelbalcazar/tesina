@@ -11,6 +11,7 @@
     "author": "Emanuel Balcazar",
     "license": "ISC",
     "dependencies": {
+        "amqplib": "^0.6.0",
         "axios": "^0.20.0",
         "chalk": "^4.1.0",
         "compression": "^1.7.4",

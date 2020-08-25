@@ -11,4 +11,4 @@ class Google extends BaseEngine {
     }
 }
 
-module.exports = Google;
+module.exports = new Google();

@@ -44,7 +44,10 @@ process.on('unhandledRejection', function (err) {
 app.set('host', config.HOST);
 app.set('port', config.PORT);
 
+const workerManagement =  require('./workers/index');
+
 // listening application.
-app.listen(app.get('port'), () => {
+app.listen(app.get('port'), async () => {
     console.log(success(`[Search Engine] - started in ${app.get('host')}:${app.get('port')}`));
+    await workerManagement.startAllWorkers();
 });

@@ -1,23 +1,15 @@
-class SearcherStrategy {
+class SearchFactory {
 
-    constructor() {
-        this.searcher = {}
-    }
+    constructor() { }
 
-    setStrategy(aSearcher) {
-        this.searcher = aSearcher;
-    }
-
-    async execute(equation = {}) {
+    getSearcher(name = 'google') {
         try {
-            let query = this.searcher.getQuery(equation);
-            let searchResults = await this.searcher.search(query);
-            let filtered = this.searcher.filter(searchResults, equation.filters);
-            return filtered;
+            let searcher = require(`./${name.toLowerCase()}`);
+            return searcher;
         } catch (error) {
-            throw new Error(error);
+            throw new Error(`No se encontro un buscador con el nombre: ${name}`);
         }
     }
 }
 
-module.exports = new SearcherStrategy();
+module.exports = new SearchFactory();

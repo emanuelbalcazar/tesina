@@ -1,0 +1,16 @@
+{
+    "workers": [
+        {
+            "exchange": "equations",
+            "key": "diarioelchubut"
+        },
+        {
+            "exchange": "equations",
+            "key": "diariodemadryn"
+        },
+        {
+            "exchange": "equations",
+            "key": "diariocronica"
+        }
+    ]
+}

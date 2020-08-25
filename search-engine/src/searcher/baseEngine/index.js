@@ -9,6 +9,7 @@ class BaseEngine {
         this.queryBuilder = params.queryBuilder || require('./queryBuilder');
         this.searcher = params.searcher || require('./searcher');
         this.filtering = params.filtering || require('./filtering');
+        this.normalizer = params.normalizer || require('./normalizer');
     }
 
     // defaults implementations...
@@ -22,6 +23,10 @@ class BaseEngine {
 
     async filter(searchResults, criteria = {}) {
         return this.filtering.filter(searchResults, criteria);
+    }
+
+    async normalize(filteredResults) {
+        return this.normalizer.normalize(filteredResults);
     }
 }
 
