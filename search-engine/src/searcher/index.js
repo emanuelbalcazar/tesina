@@ -1,7 +1,16 @@
+/**
+ * @class SearchFactory
+ * @author Emanuel Balcazar
+ */
 class SearchFactory {
 
     constructor() { }
 
+    /**
+     * @param  {string} [name='google']
+     * @return a searcher instance
+     * @memberof SearchFactory
+     */
     getSearcher(name = 'google') {
         try {
             let searcher = require(`./${name.toLowerCase()}`);

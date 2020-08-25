@@ -19,11 +19,19 @@ class Worker {
         this.channel = null;
     }
 
+    /**
+     * Connect with rabbitmq
+     * @return {void}
+     */
     async connect() {
         let connection = await rabbitmq.getConnection();
         this.channel = await connection.createChannel();
     }
 
+    /**
+     * Create channel and consume from queues
+     * @return {void}
+     */
     async start() {
         await this.connect();
 
@@ -39,6 +47,11 @@ class Worker {
         });
     }
 
+    /**
+     * Execute a search using http protocol
+     * @param  {Object} equation
+     * @return {void}
+     */
     async search(equation) {
         try {
             let query = await this.searcher.getQuery(equation);
@@ -46,7 +59,7 @@ class Worker {
             let filtered = await this.searcher.filter(searchResults, {});
             let normalized = await this.searcher.normalize(filtered);
 
-            console.log('Enviar a encolar busqueda', normalized);
+            console.log('[%s] - enviar a encolar el resultado de busqueda: %s', this.routingKey, normalized);
         } catch (error) {
             throw new Error(error);
         }

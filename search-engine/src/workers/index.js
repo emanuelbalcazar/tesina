@@ -12,6 +12,10 @@ class WorkerManagement {
 
     constructor() { }
 
+    /**
+     * Initialize all workers
+     * @return {void}
+     */
     async startAllWorkers() {
         workersConfig.forEach(async config => {
             let worker = new Worker(config.exchange, config.key, Google);

@@ -7,6 +7,7 @@ const compression = require('compression');
 const helmet = require('helmet');
 const logger = require('morgan');
 const chalk = require('chalk');
+const workerManagement =  require('./workers/index');
 
 // load .env configuration
 require('dotenv').config();
@@ -43,8 +44,6 @@ process.on('unhandledRejection', function (err) {
 // set host and port.
 app.set('host', config.HOST);
 app.set('port', config.PORT);
-
-const workerManagement =  require('./workers/index');
 
 // listening application.
 app.listen(app.get('port'), async () => {
