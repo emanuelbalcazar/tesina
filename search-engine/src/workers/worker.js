@@ -37,6 +37,7 @@ class Worker {
 
         this.channel.assertExchange(this.exchange, 'direct', { durable: true });
         let queueInstance = await this.channel.assertQueue('', { exclusive: true });
+
         await this.channel.bindQueue(queueInstance.queue, this.exchange, this.routingKey);
 
         console.log(`[${this.routingKey}] - worker esperando nuevos mensajes...`);

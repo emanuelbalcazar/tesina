@@ -1,0 +1,33 @@
+{
+    "name": "crawl-extractors",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node ./src/index",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Emanuel Balcazar",
+    "license": "ISC",
+    "dependencies": {
+        "amqplib": "^0.6.0",
+        "axios": "^0.20.0",
+        "chalk": "^4.1.0",
+        "compression": "^1.7.4",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "helmet": "^4.1.0",
+        "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.4"
+    },
+    "nodemonConfig": {
+        "watch": [
+            "src/"
+        ],
+        "ignore": [
+            "node_modules"
+        ]
+    }
+}

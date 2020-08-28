@@ -1,6 +1,6 @@
 // declare HOST and PORT.
 module.exports.HOST = process.env.HOST || 'http://localhost';
-module.exports.PORT = process.env.PORT || 8000;
+module.exports.PORT = process.env.PORT || 8001;
 
 // declare rabbitmq connection
 module.exports.RABBITMQ = process.env.RABBITMQ || 'amqp://localhost:5672/tesina';

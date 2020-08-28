@@ -4,7 +4,7 @@
  */
 const express = require('express');
 const router = express.Router();
-const factory = require('../searcher/index');
+const service = require('../services/search.service');
 
 // information route about the application.
 router.get('/info', (req, res) => {
@@ -15,16 +15,10 @@ router.get('/info', (req, res) => {
 // execute a search
 router.post('/search', async (req, res, next) => {
     try {
-        let google = factory.getSearcher("google");
-
-        let query = await google.getQuery(req.body.equation);
-        let searchResults = await google.search(query);
-        let filtered = await google.filter(searchResults, {});
-        let results = await google.normalize(filtered);
-
+        let results = await service.search(req.body, "google");
         return res.json(results);
     } catch (error) {
-        return res.status(401).json({ code: 401, message: error.message });
+        return res.status(400).json({ code: 400, message: error.message, stack: error.stack });
     }
 });
 
