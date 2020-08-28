@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "node ./src/index",
+        "dev": "nodemon ./src",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Emanuel Balcazar",
@@ -17,7 +18,8 @@
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
         "helmet": "^4.1.0",
-        "morgan": "^1.10.0"
+        "morgan": "^1.10.0",
+        "node-html-parser": "^1.2.20"
     },
     "devDependencies": {
         "nodemon": "^2.0.4"
