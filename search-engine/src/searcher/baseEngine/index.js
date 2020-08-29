@@ -25,8 +25,8 @@ class BaseEngine {
         return this.filtering.filter(searchResults, criteria);
     }
 
-    async normalize(filteredResults) {
-        return this.normalizer.normalize(filteredResults);
+    async normalize(filteredResults, equation) {
+        return this.normalizer.normalize(filteredResults, equation);
     }
 }
 

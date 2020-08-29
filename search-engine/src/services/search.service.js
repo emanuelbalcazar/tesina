@@ -16,11 +16,10 @@ class SearchService {
     async search(params, searchName = 'google') {
         try {
             let google = factory.getSearcher(searchName);
-
             let query = await google.getQuery(params.equation);
             let searchResults = await google.search(query);
             let filtered = await google.filter(searchResults, {});
-            let results = await google.normalize(filtered);
+            let results = await google.normalize(filtered, params);
 
             return results;
         } catch (error) {

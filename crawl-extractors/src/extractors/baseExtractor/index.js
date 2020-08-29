@@ -20,8 +20,8 @@ class BaseExtractor {
         return await this.scraper.scraping(params, selectors);
     }
 
-    async normalize(params) {
-        return await this.normalizer.normalize(params);
+    async normalize(records, originalParams) {
+        return await this.normalizer.normalize(records, originalParams);
     }
 }
 

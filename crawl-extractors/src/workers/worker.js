@@ -1,6 +1,6 @@
 const config = require('../config/config');
 const rabbitmq = require('../rabbitmq/rabbitmq');
-const service = require('../services/search.service');
+const service = require('../services/extractor.service');
 
 /**
  * @class Worker
@@ -44,7 +44,7 @@ class Worker {
 
         this.channel.consume(queueInstance.queue, async (msg) => {
             console.log('> [%s] Nuevo mensaje en %s', this.routingKey);
-            await this.search(JSON.parse(msg.content.toString()));
+            await this.extract(JSON.parse(msg.content.toString()));
             this.channel.ack(msg);
         });
     }
@@ -54,9 +54,9 @@ class Worker {
      * @param  {Object} equation
      * @return {void}
      */
-    async search(message) {
+    async extract(message) {
         try {
-            let results = await service.search(message);
+            let results = await service.extract(message);
             this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
             this.channel.publish(config.PUBLISH_EXCHANGE, this.routingKey, Buffer.from(JSON.stringify(results)));
         } catch (error) {

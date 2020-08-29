@@ -3,8 +3,25 @@
  * @param  {Array} records
  * @return normalized articles
  */
-async function normalize(records) {
-    return records;
+async function normalize(records, originalParams) {
+
+    let results = originalParams;
+
+    results.nextPage = {
+        totalResults: records.queries.nextPage[0].totalResults,
+        startIndex: records.queries.nextPage[0].startIndex
+    };
+
+    results.items = [];
+    results.items = records.items.map(item => {
+        return {
+            title: item.title,
+            link: item.link,
+            snippet: item.snippet || ''
+        }
+    });
+
+    return results;
 }
 
 module.exports.normalize = normalize;
