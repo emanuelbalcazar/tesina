@@ -17,7 +17,8 @@ async function normalize(records, originalParams) {
         return {
             title: item.title,
             link: item.link,
-            snippet: item.snippet || ''
+            snippet: item.snippet || '',
+            metatags: item.pagemap.metatags
         }
     });
 
