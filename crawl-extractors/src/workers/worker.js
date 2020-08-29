@@ -11,11 +11,9 @@ class Worker {
     /**
      * Creates an instance of Worker.
      * @param  {string} routingKey
-     * @param  {object} searcher
      */
-    constructor(routingKey, searcher) {
+    constructor(routingKey) {
         this.routingKey = routingKey;
-        this.searcher = searcher;
         this.channel = null;
     }
 
@@ -43,7 +41,7 @@ class Worker {
         console.log(`[${this.routingKey}] - worker esperando nuevos mensajes...`);
 
         this.channel.consume(queueInstance.queue, async (msg) => {
-            console.log('> [%s] Nuevo mensaje en %s', this.routingKey);
+            console.log('> [%s] Nuevo mensaje entrante', this.routingKey);
             await this.extract(JSON.parse(msg.content.toString()));
             this.channel.ack(msg);
         });

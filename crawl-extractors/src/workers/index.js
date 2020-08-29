@@ -1,7 +1,4 @@
 const Worker = require('./worker');
-const factory = require('../extractors/index');
-const Extractor = factory.getExtractor("default");
-
 const workersConfig = require('./workers.json').workers;
 
 /**
@@ -18,7 +15,7 @@ class WorkerManagement {
      */
     async startAllWorkers() {
         workersConfig.forEach(async config => {
-            let worker = new Worker(config.key, Extractor);
+            let worker = new Worker(config.key);
             worker.start();
         });
     }

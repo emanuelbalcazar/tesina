@@ -1,7 +1,4 @@
 const Worker = require('./worker');
-const factory = require('../searcher/index');
-const Google = factory.getSearcher("google");
-
 const workersConfig = require('./workers.json').workers;
 
 /**
@@ -18,7 +15,7 @@ class WorkerManagement {
      */
     async startAllWorkers() {
         workersConfig.forEach(async config => {
-            let worker = new Worker(config.key, Google);
+            let worker = new Worker(config.key);
             worker.start();
         });
     }
