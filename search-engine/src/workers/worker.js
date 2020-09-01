@@ -35,7 +35,7 @@ class Worker {
         await this.connect();
 
         this.channel.assertExchange(config.CONSUMER_EXCHANGE, 'direct', { durable: true });
-        let queueInstance = await this.channel.assertQueue('', { exclusive: true });
+        let queueInstance = await this.channel.assertQueue('', {});
 
         await this.channel.bindQueue(queueInstance.queue, config.CONSUMER_EXCHANGE, this.routingKey);
 
@@ -55,9 +55,22 @@ class Worker {
      */
     async search(message) {
         try {
-            let results = await service.search(message);
-            this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
-            this.channel.publish(config.PUBLISH_EXCHANGE, this.routingKey, Buffer.from(JSON.stringify(results)));
+            let params = message;
+            let requestCount = 0;
+            let hasPages = true;
+
+            while ((requestCount < message.requestLimit) && hasPages) {
+                let results = await service.search(params);
+                this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
+                await this.channel.publish(config.PUBLISH_EXCHANGE, this.routingKey, Buffer.from(JSON.stringify(results)));
+
+                hasPages = (params.equation.start <= results.nextPage.startIndex) ? true : false;
+                params.equation.start = (results.nextPage) ? results.nextPage.startIndex : params.equation.start;
+                requestCount++;
+            }
+
+            // TODO Si termino sus request, no hacer nada. Si termino su ecuacion, pedir mas.
+            // TODO verificar si el limite de paginas sigue siendo 10.
         } catch (error) {
             throw new Error(error);
         }
