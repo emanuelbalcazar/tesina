@@ -35,7 +35,7 @@ class Worker {
         await this.connect();
 
         this.channel.assertExchange(config.CONSUMER_EXCHANGE, 'direct', { durable: true });
-        let queueInstance = await this.channel.assertQueue('', {});
+        let queueInstance = await this.channel.assertQueue('', { exclusive: true });
 
         await this.channel.bindQueue(queueInstance.queue, config.CONSUMER_EXCHANGE, this.routingKey);
 

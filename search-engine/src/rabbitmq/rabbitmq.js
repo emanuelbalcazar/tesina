@@ -23,6 +23,20 @@ class RabbitMQConnector {
             throw new Error(error);
         }
     }
+
+    /**
+     * Send a message to queue
+     * @param  {String} queueName
+     * @param  {Object} message
+     * @return {Boolean} status
+     * @memberof RabbitMQConnector
+     */
+    async sendToQueue(queueName, message) {
+        let channel = await connection.createChannel();
+        channel.assertQueue(queueName, { durable: true });
+        let status = await channel.sendToQueue(queueName, Buffer.from(JSON.stringify(message)));
+        return status;
+    }
 }
 
 module.exports = new RabbitMQConnector();

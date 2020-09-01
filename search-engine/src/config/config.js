@@ -11,3 +11,7 @@ module.exports.PUBLISH_EXCHANGE = 'searches';
 module.exports.GOOGLE_API = 'https://www.googleapis.com/customsearch/v1?';
 module.exports.CX = process.env.CX;
 module.exports.KEY = process.env.KEY;
+
+
+module.exports.LOGS_QUEUE_NAME = 'logs';
+module.exports.PRINT_LOGS_ON_CONSOLE = true;

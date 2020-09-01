@@ -1,3 +1,5 @@
+const logger = require('../../services/logger.service');
+
 /**
  * Normalize search results
  * @param  {Array} records
@@ -5,24 +7,30 @@
  */
 async function normalize(records, originalParams) {
 
-    let results = originalParams;
+    try {
+        let results = originalParams;
 
-    results.nextPage = {
-        totalResults: records.queries.nextPage[0].totalResults,
-        startIndex: records.queries.nextPage[0].startIndex
-    };
+        results.nextPage = {
+            totalResults: records.queries.nextPage[0].totalResults,
+            startIndex: records.queries.nextPage[0].startIndex
+        };
 
-    results.items = [];
-    results.items = records.items.map(item => {
-        return {
-            title: item.title,
-            link: item.link,
-            snippet: item.snippet || '',
-            metatags: item.pagemap.metatags
-        }
-    });
+        results.items = [];
+        results.items = records.items.map(item => {
+            return {
+                title: item.title,
+                link: item.link,
+                snippet: item.snippet || '',
+                metatags: item.pagemap.metatags
+            }
+        });
 
-    return results;
+        logger.success('search engine', 'normalizer', 'OK');
+        return results;
+    } catch (error) {
+        logger.error('search engine', 'normalizer', error.message, error.stack);
+        throw new Error(error);
+    }
 }
 
 module.exports.normalize = normalize;

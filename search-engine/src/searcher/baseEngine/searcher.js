@@ -1,4 +1,5 @@
 const axios = require('axios');
+const logger = require('../../services/logger.service');
 
 /**
  * Execute the search.
@@ -9,8 +10,10 @@ const axios = require('axios');
 async function search(query) {
     try {
         let response = await axios.get(query);
+        logger.success('search engine', 'search', response.statusText);
         return response.data;
     } catch (error) {
+        logger.error('search engine', 'getQuery', error.message, error.stack);
         throw new Error(error);
     }
 }
