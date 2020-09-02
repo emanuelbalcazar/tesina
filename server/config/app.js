@@ -18,6 +18,10 @@ module.exports = {
 
   name: Env.get('APP_NAME', 'AdonisJs'),
 
+  rabbitmq: Env.get('RABBITMQ'),
+
+  logsQueue: Env.get('LOGS_QUEUE', 'logs'),
+
   /*
   |--------------------------------------------------------------------------
   | App Key

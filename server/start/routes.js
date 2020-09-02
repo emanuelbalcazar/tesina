@@ -17,5 +17,11 @@
 const Route = use('Route')
 
 Route.get('/', () => {
-  return { greeting: 'Hello world in JSON' }
-})
+    return { greeting: 'Hello world in JSON' }
+});
+
+// routes with prefix 'api'
+Route.group(() => {
+    Route.resource('/logs', 'LogController');
+
+}).prefix('api');

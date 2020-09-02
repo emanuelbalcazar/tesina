@@ -71,6 +71,7 @@ class Worker {
 
             // TODO Si termino sus request, no hacer nada. Si termino su ecuacion, pedir mas.
             // TODO verificar si el limite de paginas sigue siendo 10.
+            // TODO si reinicio el worker, debe saber cuantos request hizo
         } catch (error) {
             throw new Error(error);
         }

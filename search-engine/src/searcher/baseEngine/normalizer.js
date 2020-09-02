@@ -10,10 +10,10 @@ async function normalize(records, originalParams) {
     try {
         let results = originalParams;
 
-        results.nextPage = {
-            totalResults: records.queries.nextPage[0].totalResults,
-            startIndex: records.queries.nextPage[0].startIndex
-        };
+        results.nextPage = { totalResults: 0, startIndex: 1 };
+
+        results.nextPage.totalResults = (records.searchInformation) ? Number(records.searchInformation.totalResults) : 0;
+        results.nextPage.startIndex = (records.queries.nextPage) ? records.queries.nextPage[0].startIndex : 1;
 
         results.items = [];
         results.items = records.items.map(item => {
@@ -26,6 +26,7 @@ async function normalize(records, originalParams) {
         });
 
         logger.success('search engine', 'normalizer', 'OK');
+
         return results;
     } catch (error) {
         logger.error('search engine', 'normalizer', error.message, error.stack);

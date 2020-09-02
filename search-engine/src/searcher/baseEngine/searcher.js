@@ -11,6 +11,7 @@ async function search(query) {
     try {
         let response = await axios.get(query);
         logger.success('search engine', 'search', response.statusText);
+        response.data.items = (response.data.items) ? response.data.items : [];
         return response.data;
     } catch (error) {
         logger.error('search engine', 'getQuery', error.message, error.stack);
