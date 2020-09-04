@@ -1,0 +1,30 @@
+[
+    {
+        "selector": ".td-post-content p",
+        "site": "http://diariocronica.com.ar"
+    },
+    {
+        "selector": ".post-content p",
+        "site": "https://www.eldiariodemadryn.com"
+    },
+    {
+        "selector": "#bloque_superior p",
+        "site": "https://www.diariojornada.com.ar"
+    },
+    {
+        "selector": ".notapage_cuerpo p",
+        "site": "https://www.elchubut.com.ar"
+    },
+    {
+        "selector": ".news-amp-body",
+        "site": "https://www.elchubut.com.ar"
+    },
+    {
+        "selector": ".interiorCopete",
+        "site": "https://www.elpatagonico.com"
+    },
+    {
+        "selector": ".cuerpo.clearfix",
+        "site": "https://www.elpatagonico.com"
+    }
+]

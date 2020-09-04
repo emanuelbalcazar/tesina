@@ -4,15 +4,15 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Selector = use('App/Models/Selector');
+const Equation = use('App/Models/Equation');
 
 /**
- * Resourceful controller for interacting with selectors
+ * Resourceful controller for interacting with equations
  */
-class SelectorController {
+class EquationController {
     /**
-     * Show a list of all selectors.
-     * GET selectors
+     * Show a list of all equations.
+     * GET equations
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -21,19 +21,13 @@ class SelectorController {
      */
     async index({ request, response, view }) {
         let params = request.all();
-        params.columnName = params.columnName || 'selector';
-        params.columnValue = params.columnValue || '';
-
-        if (params.page == "all")
-            return await Selector.all();
-
-        let selectors = await Selector.query().where(params.columnName, 'ILIKE', `%${params.columnValue}%`).paginate(params.page, params.perPage);
-        return response.json(selectors);
+        let equations = await Equation.query().with('query').with('site').paginate(params.page, params.perPage);
+        return response.json(equations);
     }
 
     /**
-     * Render a form to be used for creating a new selector.
-     * GET selectors/create
+     * Render a form to be used for creating a new equation.
+     * GET equations/create
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -44,27 +38,27 @@ class SelectorController {
     }
 
     /**
-     * Create/save a new selector.
-     * POST selectors
+     * Create/save a new equation.
+     * POST equations
      *
      * @param {object} ctx
      * @param {Request} ctx.request
      * @param {Response} ctx.response
      */
     async store({ request, response }) {
-        let selector = request.post();
-        let count = await Selector.query().where({ selector: selector.selector }).getCount();
+        let equation = request.post();
+        let count = await Equation.query().where({ query_id: equation.query_id, site_id: equation.site_id }).getCount();
 
         if (count > 0)
-            return response.conflict({ code: 409, message: 'El selector ya existe' })
+            return response.conflict({ code: 409, message: 'La ecuación con su consulta y sitio ya existe' });
 
-        let record = await Selector.create(selector);
+        let record = await Equation.create(equation);
         return response.json(record);
     }
 
     /**
-     * Display a single selector.
-     * GET selectors/:id
+     * Display a single equation.
+     * GET equations/:id
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -72,13 +66,13 @@ class SelectorController {
      * @param {View} ctx.view
      */
     async show({ params, request, response, view }) {
-        let selector = await Selector.query().where('id', params.id).first();
-        return response.json(selector);
+        let equation = await Equation.query().with('query').with('site').where('id', params.id).first();
+        return response.json(equation);
     }
 
     /**
-     * Render a form to update an existing selector.
-     * GET selectors/:id/edit
+     * Render a form to update an existing equation.
+     * GET equations/:id/edit
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -89,30 +83,28 @@ class SelectorController {
     }
 
     /**
-     * Update selector details.
-     * PUT or PATCH selectors/:id
+     * Update equation details.
+     * PUT or PATCH equations/:id
      *
      * @param {object} ctx
      * @param {Request} ctx.request
      * @param {Response} ctx.response
      */
     async update({ params, request, response }) {
-        let updated = await Selector.query().where('id', params.id).update(request.all());
+        let updated = await Equation.query().where('id', params.id).update(request.all());
         return response.json({ updated: updated });
     }
 
     /**
-     * Delete a selector with id.
-     * DELETE selectors/:id
+     * Delete a equation with id.
+     * DELETE equations/:id
      *
      * @param {object} ctx
      * @param {Request} ctx.request
      * @param {Response} ctx.response
      */
     async destroy({ params, request, response }) {
-        let deleted = await Selector.query().where('id', params.id).delete();
-        return deleted;
     }
 }
 
-module.exports = SelectorController
+module.exports = EquationController

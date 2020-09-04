@@ -26,5 +26,7 @@ Route.group(() => {
     Route.resource('/logs', 'LogController');
     Route.resource('/sites', 'SiteController');
     Route.resource('/selectors', 'SelectorController');
+    Route.resource('/queries', 'QueryController');
+    Route.resource('/equations', 'EquationController');
 
 }).prefix('api');

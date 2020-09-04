@@ -1,18 +1,18 @@
 'use strict'
 
+const Query = use('App/Models/Query');
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Selector = use('App/Models/Selector');
-
 /**
- * Resourceful controller for interacting with selectors
+ * Resourceful controller for interacting with queries
  */
-class SelectorController {
+class QueryController {
     /**
-     * Show a list of all selectors.
-     * GET selectors
+     * Show a list of all queries.
+     * GET queries
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -21,19 +21,17 @@ class SelectorController {
      */
     async index({ request, response, view }) {
         let params = request.all();
-        params.columnName = params.columnName || 'selector';
-        params.columnValue = params.columnValue || '';
+        let queries = await Query.query().paginate(params.page, params.perPage);
 
         if (params.page == "all")
-            return await Selector.all();
+            return await Query.all();
 
-        let selectors = await Selector.query().where(params.columnName, 'ILIKE', `%${params.columnValue}%`).paginate(params.page, params.perPage);
-        return response.json(selectors);
+        return response.json(queries);
     }
 
     /**
-     * Render a form to be used for creating a new selector.
-     * GET selectors/create
+     * Render a form to be used for creating a new query.
+     * GET queries/create
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -44,27 +42,27 @@ class SelectorController {
     }
 
     /**
-     * Create/save a new selector.
-     * POST selectors
+     * Create/save a new query.
+     * POST queries
      *
      * @param {object} ctx
      * @param {Request} ctx.request
      * @param {Response} ctx.response
      */
     async store({ request, response }) {
-        let selector = request.post();
-        let count = await Selector.query().where({ selector: selector.selector }).getCount();
+        let query = request.post();
+        let count = await Query.query().where({ q: query.q }).getCount();
 
         if (count > 0)
-            return response.conflict({ code: 409, message: 'El selector ya existe' })
+            return response.conflict({ code: 409, message: 'La consultá de búsqueda ya existe' })
 
-        let record = await Selector.create(selector);
+        let record = await Query.create(query);
         return response.json(record);
     }
 
     /**
-     * Display a single selector.
-     * GET selectors/:id
+     * Display a single query.
+     * GET queries/:id
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -72,13 +70,13 @@ class SelectorController {
      * @param {View} ctx.view
      */
     async show({ params, request, response, view }) {
-        let selector = await Selector.query().where('id', params.id).first();
-        return response.json(selector);
+        let query = await Query.query().where('id', params.id).first();
+        return response.json(query);
     }
 
     /**
-     * Render a form to update an existing selector.
-     * GET selectors/:id/edit
+     * Render a form to update an existing query.
+     * GET queries/:id/edit
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -89,30 +87,30 @@ class SelectorController {
     }
 
     /**
-     * Update selector details.
-     * PUT or PATCH selectors/:id
+     * Update query details.
+     * PUT or PATCH queries/:id
      *
      * @param {object} ctx
      * @param {Request} ctx.request
      * @param {Response} ctx.response
      */
     async update({ params, request, response }) {
-        let updated = await Selector.query().where('id', params.id).update(request.all());
+        let updated = await Query.query().where('id', params.id).update(request.all());
         return response.json({ updated: updated });
     }
 
     /**
-     * Delete a selector with id.
-     * DELETE selectors/:id
+     * Delete a query with id.
+     * DELETE queries/:id
      *
      * @param {object} ctx
      * @param {Request} ctx.request
      * @param {Response} ctx.response
      */
     async destroy({ params, request, response }) {
-        let deleted = await Selector.query().where('id', params.id).delete();
+        let deleted = await Query.query().where('id', params.id).delete();
         return deleted;
     }
 }
 
-module.exports = SelectorController
+module.exports = QueryController
