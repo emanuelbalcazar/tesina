@@ -10,7 +10,7 @@ const chalk = require('chalk');
 const workerManagement =  require('./workers/index');
 
 // load .env configuration
-require('dotenv').config();
+require('dotenv').config()
 const config = require('./config/config');
 
 const success = chalk.green;

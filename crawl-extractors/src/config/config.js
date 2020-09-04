@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 // declare HOST and PORT.
 module.exports.HOST = process.env.HOST || 'http://localhost';
 module.exports.PORT = process.env.PORT || 8002;
