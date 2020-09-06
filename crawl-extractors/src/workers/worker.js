@@ -55,8 +55,7 @@ class Worker {
     async extract(message) {
         try {
             let results = await service.extract(message);
-            this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
-            this.channel.publish(config.PUBLISH_EXCHANGE, this.routingKey, Buffer.from(JSON.stringify(results)));
+            rabbitmq.sendToQueue(config.PUBLISH_QUEUE, results);
         } catch (error) {
             throw new Error(error);
         }

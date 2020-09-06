@@ -1,4 +1,5 @@
 const parse = require('node-html-parser');
+const logger = require('../../services/logger.service');
 
 /**
  * You can overwrite the implementation.
@@ -32,10 +33,11 @@ async function scraping(params, selectors) {
                 articles.push(newItem);
         }
 
+        logger.success('crawl extractors', 'scrapping', articles.length);
         params.items = articles;
-
         return params;
     } catch (error) {
+        logger.error('crawl extractors', 'scrapping', error.message, error.stack);
         throw new Error(error);
     }
 }

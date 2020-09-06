@@ -1,4 +1,5 @@
 const axios = require("axios");
+const logger = require('../../services/logger.service');
 
 /**
  * You can overwrite the implementation.
@@ -16,9 +17,11 @@ async function crawl(params) {
             allHtml.push(newItem);
         }
 
+        logger.success('crawl extractors', 'crawl', 'OK');
         params.items = allHtml;
         return params;
     } catch (error) {
+        logger.error('crawl extractors', 'crawl', error.message, error.stack);
         throw new Error(error);
     }
 }

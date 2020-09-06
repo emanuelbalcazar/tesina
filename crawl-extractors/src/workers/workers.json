@@ -1,13 +1,19 @@
 {
     "workers": [
         {
-            "key": "elchubut"
+            "key": "https://www.eldiariodemadryn.com"
         },
         {
-            "key": "diariodemadryn"
+            "key": "https://www.diariojornada.com.ar"
         },
         {
-            "key": "diariocronica"
+            "key": "https://www.elpatagonico.com"
+        },
+        {
+            "key": "https://www.elchubut.com.ar"
+        },
+        {
+            "key": "http://diariocronica.com.ar"
         }
     ]
 }

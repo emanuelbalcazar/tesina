@@ -22,6 +22,8 @@ module.exports = {
 
   logsQueue: Env.get('LOGS_QUEUE', 'logs'),
 
+  articlesQueue : Env.get('ARTICLES_QUEUE', 'articles'),
+
   /*
   |--------------------------------------------------------------------------
   | App Key

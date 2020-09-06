@@ -1,8 +1,8 @@
 {
-  "name": "adonis-api-app",
+  "name": "server",
   "version": "4.1.0",
   "adonis-version": "4.1.0",
-  "description": "Adonisjs boilerplate for API server with pre-configured JWT",
+  "description": "aplicación servidor",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -12,7 +12,7 @@
     "adonisjs",
     "adonis-app"
   ],
-  "author": "",
+  "author": "Emanuel Balcazar",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
