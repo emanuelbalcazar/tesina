@@ -72,7 +72,7 @@ class SelectorController {
      * @param {View} ctx.view
      */
     async show({ params, request, response, view }) {
-        let selector = await Selector.query().where('id', params.id).first();
+        let selector = await Selector.findBy('id', params.id);
         return response.json(selector);
     }
 

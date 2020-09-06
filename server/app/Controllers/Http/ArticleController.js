@@ -1,18 +1,18 @@
 'use strict'
 
-const Query = use('App/Models/Query');
-
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Article = use('App/Models/Article');
+
 /**
- * Resourceful controller for interacting with queries
+ * Resourceful controller for interacting with articles
  */
-class QueryController {
+class ArticleController {
     /**
-     * Show a list of all queries.
-     * GET queries
+     * Show a list of all articles.
+     * GET articles
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -21,17 +21,13 @@ class QueryController {
      */
     async index({ request, response, view }) {
         let params = request.all();
-        let queries = await Query.query().paginate(params.page, params.perPage);
-
-        if (params.page == "all")
-            return await Query.all();
-
-        return response.json(queries);
+        let articles = await Article.query().paginate(params.page, params.perPage);
+        return response.json(articles);
     }
 
     /**
-     * Render a form to be used for creating a new query.
-     * GET queries/create
+     * Render a form to be used for creating a new article.
+     * GET articles/create
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -42,27 +38,19 @@ class QueryController {
     }
 
     /**
-     * Create/save a new query.
-     * POST queries
+     * Create/save a new article.
+     * POST articles
      *
      * @param {object} ctx
      * @param {Request} ctx.request
      * @param {Response} ctx.response
      */
     async store({ request, response }) {
-        let query = request.post();
-        let count = await Query.query().where({ q: query.q }).getCount();
-
-        if (count > 0)
-            return response.conflict({ code: 409, message: 'La consultá de búsqueda ya existe' })
-
-        let record = await Query.create(query);
-        return response.json(record);
     }
 
     /**
-     * Display a single query.
-     * GET queries/:id
+     * Display a single article.
+     * GET articles/:id
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -70,13 +58,13 @@ class QueryController {
      * @param {View} ctx.view
      */
     async show({ params, request, response, view }) {
-        let query = await Query.findBy('id', params.id);
-        return response.json(query);
+        let article = await Article.findBy('id', params.id);
+        return response.json(article);
     }
 
     /**
-     * Render a form to update an existing query.
-     * GET queries/:id/edit
+     * Render a form to update an existing article.
+     * GET articles/:id/edit
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -87,30 +75,26 @@ class QueryController {
     }
 
     /**
-     * Update query details.
-     * PUT or PATCH queries/:id
+     * Update article details.
+     * PUT or PATCH articles/:id
      *
      * @param {object} ctx
      * @param {Request} ctx.request
      * @param {Response} ctx.response
      */
     async update({ params, request, response }) {
-        let updated = await Query.query().where('id', params.id).update(request.all());
-        return response.json({ updated: updated });
     }
 
     /**
-     * Delete a query with id.
-     * DELETE queries/:id
+     * Delete a article with id.
+     * DELETE articles/:id
      *
      * @param {object} ctx
      * @param {Request} ctx.request
      * @param {Response} ctx.response
      */
     async destroy({ params, request, response }) {
-        let deleted = await Query.query().where('id', params.id).delete();
-        return deleted;
     }
 }
 
-module.exports = QueryController
+module.exports = ArticleController

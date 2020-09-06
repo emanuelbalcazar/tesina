@@ -62,7 +62,7 @@ class LogController {
      * @param {View} ctx.view
      */
     async show({ params, request, response, view }) {
-        let log = await Log.query().where('id', params.id).first();
+        let log = await Log.findBy('id', params.id);
         return response.json(log);
     }
 

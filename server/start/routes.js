@@ -28,5 +28,6 @@ Route.group(() => {
     Route.resource('/selectors', 'SelectorController');
     Route.resource('/queries', 'QueryController');
     Route.resource('/equations', 'EquationController');
+    Route.resource('/articles', 'ArticleController');
 
 }).prefix('api');
