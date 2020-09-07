@@ -1,7 +1,7 @@
 [
     {
         "selector": ".td-post-content p",
-        "site": "http://diariocronica.com.ar"
+        "site": "https://diariocronica.com.ar"
     },
     {
         "selector": ".post-content p",
