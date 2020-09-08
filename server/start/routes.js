@@ -23,11 +23,14 @@ Route.get('/', () => {
 // routes with prefix 'api'
 Route.group(() => {
 
-    Route.resource('/logs', 'LogController');
-    Route.resource('/sites', 'SiteController');
-    Route.resource('/selectors', 'SelectorController');
-    Route.resource('/queries', 'QueryController');
-    Route.resource('/equations', 'EquationController');
+    Route.post('/auth/login', 'AuthController.login');
+
     Route.resource('/articles', 'ArticleController');
+    Route.resource('/equations', 'EquationController');
+    Route.resource('/logs', 'LogController');
+    Route.resource('/queries', 'QueryController');
+    Route.resource('/selectors', 'SelectorController');
+    Route.resource('/sites', 'SiteController');
+    Route.resource('/users', 'UserController');
 
 }).prefix('api');
