@@ -70,13 +70,14 @@ class Worker {
                 await this.channel.publish(config.PUBLISH_EXCHANGE, this.routingKey, Buffer.from(JSON.stringify(results)));
 
                 hasPages = (params.equation.start <= results.nextPage.startIndex) ? true : false;
+                hasPages = (results.nextPage.startIndex <= 100) ? true : false;
+
                 params.equation.start = (results.nextPage) ? results.nextPage.startIndex : params.equation.start;
                 requestCount++;
             }
 
-            // TODO Si termino sus request, no hacer nada. Si termino su ecuacion, pedir mas.
-            // TODO verificar si el limite de paginas sigue siendo 10.
-            // TODO si reinicio el worker, debe saber cuantos request hizo
+            // TODO Si termino sus request, no hacer nada. Si termino su ecuacion, ¿pedir mas?.
+            // TODO si reinicio el worker, debe saber cuantos request hizo?
             return;
         } catch (error) {
             throw new Error(error);

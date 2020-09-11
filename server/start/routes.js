@@ -17,7 +17,7 @@
 const Route = use('Route')
 
 Route.get('/', () => {
-    return { greeting: 'Hello world in JSON' }
+    return { name: 'server', version: '2020-09', status: 'active' };
 });
 
 // routes with prefix 'api'
