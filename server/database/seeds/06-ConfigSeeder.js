@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| UserSeeder
+| ConfigSeeder
 |--------------------------------------------------------------------------
 |
 | Make use of the Factory instance to seed database with dummy data or
@@ -10,18 +10,18 @@
 |
 */
 
-const User = use('App/Models/User');
-const users = require('./staging/users.json');
+const Config = use('App/Models/Config');
+const configs = require('./staging/configs.json');
 
-class UserSeeder {
+class ConfigSeeder {
 
     async run() {
-        for (const user of users) {
-            await User.findOrCreate({ username: user.username }, user);
+        for (const config of configs) {
+            await Config.findOrCreate(config, config);
         }
 
-        console.log('Se cargaron los usuarios correctamente.');
+        console.log('Se cargaron las configuraciones correctamente.');
     }
 }
 
-module.exports = UserSeeder
+module.exports = ConfigSeeder

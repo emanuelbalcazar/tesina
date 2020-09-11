@@ -27,6 +27,7 @@ Route.group(() => {
     Route.get('/extractions/execute/:id', 'ExtractionController.execute');
 
     Route.resource('/articles', 'ArticleController');
+    Route.resource('/configs', 'ConfigController');
     Route.resource('/equations', 'EquationController');
     Route.resource('/logs', 'LogController');
     Route.resource('/queries', 'QueryController');

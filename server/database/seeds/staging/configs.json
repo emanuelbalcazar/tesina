@@ -1,0 +1,17 @@
+[
+    {
+        "key": "requestCount",
+        "value": 0,
+        "description": "Cantidad de request realizados en el dia"
+    },
+    {
+        "key": "requestLimit",
+        "value": 100,
+        "description": "Cantidad de request limite por dia"
+    },
+    {
+        "key": "workers",
+        "value": 5,
+        "description": "Cantidad de workers disponibles"
+    }
+]
