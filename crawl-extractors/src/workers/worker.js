@@ -1,6 +1,7 @@
 const config = require('../config/config');
 const rabbitmq = require('../rabbitmq/rabbitmq');
 const service = require('../services/extractor.service');
+const logger = require('../services/logger.service');
 
 /**
  * @class Worker
@@ -41,7 +42,9 @@ class Worker {
         console.log(`[${this.routingKey}] - worker esperando nuevos mensajes...`);
 
         this.channel.consume(queueInstance.queue, async (msg) => {
-            console.log('> [%s] Nuevo mensaje entrante', this.routingKey);
+            let params = JSON.parse(msg.content.toString());
+            await logger.info('crawl extractors', `worker ${this.routingKey}`, `ecuacion de ID ${params.equation.id} entrante`);
+
             await this.extract(JSON.parse(msg.content.toString()));
             this.channel.ack(msg);
         });
@@ -55,7 +58,8 @@ class Worker {
     async extract(message) {
         try {
             let results = await service.extract(message);
-            rabbitmq.sendToQueue(config.PUBLISH_QUEUE, results);
+            await logger.info('crawl extractors', 'sendToQueue', `ecuacion de ID ${message.equation.id} obtuvo ${results.items.length} resultados`);
+            await rabbitmq.sendToQueue(config.PUBLISH_QUEUE, results);
         } catch (error) {
             throw new Error(error);
         }

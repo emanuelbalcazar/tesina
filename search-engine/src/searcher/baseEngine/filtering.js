@@ -16,8 +16,7 @@ async function filter(records, criteria) {
         });
 
         records.items = filtered;
-        logger.success('search engine', 'filter', filtered.length);
-
+        await logger.success('search engine', 'filter', `cant. despues de filtrar: ${filtered.length}`);
         return records;
     } catch (error) {
         logger.error('search engine', 'filter', error.message, error.stack);

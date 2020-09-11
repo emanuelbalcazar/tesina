@@ -44,11 +44,11 @@ async function scraping(params, selectors) {
                 articles.push(article);
         }
 
-        logger.success('crawl extractors', 'scrapping', articles.length);
+        await logger.success('crawl extractors', 'scrapping', `cant. de articulos: ${articles.length}`);
         params.items = articles;
         return params;
     } catch (error) {
-        logger.error('crawl extractors', 'scrapping', error.message, error.stack);
+        await logger.error('crawl extractors', 'scrapping', error.message, error.stack);
         throw new Error(error);
     }
 }

@@ -17,11 +17,11 @@ async function crawl(params) {
             allHtml.push(newItem);
         }
 
-        logger.success('crawl extractors', 'crawl', 'OK');
+        await logger.success('crawl extractors', 'crawl', `cant. de htmls crudos: ${allHtml.length}`);
         params.items = allHtml;
         return params;
     } catch (error) {
-        logger.error('crawl extractors', 'crawl', error.message, error.stack);
+        await logger.error('crawl extractors', 'crawl', error.message, error.stack);
         throw new Error(error);
     }
 }

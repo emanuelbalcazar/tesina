@@ -13,7 +13,7 @@ async function normalize(records, originalParams) {
         results.nextPage = { totalResults: 0, startIndex: 1 };
 
         results.nextPage.totalResults = (records.searchInformation) ? Number(records.searchInformation.totalResults) : 0;
-        results.nextPage.startIndex = (records.queries.nextPage) ? records.queries.nextPage[0].startIndex : 1;
+        results.nextPage.startIndex = (records.queries.nextPage) ? records.queries.nextPage[0].startIndex : -1;
 
         results.items = [];
         results.items = records.items.map(item => {
@@ -24,7 +24,7 @@ async function normalize(records, originalParams) {
             }
         });
 
-        logger.success('search engine', 'normalizer', 'OK');
+        await logger.success('search engine', 'normalizer', `cant. despues de normalizar: ${results.items.length}`);
 
         return results;
     } catch (error) {

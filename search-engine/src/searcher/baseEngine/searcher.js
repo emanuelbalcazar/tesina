@@ -10,11 +10,12 @@ const logger = require('../../services/logger.service');
 async function search(query) {
     try {
         let response = await axios.get(query);
-        logger.success('search engine', 'search', response.statusText);
         response.data.items = (response.data.items) ? response.data.items : [];
+        await logger.success('search engine', 'search', `${response.statusText} - resultados obtenidos ${response.data.items.length}`);
+
         return response.data;
     } catch (error) {
-        logger.error('search engine', 'getQuery', error.message, error.stack);
+        logger.error('search engine', 'search', error.message, error.stack);
         throw new Error(error);
     }
 }

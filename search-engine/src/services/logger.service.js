@@ -18,8 +18,8 @@ class Logger {
      * @return {void}
      * @memberof Logger
      */
-    log(level, component, operation, message) {
-        createLog(level, component, operation, message);
+    async log(level, component, operation, message) {
+        await createLog(level, component, operation, message);
     }
 
     /**
@@ -30,8 +30,8 @@ class Logger {
      * @return {void}
      * @memberof Logger
      */
-    info(component, operation, message) {
-        createLog('info', component, operation, message);
+    async info(component, operation, message) {
+        await createLog('info', component, operation, message);
     }
 
     /**
@@ -41,12 +41,12 @@ class Logger {
      * @return {void}
      * @memberof Logger
      */
-    debug(component, operation, message) {
-        createLog('debug', component, operation, message);
+    async debug(component, operation, message) {
+        await createLog('debug', component, operation, message);
     }
 
-    success(component, operation, message) {
-        createLog('success', component, operation, message);
+    async success(component, operation, message) {
+        await createLog('success', component, operation, message);
     }
 
     /**
@@ -57,8 +57,8 @@ class Logger {
      * @return {void}
      * @memberof Logger
      */
-    error(component, operation, message, stack) {
-        createLog('error', component, operation, message, stack);
+    async error(component, operation, message, stack) {
+        await createLog('error', component, operation, message, stack);
     }
 }
 
@@ -77,6 +77,7 @@ async function createLog(level, component, operation, message, stack) {
         printOnConsole(log);
 
     await rabbitmq.sendToQueue(config.LOGS_QUEUE_NAME, log);
+    return;
 }
 
 /**

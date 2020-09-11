@@ -1,6 +1,7 @@
 const config = require('../config/config');
 const rabbitmq = require('../rabbitmq/rabbitmq');
 const service = require('../services/search.service');
+const logger = require('../services/logger.service');
 
 /**
  * @class Worker
@@ -42,8 +43,9 @@ class Worker {
         console.log(`[${this.routingKey}] - worker esperando nuevos mensajes...`);
 
         this.channel.consume(queueInstance.queue, async (msg) => {
-            console.log('> [%s] Nuevo mensaje entrante.', this.routingKey);
-            await this.search(JSON.parse(msg.content.toString()));
+            let params = JSON.parse(msg.content.toString());
+            await logger.info('search engine', `worker ${this.routingKey}`, `ecuacion de ID ${params.equation.id} entrante`);
+            await this.search(params);
             this.channel.ack(msg);
         });
     }
@@ -56,11 +58,14 @@ class Worker {
     async search(message) {
         try {
             let params = message;
+            let requestLimit = message.requestLimit || 10;
             let requestCount = 0;
             let hasPages = true;
 
-            while ((requestCount < 1) && hasPages) {
+            while ((requestCount < requestLimit) && hasPages) {
                 let results = await service.search(params);
+                await logger.info('search engine', 'sendToQueue', `ecuacion de ID: ${params.equation.id} en indice: ${params.equation.start} obtuvo ${results.items.length} resultados de búsqueda`);
+
                 this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
                 await this.channel.publish(config.PUBLISH_EXCHANGE, this.routingKey, Buffer.from(JSON.stringify(results)));
 
@@ -72,6 +77,7 @@ class Worker {
             // TODO Si termino sus request, no hacer nada. Si termino su ecuacion, pedir mas.
             // TODO verificar si el limite de paginas sigue siendo 10.
             // TODO si reinicio el worker, debe saber cuantos request hizo
+            return;
         } catch (error) {
             throw new Error(error);
         }

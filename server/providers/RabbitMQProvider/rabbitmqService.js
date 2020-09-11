@@ -65,6 +65,7 @@ class RabbitMQService {
         Logger.info('[worker] esperando articulos...');
 
         channel.consume(ARTICLES_QUEUE, async (message) => {
+            Logger.info('[worker] lote de articulos recibido');
             let extraction = JSON.parse(message.content.toString());
 
             for (const article of extraction.items) {
@@ -83,7 +84,7 @@ class RabbitMQService {
         connection = await this.getConnection();
         let channel = await connection.createChannel();
 
-        Logger.info('[server] - enviando ecuación a rabbitmq');
+        Logger.info(`[server] - enviando ecuación ${message.equation.id} a rabbitmq`);
 
         channel.assertExchange(EQUATIONS_EXCHANGE, 'direct', { durable: true });
         await channel.publish(EQUATIONS_EXCHANGE, routingKey, Buffer.from(JSON.stringify(message)));
