@@ -8,6 +8,7 @@ const Logger = use('Logger');
 const RABBITMQ_URL = Config.get('app.rabbitmq');
 const LOGS_QUEUE = Config.get('app.logsQueue');
 const ARTICLES_QUEUE = Config.get('app.articlesQueue');
+const EQUATIONS_EXCHANGE = Config.get('app.equationsExchange');
 
 let connection = null;
 
@@ -76,6 +77,17 @@ class RabbitMQService {
 
             channel.ack(message);
         });
+    }
+
+    async sendToEquationsExchange(message, routingKey) {
+        connection = await this.getConnection();
+        let channel = await connection.createChannel();
+
+        Logger.info('[server] - enviando ecuación a rabbitmq');
+
+        channel.assertExchange(EQUATIONS_EXCHANGE, 'direct', { durable: true });
+        await channel.publish(EQUATIONS_EXCHANGE, routingKey, Buffer.from(JSON.stringify(message)));
+        return true;
     }
 }
 

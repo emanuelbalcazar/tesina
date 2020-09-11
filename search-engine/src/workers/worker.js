@@ -59,7 +59,7 @@ class Worker {
             let requestCount = 0;
             let hasPages = true;
 
-            while ((requestCount < message.requestLimit) && hasPages) {
+            while ((requestCount < 1) && hasPages) {
                 let results = await service.search(params);
                 this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
                 await this.channel.publish(config.PUBLISH_EXCHANGE, this.routingKey, Buffer.from(JSON.stringify(results)));

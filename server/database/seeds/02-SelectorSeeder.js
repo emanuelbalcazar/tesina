@@ -20,7 +20,7 @@ class SelectorSeeder {
 
         for (const selector of selectors) {
             let site = await Site.query().where({ site: selector.site }).first();
-            await Selector.findOrCreate({ selector: selector.selector }, { selector: selector.selector, site_id: site.id });
+            await Selector.findOrCreate({ selector: selector.selector }, { selector: selector.selector, site_id: site.id, section: selector.section });
         }
 
         console.log('Se cargaron los selectores correctamente.');

@@ -1,30 +1,102 @@
 [
     {
-        "selector": ".td-post-content p",
-        "site": "https://diariocronica.com.ar"
+        "selector": "header .entry-title",
+        "site": "https://diariocronica.com.ar",
+        "section": "titulo"
     },
     {
-        "selector": ".post-content p",
-        "site": "https://www.eldiariodemadryn.com"
+        "selector": ".td-post-content #bajada",
+        "site": "https://diariocronica.com.ar",
+        "section": "bajada"
     },
     {
-        "selector": "#bloque_superior p",
-        "site": "https://www.diariojornada.com.ar"
+        "selector": ".td-post-content p:not(#bajada)",
+        "site": "https://diariocronica.com.ar",
+        "section": "cuerpo"
+    },
+    {
+        "selector": "div span time",
+        "site": "https://diariocronica.com.ar",
+        "section": "fecha"
+    },
+    {
+        "selector": "header .titulo",
+        "site": "https://www.eldiarioweb.com",
+        "section": "titulo"
+    },
+    {
+        "selector": "section .contenido p",
+        "site": "https://www.eldiarioweb.com",
+        "section": "cuerpo"
+    },
+    {
+        "selector": "div time",
+        "site": "https://www.eldiarioweb.com",
+        "section": "fecha"
+    },
+    {
+        "selector": "#ContentPlaceHolder1_lbl_Titulo",
+        "site": "https://www.diariojornada.com.ar",
+        "section": "titulo"
+    },
+    {
+        "selector": "#ContentPlaceHolder1_lbl_Copete",
+        "site": "https://www.diariojornada.com.ar",
+        "section": "bajada"
+    },
+    {
+        "selector": "#cuerpo p",
+        "site": "https://www.diariojornada.com.ar",
+        "section": "cuerpo"
+    },
+    {
+        "selector": "#ContentPlaceHolder1_lbl_Fecha",
+        "site": "https://www.diariojornada.com.ar",
+        "section": "fecha"
+    },
+    {
+        "selector": "#title",
+        "site": "https://www.elchubut.com.ar",
+        "section": "titulo"
+    },
+    {
+        "selector": ".np_nota_descripcion",
+        "site": "https://www.elchubut.com.ar",
+        "section": "bajada"
     },
     {
         "selector": ".notapage_cuerpo p",
-        "site": "https://www.elchubut.com.ar"
+        "site": "https://www.elchubut.com.ar",
+        "section": "cuerpo"
     },
     {
         "selector": ".news-amp-body",
-        "site": "https://www.elchubut.com.ar"
+        "site": "https://www.elchubut.com.ar",
+        "section": "cuerpo"
+    },
+    {
+        "selector": ".np_fecha",
+        "site": "https://www.elchubut.com.ar",
+        "section": "fecha"
+    },
+    {
+        "selector": "header div.row div h1",
+        "site": "https://www.elpatagonico.com",
+        "section": "titulo"
     },
     {
         "selector": ".interiorCopete",
-        "site": "https://www.elpatagonico.com"
+        "site": "https://www.elpatagonico.com",
+        "section": "bajada"
     },
     {
         "selector": ".cuerpo.clearfix",
-        "site": "https://www.elpatagonico.com"
+        "site": "https://www.elpatagonico.com",
+        "section": "cuerpo"
+    },
+    {
+        "selector": ".fecha-detallenota",
+        "site": "https://www.elpatagonico.com",
+        "section": "fecha"
     }
 ]

@@ -66,7 +66,7 @@ class EquationController {
      * @param {View} ctx.view
      */
     async show({ params, request, response, view }) {
-        let equation = await Equation.query().with('query').with('site').where('id', params.id).first();
+        let equation = await Equation.findWithPopulate({ id: params.id });
         return response.json(equation);
     }
 

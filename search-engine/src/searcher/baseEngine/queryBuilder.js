@@ -14,9 +14,8 @@ async function getQuery(params) {
         let equation = params;
         equation.cx = config.CX;
         equation.key = config.KEY;
-
         let baseURL = config.GOOGLE_API + querystring.stringify(equation);
-        logger.success('search engine', 'getQuery', 'OK');
+        logger.success('search engine', 'getQuery', `OK ecuación id: ${equation.id}`);
         return baseURL;
     } catch (error) {
         logger.error('search engine', 'getQuery', error.message, error.stack);

@@ -16,3 +16,5 @@ module.exports.KEY = process.env.KEY;
 
 module.exports.LOGS_QUEUE_NAME = 'logs';
 module.exports.PRINT_LOGS_ON_CONSOLE = true;
+
+module.exports.excludedWords = ['/tag', '/tags', '/seccion', '/impresa/'];

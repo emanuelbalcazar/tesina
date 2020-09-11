@@ -24,6 +24,7 @@ Route.get('/', () => {
 Route.group(() => {
 
     Route.post('/auth/login', 'AuthController.login');
+    Route.get('/extractions/execute/:id', 'ExtractionController.execute');
 
     Route.resource('/articles', 'ArticleController');
     Route.resource('/equations', 'EquationController');

@@ -20,7 +20,6 @@ class SearchService {
             let searchResults = await google.search(query);
             let filtered = await google.filter(searchResults, {});
             let results = await google.normalize(filtered, params);
-
             return results;
         } catch (error) {
             throw new Error(error);
