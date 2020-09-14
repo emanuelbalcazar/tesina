@@ -7,7 +7,7 @@ const logger = require('../../services/logger.service');
  * @param {Array} records
  * @returns filtered data
  */
-async function filter(records, criteria) {
+async function filter(params, records) {
 
     try {
         let filtered = records.items.filter(article => {
@@ -16,7 +16,8 @@ async function filter(records, criteria) {
         });
 
         records.items = filtered;
-        await logger.success('search engine', 'filter', `cant. despues de filtrar: ${filtered.length}`);
+        await logger.success('search engine', 'filter', `ecuacion: ${params.equation.id} indice: ${params.equation.start} - cant. despues de filtrar: ${filtered.length}`);
+
         return records;
     } catch (error) {
         logger.error('search engine', 'filter', error.message, error.stack);

@@ -5,10 +5,10 @@ const logger = require('../../services/logger.service');
  * @param  {Array} records
  * @return normalized articles
  */
-async function normalize(records, originalParams) {
+async function normalize(params, records) {
 
     try {
-        let results = originalParams;
+        let results = params;
 
         results.nextPage = { totalResults: 0, startIndex: 1 };
 
@@ -24,7 +24,7 @@ async function normalize(records, originalParams) {
             }
         });
 
-        await logger.success('search engine', 'normalizer', `cant. despues de normalizar: ${results.items.length}`);
+        await logger.success('search engine', 'normalizer', `ecuacion: ${params.equation.id} indice: ${params.equation.start} - cant. despues de normalizar: ${results.items.length}`);
 
         return results;
     } catch (error) {

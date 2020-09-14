@@ -11,12 +11,12 @@ const logger = require('../../services/logger.service');
  */
 async function getQuery(params) {
     try {
-        let equation = params;
+        let equation = params.equation;
         equation.cx = config.CX;
         equation.key = config.KEY;
         let baseURL = config.GOOGLE_API + querystring.stringify(equation);
 
-        await logger.success('search engine', 'getQuery', `OK ecuacion ${equation.id} - ${baseURL}`);
+        await logger.success('search engine', 'getQuery', `ecuacion: ${equation.id} indice: ${equation.start} URL: ${baseURL}`);
 
         return baseURL;
     } catch (error) {

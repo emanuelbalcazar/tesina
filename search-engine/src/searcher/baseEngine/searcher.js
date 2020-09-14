@@ -7,11 +7,11 @@ const logger = require('../../services/logger.service');
  * @param {String} query
  * @returns search results.
  */
-async function search(query) {
+async function search(params, query) {
     try {
         let response = await axios.get(query);
         response.data.items = (response.data.items) ? response.data.items : [];
-        await logger.success('search engine', 'search', `${response.statusText} - resultados obtenidos ${response.data.items.length}`);
+        await logger.success('search engine', 'search', `ecuacion: ${params.equation.id} indice: ${params.equation.start} status: ${response.statusText} - resultados obtenidos ${response.data.items.length}`);
 
         return response.data;
     } catch (error) {

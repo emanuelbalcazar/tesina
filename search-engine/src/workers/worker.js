@@ -44,7 +44,7 @@ class Worker {
 
         this.channel.consume(queueInstance.queue, async (msg) => {
             let params = JSON.parse(msg.content.toString());
-            await logger.info('search engine', `worker ${this.routingKey}`, `ecuacion de ID ${params.equation.id} entrante`);
+            await logger.info('search engine', `worker ${this.routingKey}`, `ecuacion de ID: ${params.equation.id} entrante desde rabbitmq`);
             await this.search(params);
             this.channel.ack(msg);
         });
@@ -64,7 +64,6 @@ class Worker {
 
             while ((requestCount < requestLimit) && hasPages) {
                 let results = await service.search(params);
-                await logger.info('search engine', 'sendToQueue', `ecuacion de ID: ${params.equation.id} en indice: ${params.equation.start} obtuvo ${results.items.length} resultados de búsqueda`);
 
                 this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
                 await this.channel.publish(config.PUBLISH_EXCHANGE, this.routingKey, Buffer.from(JSON.stringify(results)));
@@ -80,7 +79,8 @@ class Worker {
             // TODO si reinicio el worker, debe saber cuantos request hizo?
             return;
         } catch (error) {
-            throw new Error(error);
+            //throw new Error(error);
+            await logger.info('search engine', 'worker', error.message, error.stack);
         }
     }
 }

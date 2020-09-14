@@ -21,11 +21,11 @@ class ExtractionController {
         let limit = Number(requestLimit.value) / Number(workers.value);
         limit = Math.floor(limit);
 
-        equation = Util.normalizeEquation(equation[0]);
-        equation.requestLimit = limit;
+        let extractionConfig = Util.normalizeEquation(equation[0]);
+        extractionConfig.requestLimit = limit;
 
-        await RabbitMQ.sendToEquationsExchange(equation, equation.equation.siteSearch);
-        return equation;
+        await RabbitMQ.sendToEquationsExchange(extractionConfig, extractionConfig.equation.siteSearch);
+        return extractionConfig;
     }
 }
 

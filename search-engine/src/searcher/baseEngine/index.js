@@ -17,16 +17,16 @@ class BaseEngine {
         return this.queryBuilder.getQuery(params);
     }
 
-    async search(query) {
-        return await this.searcher.search(query);
+    async search(params, query) {
+        return await this.searcher.search(params, query);
     }
 
-    async filter(searchResults, criteria = {}) {
-        return this.filtering.filter(searchResults, criteria);
+    async filter(params, searchResults) {
+        return this.filtering.filter(params, searchResults);
     }
 
-    async normalize(filteredResults, equation) {
-        return this.normalizer.normalize(filteredResults, equation);
+    async normalize(params, filteredResults) {
+        return this.normalizer.normalize(params, filteredResults);
     }
 }
 
