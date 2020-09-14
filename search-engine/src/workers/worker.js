@@ -68,8 +68,7 @@ class Worker {
                 this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
                 await this.channel.publish(config.PUBLISH_EXCHANGE, this.routingKey, Buffer.from(JSON.stringify(results)));
 
-                hasPages = (params.equation.start <= results.nextPage.startIndex) ? true : false;
-                hasPages = (results.nextPage.startIndex <= 100) ? true : false;
+                hasPages = ((results.nextPage.startIndex <= 100) && (params.equation.start <= results.nextPage.startIndex)) ? true : false;
 
                 params.equation.start = (results.nextPage) ? results.nextPage.startIndex : params.equation.start;
                 requestCount++;

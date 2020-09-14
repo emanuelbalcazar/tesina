@@ -9,5 +9,6 @@ module.exports.RABBITMQ = process.env.RABBITMQ || 'amqp://localhost:5672/tesina'
 module.exports.CONSUMER_EXCHANGE = 'searches';
 module.exports.PUBLISH_QUEUE = 'articles';
 
+// logs configuration
 module.exports.LOGS_QUEUE_NAME = 'logs';
 module.exports.PRINT_LOGS_ON_CONSOLE = true;
