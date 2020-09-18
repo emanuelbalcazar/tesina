@@ -12,16 +12,16 @@ class BaseExtractor {
     }
 
     // defaults implementations...
-    async crawl(params) {
-        return await this.crawler.crawl(params);
+    async crawl(equation) {
+        return await this.crawler.crawl(equation);
     }
 
-    async scraping(params, selectors) {
-        return await this.scraper.scraping(params, selectors);
+    async scraping(equation, records) {
+        return await this.scraper.scraping(equation, records);
     }
 
-    async normalize(records, originalParams) {
-        return await this.normalizer.normalize(records, originalParams);
+    async normalize(equation, records) {
+        return await this.normalizer.normalize(equation, records);
     }
 }
 

@@ -41,6 +41,7 @@ class RabbitMQService {
     }
 
     /**
+     * Consume logs from queue
      * @return {void}
      * @memberof RabbitMQService
      */
@@ -58,6 +59,11 @@ class RabbitMQService {
         });
     }
 
+    /**
+     * Consume articles from queue
+     * @return {void}
+     * @memberof RabbitMQService
+     */
     async consumeArticles() {
         connection = await this.getConnection();
         let channel = await connection.createChannel();
@@ -66,8 +72,8 @@ class RabbitMQService {
         Logger.info('[worker] esperando articulos...');
 
         channel.consume(ARTICLES_QUEUE, async (message) => {
-            Logger.info('[worker] lote de articulos recibido');
             let extraction = JSON.parse(message.content.toString());
+            Logger.info(`[worker] lote de ${extraction.items.length} articulos recibido`);
 
             for (const article of extraction.items) {
                 try {
@@ -81,6 +87,13 @@ class RabbitMQService {
         });
     }
 
+    /**
+     * Send message to equation exchange
+     * @param  {Object} message equation
+     * @param  {String} routingKey
+     * @return
+     * @memberof RabbitMQService
+     */
     async sendToEquationsExchange(message, routingKey) {
         connection = await this.getConnection();
         let channel = await connection.createChannel();
@@ -92,6 +105,10 @@ class RabbitMQService {
         return true;
     }
 
+    /**
+     * Send all active equations to rabbitmq
+     * @return {void}
+     */
     async sendEquationsToRabbitMQ() {
         let equations = await Equation.findWithPopulate({ active: true });
 
@@ -99,6 +116,8 @@ class RabbitMQService {
             let message = Util.normalizeEquation(equation);
             await this.sendToEquationsExchange(message, message.equation.siteSearch);
         }
+
+        return;
     }
 }
 

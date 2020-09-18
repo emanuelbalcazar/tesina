@@ -24,7 +24,7 @@ async function normalize(params, records) {
             }
         });
 
-        await logger.success('search engine', 'normalizer', `ecuacion: ${params.equation.id} indice: ${params.equation.start} - cant. despues de normalizar: ${results.items.length}`);
+        await logger.success('search engine', 'normalizer', `ecuacion: ${params.equation.id} indice: ${params.equation.start} total: ${results.nextPage.totalResults} - cant. despues de normalizar: ${results.items.length}`);
 
         return results;
     } catch (error) {

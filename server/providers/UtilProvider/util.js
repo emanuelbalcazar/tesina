@@ -11,7 +11,7 @@ class Util {
     constructor() { };
 
     /**
-     * @param  {Equation} eq from database
+     * @param  {Equation} eq equation from database
      * @return normalized equation
      * @memberof Util
      */

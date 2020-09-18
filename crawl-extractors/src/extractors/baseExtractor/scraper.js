@@ -6,17 +6,17 @@ const logger = require('../../services/logger.service');
  * @param {Object} params
  * @returns
  */
-async function scraping(params, selectors) {
+async function scraping(params, records) {
     try {
         let articles = [];
 
-        for (const data of params.items) {
+        for (const data of records.items) {
             const root = parse.parse(data.html);
             let article = data;
             delete article.html; // I delete the attribute because it is no longer necessary.
             article.body = '';
 
-            for (const selector of selectors) {
+            for (const selector of params.selectors) {
                 let elements = root.querySelectorAll(selector.selector);
 
                 if (selector.section == 'titulo') {
@@ -44,9 +44,9 @@ async function scraping(params, selectors) {
                 articles.push(article);
         }
 
-        await logger.success('crawl extractors', 'scrapping', `cant. de articulos: ${articles.length}`);
-        params.items = articles;
-        return params;
+        await logger.success('crawl extractors', 'scrapping', `ecuacion: ${params.equation.id} indice: ${params.equation.start} cant. de articulos: ${articles.length}`);
+        records.items = articles;
+        return records;
     } catch (error) {
         await logger.error('crawl extractors', 'scrapping', error.message, error.stack);
         throw new Error(error);

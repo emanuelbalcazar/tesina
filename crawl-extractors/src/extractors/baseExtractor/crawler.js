@@ -17,7 +17,7 @@ async function crawl(params) {
             allHtml.push(newItem);
         }
 
-        await logger.success('crawl extractors', 'crawl', `cant. de htmls crudos: ${allHtml.length}`);
+        await logger.success('crawl extractors', 'crawl', `ecuacion: ${params.equation.id} indice: ${params.equation.start} cant. de articulos: ${allHtml.length}`);
         params.items = allHtml;
         return params;
     } catch (error) {

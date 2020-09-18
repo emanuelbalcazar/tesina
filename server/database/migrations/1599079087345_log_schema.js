@@ -10,7 +10,7 @@ class LogSchema extends Schema {
             table.string('level', 50);
             table.string('component', 150);
             table.string('operation', 150);
-            table.string('message', 250);
+            table.text('message', 'longtext');
             table.text('stack', 'longtext');
             table.datetime('date');
         })

@@ -17,8 +17,8 @@ class ExtractorService {
         try {
             let extractor = factory.getExtractor(name);
             let htmls = await extractor.crawl(params);
-            let articles = await extractor.scraping(htmls, params.selectors);
-            let results = await extractor.normalize(articles, params);
+            let articles = await extractor.scraping(params, htmls);
+            let results = await extractor.normalize(params, articles);
             return results;
         } catch (error) {
             throw new Error(error);

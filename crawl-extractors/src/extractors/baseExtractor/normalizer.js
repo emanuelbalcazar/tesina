@@ -5,19 +5,19 @@ const logger = require('../../services/logger.service');
  * @param  {Array} records
  * @return normalized articles
  */
-async function normalize(records, originalParams) {
+async function normalize(params, records) {
     try {
         let articles = [];
 
         for (const article of records.items) {
             let data = article;
             data.published = data.published.replace("|", "").trim();
-            data.expected_date = originalParams.equation.q;
+            data.expected_date = params.equation.q;
             articles.push(data);
         }
 
         records.items = articles;
-        await logger.success('crawl extractors', 'normalize', `cant. despues de normalizar: ${articles.length}`);
+        await logger.success('crawl extractors', 'normalize', `ecuacion: ${params.equation.id} indice: ${params.equation.start} cant. despues de normalizar: ${articles.length}`);
         return records;
     } catch(error) {
         await logger.error('crawl extractors', 'normalize', error.message, error.stack);

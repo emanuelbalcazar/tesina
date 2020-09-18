@@ -18,6 +18,12 @@ class Equation extends Model {
         return this.hasOne('App/Models/Site', 'site_id', 'id');
     }
 
+    /**
+     * Find equations with query and selector population
+     * @static
+     * @param  {Object} [where={}] conditional search
+     * @return {Array} equations
+     */
     static async findWithPopulate(where = {}) {
         let records = await this.query().with('query')
         .with('site', (builder) => { builder.with('selectors') })
