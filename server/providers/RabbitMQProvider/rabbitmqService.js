@@ -69,7 +69,7 @@ class RabbitMQService {
         let channel = await connection.createChannel();
         channel.assertQueue(ARTICLES_QUEUE, { durable: true });
 
-        Logger.info('[worker] esperando articulos...');
+        Logger.info('[worker] - esperando articulos...');
 
         channel.consume(ARTICLES_QUEUE, async (message) => {
             let extraction = JSON.parse(message.content.toString());

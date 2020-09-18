@@ -13,5 +13,10 @@
         "key": "workers",
         "value": 5,
         "description": "Cantidad de workers disponibles"
+    },
+    {
+        "key": "scheduleOnStart",
+        "value": true,
+        "description": "¿Iniciar planificador al iniciar el servidor?"
     }
 ]
