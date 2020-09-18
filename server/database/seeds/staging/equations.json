@@ -28,17 +28,5 @@
         "site": "https://diariocronica.com.ar",
         "start": 1,
         "active": true
-    },
-    {
-        "query": "01/03/2020",
-        "site": "https://www.adnsur.com.ar",
-        "start": 1,
-        "active": true
-    },
-    {
-        "query": "marzo 01",
-        "site": "https://radio3cadenapatagonia.com.ar",
-        "start": 1,
-        "active": true
     }
 ]

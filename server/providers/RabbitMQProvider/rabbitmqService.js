@@ -2,7 +2,8 @@ const amqplib = require('amqplib');
 const Config = use('Config');
 const Log = use('App/Models/Log');
 const Article = use('App/Models/Article');
-
+const Equation = use('App/Models/Equation');
+const Util = use('Util');
 const Logger = use('Logger');
 
 const RABBITMQ_URL = Config.get('app.rabbitmq');
@@ -84,11 +85,20 @@ class RabbitMQService {
         connection = await this.getConnection();
         let channel = await connection.createChannel();
 
-        Logger.info(`[server] - enviando ecuación ${message.equation.id} a rabbitmq`);
+        Logger.info(`[server] - enviando ecuación con ID: ${message.equation.id} - ${routingKey} a rabbitmq`);
 
         channel.assertExchange(EQUATIONS_EXCHANGE, 'direct', { durable: true });
         await channel.publish(EQUATIONS_EXCHANGE, routingKey, Buffer.from(JSON.stringify(message)));
         return true;
+    }
+
+    async sendEquationsToRabbitMQ() {
+        let equations = await Equation.findWithPopulate({ active: true });
+
+        for (const equation of equations) {
+            let message = Util.normalizeEquation(equation);
+            await this.sendToEquationsExchange(message, message.equation.siteSearch);
+        }
     }
 }
 
