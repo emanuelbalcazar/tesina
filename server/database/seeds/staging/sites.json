@@ -1,23 +1,22 @@
 [
     {
-        "site": "https://www.eldiarioweb.com"
+        "site": "https://www.eldiarioweb.com",
+        "dateFormat": "DD/MM/YYYY"
     },
     {
-        "site": "https://www.diariojornada.com.ar"
+        "site": "https://www.diariojornada.com.ar",
+        "dateFormat": "DD/MM/YYYY"
     },
     {
-        "site": "https://www.elpatagonico.com"
+        "site": "https://www.elpatagonico.com",
+        "dateFormat": "DD/MM/YYYY"
     },
     {
-        "site": "https://www.elchubut.com.ar"
+        "site": "https://www.elchubut.com.ar",
+        "dateFormat": "DD/MM/YYYY"
     },
     {
-        "site": "https://diariocronica.com.ar"
-    },
-    {
-        "site": "https://www.adnsur.com.ar"
-    },
-    {
-        "site": "https://radio3cadenapatagonia.com.ar"
+        "site": "https://diariocronica.com.ar",
+        "dateFormat": "DD/MM/YYYY"
     }
 ]

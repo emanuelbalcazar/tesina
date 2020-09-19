@@ -25,7 +25,7 @@ class Equation extends Model {
      * @return {Array} equations
      */
     static async findWithPopulate(where = {}) {
-        let records = await this.query().with('query')
+        let records = await this.query()
         .with('site', (builder) => { builder.with('selectors') })
         .where(where).fetch();
 

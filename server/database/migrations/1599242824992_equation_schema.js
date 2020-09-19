@@ -6,10 +6,12 @@ const Schema = use('Schema')
 class EquationSchema extends Schema {
     up() {
         this.create('equations', (table) => {
-            table.increments()
-            table.integer('query_id').references('id').inTable('queries');
+            table.increments();
+            table.date('dateToFind');
             table.integer('site_id').references('id').inTable('sites');
             table.integer('start').defaultTo(1);
+            table.string('siteSearchFilter').defaultTo('i');
+            table.date('lastExecution');
             table.boolean('active').defaultTo(true);
         })
     }

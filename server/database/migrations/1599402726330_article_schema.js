@@ -14,6 +14,7 @@ class ArticleSchema extends Schema {
             table.text('body', 'longtext');
             table.string('published', 100);
             table.string('expected_date', 100);
+            table.boolean('analyzed').defaultTo(false);
         });
     }
 

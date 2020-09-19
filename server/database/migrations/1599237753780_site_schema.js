@@ -8,6 +8,7 @@ class SiteSchema extends Schema {
         this.create('sites', (table) => {
             table.increments();
             table.string('site').unique();
+            table.string('dateFormat').defaultTo("DD/MM/YYYY");
             table.string('description').defaultTo('');
         })
     }

@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 /**
  * @class Util
  * @author Emanuel Balcazar
@@ -27,15 +29,20 @@ class Util {
         let record = {
             equation: {
                 id: eq.id,
-                q: eq.query.q || "",
+                q: this.getQueryFromDate(eq.dateToFind, eq.site.dateFormat),
                 siteSearch: eq.site.site || "",
-                siteSearchFilter: eq.query.siteSearchFilter || "i",
+                siteSearchFilter: eq.siteSearchFilter || "i",
                 start: eq.start || 1
             },
             selectors: selectors
         }
 
         return record;
+    }
+
+    getQueryFromDate(dateToFind, dateFormat) {
+        let date = moment(dateToFind).locale('es').format(dateFormat);
+        return date.toLowerCase();
     }
 }
 
