@@ -10,7 +10,7 @@
         "section": "bajada"
     },
     {
-        "selector": ".td-post-content p:not(#bajada)",
+        "selector": ".td-post-content p",
         "site": "https://diariocronica.com.ar",
         "section": "cuerpo"
     },
