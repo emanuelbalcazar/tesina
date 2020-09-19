@@ -29,7 +29,7 @@ class Util {
         let record = {
             equation: {
                 id: eq.id,
-                q: this.getQueryFromDate(eq.dateToFind, eq.site.dateFormat),
+                q: this.formatDate(eq.dateToFind, eq.site.dateFormat),
                 siteSearch: eq.site.site || "",
                 siteSearchFilter: eq.siteSearchFilter || "i",
                 start: eq.start || 1
@@ -40,9 +40,15 @@ class Util {
         return record;
     }
 
-    getQueryFromDate(dateToFind, dateFormat) {
-        let date = moment(dateToFind).locale('es').format(dateFormat);
-        return date.toLowerCase();
+    /**
+     * @param  {String} date
+     * @param  {String} dateFormat
+     * @return a formatted date
+     * @memberof Util
+     */
+    formatDate(date, dateFormat = 'DD/MM/YYYY') {
+        let formatted = moment(date).locale('es').format(dateFormat);
+        return formatted.toLowerCase();
     }
 }
 

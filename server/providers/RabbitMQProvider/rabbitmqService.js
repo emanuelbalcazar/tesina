@@ -2,8 +2,6 @@ const amqplib = require('amqplib');
 const Config = use('Config');
 const Log = use('App/Models/Log');
 const Article = use('App/Models/Article');
-const Equation = use('App/Models/Equation');
-const Util = use('Util');
 const Logger = use('Logger');
 
 const RABBITMQ_URL = Config.get('app.rabbitmq');
@@ -109,12 +107,9 @@ class RabbitMQService {
      * Send all active equations to rabbitmq
      * @return {void}
      */
-    async sendEquationsToRabbitMQ() {
-        let equations = await Equation.findWithPopulate({ active: true });
-
+    async sendEquationsToRabbitMQ(equations) {
         for (const equation of equations) {
-            let message = Util.normalizeEquation(equation);
-            await this.sendToEquationsExchange(message, message.equation.siteSearch);
+            await this.sendToEquationsExchange(equation, equation.equation.siteSearch);
         }
 
         return;
