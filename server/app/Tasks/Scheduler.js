@@ -14,6 +14,11 @@ class Scheduler {
      */
     constructor() {
         this.job = {}
+        this.scheduleEvery = '';
+    }
+
+    setScheduleEvery(every) {
+        this.scheduleEvery = every;
     }
 
     /**
@@ -22,7 +27,8 @@ class Scheduler {
      */
     async start() {
 
-        this.job = nodeScheduler.scheduleJob('* * * * *', async (fireDate) => {
+        this.job = nodeScheduler.scheduleJob(this.scheduleEvery, async (fireDate) => {
+            Logger.info(`[${this.scheduleEvery}] - ejecutando planificador en ${fireDate}`);
             RabbitMQ.sendEquationsToRabbitMQ();
         });
     }

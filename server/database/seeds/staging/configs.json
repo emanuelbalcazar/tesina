@@ -18,5 +18,10 @@
         "key": "scheduleOnStart",
         "value": true,
         "description": "¿Iniciar planificador al iniciar el servidor?"
+    },
+    {
+        "key": "scheduleEvery",
+        "value": "0 */1 * * *",
+        "description": "Periodicidad del planificador para el envio de ecuaciónes"
     }
 ]
