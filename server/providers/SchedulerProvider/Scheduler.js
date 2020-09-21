@@ -24,6 +24,10 @@ class Scheduler {
         this.scheduleEvery = every;
     }
 
+    getScheduleEvery() {
+        return this.scheduleEvery;
+    }
+
     /**
      * Start the scheduler
      * @return {void}
@@ -52,7 +56,14 @@ class Scheduler {
 
     async reschedule(scheduleAt) {
         Logger.info('[scheduler] - replanificando en ' + scheduleAt);
-        this.job.reschedule(scheduleAt);
+        this.setScheduleEvery(scheduleAt);
+        let state = await this.job.reschedule(scheduleAt);
+        return state;
+    }
+
+    async cancel() {
+        Logger.info('[scheduler] - cancelando planificador');
+        await this.job.cancel();
     }
 }
 

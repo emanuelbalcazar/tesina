@@ -3,6 +3,7 @@ const Config = use('Config');
 const Log = use('App/Models/Log');
 const Article = use('App/Models/Article');
 const Logger = use('Logger');
+const Event = use('Event');
 
 const RABBITMQ_URL = Config.get('app.rabbitmq');
 const LOGS_QUEUE = Config.get('app.logsQueue');
@@ -65,9 +66,9 @@ class RabbitMQService {
 
         Logger.info('[worker] - esperando comandos...');
 
-        channel.consume(LOGS_QUEUE, async (message) => {
+        channel.consume(SERVER_QUEUE, async (message) => {
             let operation = JSON.parse(message.content.toString());
-
+            Event.fire('operation:new', operation);
             channel.ack(message);
         });
     }
