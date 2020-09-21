@@ -29,11 +29,11 @@ class Scheduler {
      * @return {void}
      */
     async start() {
-
         this.job = nodeScheduler.scheduleJob(this.scheduleEvery, async (fireDate) => {
             Logger.info(`[${this.scheduleEvery}] - ejecutando planificador en ${fireDate}`);
 
             let equations = await Equation.findWithPopulate({ active: true });
+
             let requestLimit = await Config.query().where('key', 'requestLimit').first();
             let workers = await Config.query().where('key', 'workers').first();
 
@@ -43,15 +43,17 @@ class Scheduler {
             for (const equation of equations) {
                 let message = Util.normalizeEquation(equation);
                 message.requestLimit = requestLimit;
-
-                console.log(message);
-
                 messages.push(message);
             }
 
             RabbitMQ.sendEquationsToRabbitMQ(messages);
         });
     }
+
+    async reschedule(scheduleAt) {
+        Logger.info('[scheduler] - replanificando en ' + scheduleAt);
+        this.job.reschedule(scheduleAt);
+    }
 }
 
-module.exports = new Scheduler();
+module.exports = Scheduler;

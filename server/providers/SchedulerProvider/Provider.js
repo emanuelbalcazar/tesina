@@ -2,7 +2,7 @@
 
 const { ServiceProvider } = require('@adonisjs/fold')
 
-class UtilProvider extends ServiceProvider {
+class SchedulerProvider extends ServiceProvider {
     /**
      * Register namespaces to the IoC container
      *
@@ -11,8 +11,8 @@ class UtilProvider extends ServiceProvider {
      * @return {void}
      */
     register() {
-        this.app.singleton('Util', () => {
-            return new (require('./util'));
+        this.app.singleton('Scheduler', () => {
+            return new (require('./Scheduler'));
         });
     }
 
@@ -29,4 +29,4 @@ class UtilProvider extends ServiceProvider {
     }
 }
 
-module.exports = UtilProvider
+module.exports = SchedulerProvider

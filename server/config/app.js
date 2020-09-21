@@ -26,6 +26,8 @@ module.exports = {
 
     equationsExchange: Env.get('EQUATIONS_EXCHANGE', 'equations'),
 
+    serverQueue: Env.get('SERVER_QUEUE', 'server'),
+
         /*
         |--------------------------------------------------------------------------
         | App Key

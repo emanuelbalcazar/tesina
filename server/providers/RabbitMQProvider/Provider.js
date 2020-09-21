@@ -12,7 +12,7 @@ class RabbitmqProvider extends ServiceProvider {
      */
     register() {
         this.app.singleton('RabbitMQ', () => {
-            return new (require('./rabbitmqService'));
+            return new (require('./RabbitmqService'));
         });
     }
 

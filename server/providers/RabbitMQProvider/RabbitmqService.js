@@ -8,6 +8,7 @@ const RABBITMQ_URL = Config.get('app.rabbitmq');
 const LOGS_QUEUE = Config.get('app.logsQueue');
 const ARTICLES_QUEUE = Config.get('app.articlesQueue');
 const EQUATIONS_EXCHANGE = Config.get('app.equationsExchange');
+const SERVER_QUEUE = Config.get('app.serverQueue');
 
 let connection = null;
 
@@ -53,6 +54,20 @@ class RabbitMQService {
         channel.consume(LOGS_QUEUE, async (message) => {
             let log = JSON.parse(message.content.toString());
             await Log.create(log);
+            channel.ack(message);
+        });
+    }
+
+    async consumeServerQueue() {
+        connection = await this.getConnection();
+        let channel = await connection.createChannel();
+        channel.assertQueue(SERVER_QUEUE, { durable: true });
+
+        Logger.info('[worker] - esperando comandos...');
+
+        channel.consume(LOGS_QUEUE, async (message) => {
+            let operation = JSON.parse(message.content.toString());
+
             channel.ack(message);
         });
     }
