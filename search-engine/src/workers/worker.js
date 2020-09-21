@@ -62,7 +62,7 @@ class Worker {
             let requestCount = 0;
             let hasPages = true;
 
-            while ((requestCount < requestLimit) && hasPages) {
+            while ((requestCount < requestLimit)) {
                 let results = await service.search(params);
 
                 this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
@@ -72,10 +72,20 @@ class Worker {
 
                 params.equation.start = (results.nextPage) ? results.nextPage.startIndex : params.equation.start;
                 requestCount++;
+
+                // update database values
+                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateRequestCount', data: requestCount });
+                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateEquationStart', data: { id: params.equation.id, start: params.equation.start } });
             }
 
-            // TODO Si termino sus request, no hacer nada. Si termino su ecuacion, ¿pedir mas?.
-            // TODO si reinicio el worker, debe saber cuantos request hizo?
+            if (!hasPages && requestCount < requestLimit) {
+                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'getNextEquationDate', data: { id: params.equation.id } });
+            } else {
+                // reset requestCount and equation start
+                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateRequestCount', data: 0 });
+                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateEquationStart', data: { id: params.equation.id, start: 1 } });
+            }
+
             return;
         } catch (error) {
             //throw new Error(error);

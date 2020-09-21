@@ -8,6 +8,7 @@ module.exports.PORT = process.env.PORT || 8001;
 module.exports.RABBITMQ = process.env.RABBITMQ || 'amqp://localhost:5672/tesina';
 module.exports.CONSUMER_EXCHANGE = 'equations';
 module.exports.PUBLISH_EXCHANGE = 'searches';
+module.exports.SERVER_QUEUE = 'server';
 
 // declare google cse config
 module.exports.GOOGLE_API = 'https://www.googleapis.com/customsearch/v1?';
