@@ -21,6 +21,3 @@ module.exports.PRINT_LOGS_ON_CONSOLE = true;
 
 // excluded words for article links
 module.exports.excludedWords = ['/tag', '/tags', '/seccion', '/impresa/'];
-
-// scheduler nextExecution, default '0 1 */1 * *'
-module.exports.RESCHEDULE_CONFIG = '*/1 * * * *';

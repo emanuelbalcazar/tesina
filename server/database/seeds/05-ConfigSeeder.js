@@ -17,7 +17,7 @@ class ConfigSeeder {
 
     async run() {
         for (const config of configs) {
-            await Config.findOrCreate(config, config);
+            await Config.findOrCreate({ key: config.key }, config);
         }
 
         console.log('Se cargaron las configuraciones correctamente.');

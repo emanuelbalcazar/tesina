@@ -23,5 +23,10 @@
         "key": "scheduleEvery",
         "value": "0 */1 * * *",
         "description": "Periodicidad del planificador para el envio de ecuaciónes"
+    },
+    {
+        "key": "nextDayCron",
+        "value": "0 1 */1 * *",
+        "description": "Notacion Cron de ejecución una vez por dia"
     }
 ]
