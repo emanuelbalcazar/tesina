@@ -88,7 +88,10 @@ class Worker {
 
             return;
         } catch (error) {
-            //throw new Error(error);
+            if (error.code == 429) {
+                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'reschedule', data: config.RESCHEDULE_CONFIG });
+            }
+
             await logger.info('search engine', 'worker', error.message, error.stack);
         }
     }

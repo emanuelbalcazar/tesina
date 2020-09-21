@@ -22,7 +22,7 @@ class SearchService {
             let results = await google.normalize(params, filtered);
             return results;
         } catch (error) {
-            throw new Error(error);
+            throw error;
         }
     }
 }

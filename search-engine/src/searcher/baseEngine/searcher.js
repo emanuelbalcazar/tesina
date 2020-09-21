@@ -15,8 +15,12 @@ async function search(params, query) {
 
         return response.data;
     } catch (error) {
+        if (error.response && error.response.data) {
+            throw error.response.data.error;
+        }
+
         logger.error('search engine', 'search', error.message, error.stack);
-        throw new Error(error);
+        throw error;
     }
 }
 

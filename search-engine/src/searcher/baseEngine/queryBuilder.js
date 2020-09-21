@@ -21,7 +21,7 @@ async function getQuery(params) {
         return baseURL;
     } catch (error) {
         logger.error('search engine', 'getQuery', error.message, error.stack);
-        throw new Error(error);
+        throw error;
     }
 }
 
