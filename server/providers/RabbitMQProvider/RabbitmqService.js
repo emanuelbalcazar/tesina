@@ -112,7 +112,7 @@ class RabbitMQService {
         connection = await this.getConnection();
         let channel = await connection.createChannel();
 
-        Logger.info(`[server] - enviando ecuación con ID: ${message.equation.id} - ${routingKey} a rabbitmq`);
+        Logger.info(`[server] - enviando ecuación con ID: ${message.equation.id} ${message.equation.q} - ${routingKey} a rabbitmq`);
 
         channel.assertExchange(EQUATIONS_EXCHANGE, 'direct', { durable: true });
         await channel.publish(EQUATIONS_EXCHANGE, routingKey, Buffer.from(JSON.stringify(message)));

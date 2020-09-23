@@ -17,6 +17,7 @@ class Worker {
     constructor(routingKey) {
         this.routingKey = routingKey;
         this.channel = null;
+        this.requestCount = 0;
     }
 
     /**
@@ -44,7 +45,7 @@ class Worker {
 
         this.channel.consume(queueInstance.queue, async (msg) => {
             let params = JSON.parse(msg.content.toString());
-            await logger.info('search engine', `worker ${this.routingKey}`, `ecuacion de ID: ${params.equation.id} entrante desde rabbitmq`);
+            await logger.info('search engine', `worker ${this.routingKey}`, `ecuacion de ID: ${params.equation.id} q: ${params.equation.q} indice: ${params.equation.start} entrante desde rabbitmq`);
             await this.search(params);
             this.channel.ack(msg);
         });
@@ -59,31 +60,36 @@ class Worker {
         try {
             let params = message;
             let requestLimit = message.requestLimit || 10;
-            let requestCount = 0;
             let hasPages = true;
 
-            while ((requestCount < requestLimit)) {
+            while ((requestCount <= requestLimit) && hasPages) {
                 let results = await service.search(params);
 
                 this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
                 await this.channel.publish(config.PUBLISH_EXCHANGE, this.routingKey, Buffer.from(JSON.stringify(results)));
 
-                hasPages = ((results.nextPage.startIndex <= 100) && (params.equation.start <= results.nextPage.startIndex)) ? true : false;
-
+                // check if has next page
+                hasPages = (results.nextPage.startIndex > 0 && results.nextPage.startIndex <= 100) ? true : false;
+                this.requestCount++;
                 params.equation.start = (results.nextPage) ? results.nextPage.startIndex : params.equation.start;
-                requestCount++;
 
-                // update database values
-                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateRequestCount', data: requestCount });
-                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateEquationStart', data: { id: params.equation.id, start: params.equation.start } });
+                // update equation start values
+                if (hasPages) {
+                    await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateRequestCount', data: this.requestCount });
+                    await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateEquationStart', data: { id: params.equation.id, start: params.equation.start } });
+                } else {
+                    await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateEquationStart', data: { id: params.equation.id, start: 1 } });
+                }
             }
 
-            if (!hasPages && requestCount < requestLimit) {
+            if (!hasPages && this.requestCount < requestLimit) {
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'getNextEquationDate', data: { id: params.equation.id } });
-            } else {
-                // reset requestCount and equation start
+            }
+
+            if (this.requestCount == requestLimit) {
+                this.requestCount == 0;
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateRequestCount', data: 0 });
-                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateEquationStart', data: { id: params.equation.id, start: 1 } });
+                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' });
             }
 
             return;

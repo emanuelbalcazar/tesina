@@ -17,7 +17,7 @@ async function normalize(params, records) {
         }
 
         records.items = articles;
-        await logger.success('crawl extractors', 'normalize', `ecuacion: ${params.equation.id} indice: ${params.equation.start} cant. despues de normalizar: ${articles.length}`);
+        await logger.success('crawl extractors', 'normalize', `ecuacion: ${params.equation.id} q: ${params.equation.q} indice: ${params.equation.start} cant. despues de normalizar: ${articles.length}`);
         return records;
     } catch(error) {
         await logger.error('crawl extractors', 'normalize', error.message, error.stack);

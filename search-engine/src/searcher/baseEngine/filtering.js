@@ -16,7 +16,7 @@ async function filter(params, records) {
         });
 
         records.items = filtered;
-        await logger.success('search engine', 'filter', `ecuacion: ${params.equation.id} indice: ${params.equation.start} - cant. despues de filtrar: ${filtered.length}`);
+        await logger.success('search engine', 'filter', `ecuacion: ${params.equation.id} q: ${params.equation.q} indice: ${params.equation.start} - cant. despues de filtrar: ${filtered.length}`);
 
         return records;
     } catch (error) {

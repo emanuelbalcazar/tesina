@@ -44,7 +44,7 @@ async function scraping(params, records) {
                 articles.push(article);
         }
 
-        await logger.success('crawl extractors', 'scrapping', `ecuacion: ${params.equation.id} indice: ${params.equation.start} cant. de articulos: ${articles.length}`);
+        await logger.success('crawl extractors', 'scrapping', `ecuacion: ${params.equation.id} q: ${params.equation.q} indice: ${params.equation.start} cant. de articulos: ${articles.length}`);
         records.items = articles;
         return records;
     } catch (error) {

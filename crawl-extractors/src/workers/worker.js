@@ -43,7 +43,7 @@ class Worker {
 
         this.channel.consume(queueInstance.queue, async (msg) => {
             let params = JSON.parse(msg.content.toString());
-            await logger.info('crawl extractors', `worker ${this.routingKey}`, `ecuacion de ID ${params.equation.id} indice: ${params.equation.start} entrante`);
+            await logger.info('crawl extractors', `worker ${this.routingKey}`, `ecuacion de ID ${params.equation.id} q: ${params.equation.q} indice: ${params.equation.start} entrante`);
 
             await this.extract(JSON.parse(msg.content.toString()));
             this.channel.ack(msg);

@@ -17,6 +17,7 @@ module.exports.execute = async (operation) => {
     let nextDate = moment(equation.dateToFind).add(1, 'day');
     equation.dateToFind = nextDate;
 
+    // normalize equation and set request limit
     let message = Util.normalizeEquation(equation);
     message.requestLimit = requestLimit;
 
