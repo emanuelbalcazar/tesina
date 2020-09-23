@@ -62,7 +62,7 @@ class Worker {
             let requestLimit = message.requestLimit || 10;
             let hasPages = true;
 
-            while ((requestCount <= requestLimit) && hasPages) {
+            while ((this.requestCount <= requestLimit) && hasPages) {
                 let results = await service.search(params);
 
                 this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
@@ -98,7 +98,7 @@ class Worker {
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' });
             }
 
-            await logger.info('search engine', 'worker', error.message, error.stack);
+            await logger.error('search engine', 'worker', error.message, error.stack);
         }
     }
 }
