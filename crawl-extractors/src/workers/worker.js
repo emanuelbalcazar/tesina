@@ -43,7 +43,7 @@ class Worker {
 
         this.channel.consume(queueInstance.queue, async (msg) => {
             let params = JSON.parse(msg.content.toString());
-            await logger.info('crawl extractors', `worker ${this.routingKey}`, `ecuacion de ID ${params.equation.id} q: ${params.equation.q} indice: ${params.equation.start} entrante`);
+            await logger.info('crawl extractors', `worker ${this.routingKey}`, `ecuacion entrante`, params.equation.id, params.equation.q, params.equation.start);
 
             await this.extract(JSON.parse(msg.content.toString()));
             this.channel.ack(msg);
@@ -58,7 +58,6 @@ class Worker {
     async extract(message) {
         try {
             let results = await service.extract(message);
-            await logger.info('crawl extractors', 'sendToQueue', `ecuacion de ID ${message.equation.id} obtuvo ${results.items.length} resultados`);
             await rabbitmq.sendToQueue(config.PUBLISH_QUEUE, results);
         } catch (error) {
             throw new Error(error);

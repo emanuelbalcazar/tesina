@@ -11,7 +11,7 @@ async function search(params, query) {
     try {
         let response = await axios.get(query);
         response.data.items = (response.data.items) ? response.data.items : [];
-        await logger.success('search engine', 'search', `ecuacion: ${params.equation.id} q: ${params.equation.q} indice: ${params.equation.start} status: ${response.statusText} - resultados obtenidos ${response.data.items.length}`);
+        await logger.success('search engine', 'search', `status: ${response.statusText} - resultados obtenidos ${response.data.items.length}`, params.equation.id, params.equation.q, params.equation.start);
 
         return response.data;
     } catch (error) {

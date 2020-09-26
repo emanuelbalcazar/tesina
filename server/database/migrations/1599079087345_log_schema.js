@@ -6,12 +6,15 @@ const Schema = use('Schema')
 class LogSchema extends Schema {
     up() {
         this.create('logs', (table) => {
-            table.increments()
+            table.increments();
             table.string('level', 50);
             table.string('component', 150);
             table.string('operation', 150);
             table.text('message', 'longtext');
             table.text('stack', 'longtext');
+            table.string('equation_id');
+            table.string('q');
+            table.integer('start');
             table.datetime('date');
         })
     }

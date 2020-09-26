@@ -16,12 +16,12 @@ async function filter(params, records) {
         });
 
         records.items = filtered;
-        await logger.success('search engine', 'filter', `ecuacion: ${params.equation.id} q: ${params.equation.q} indice: ${params.equation.start} - cant. despues de filtrar: ${filtered.length}`);
+        await logger.success('search engine', 'filter', `cantidad despues de filtrar: ${filtered.length}`, params.equation.id, params.equation.q, params.equation.start);
 
         return records;
     } catch (error) {
         logger.error('search engine', 'filter', error.message, error.stack);
-        throw new Error(error);
+        throw error;
     }
 }
 

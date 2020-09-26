@@ -24,12 +24,12 @@ async function normalize(params, records) {
             }
         });
 
-        await logger.success('search engine', 'normalizer', `ecuacion: ${params.equation.id} q: ${params.equation.q} indice: ${params.equation.start} total: ${results.nextPage.totalResults} - cant. despues de normalizar: ${results.items.length}`);
+        await logger.success('search engine', 'normalizer', `total: ${results.nextPage.totalResults} - cant. despues de normalizar: ${results.items.length}`, params.equation.id, params.equation.q, params.equation.start);
 
         return results;
     } catch (error) {
         logger.error('search engine', 'normalizer', error.message, error.stack);
-        throw new Error(error);
+        throw error;
     }
 }
 

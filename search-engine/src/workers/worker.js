@@ -45,7 +45,7 @@ class Worker {
 
         this.channel.consume(queueInstance.queue, async (msg) => {
             let params = JSON.parse(msg.content.toString());
-            await logger.info('search engine', `worker ${this.routingKey}`, `ecuacion de ID: ${params.equation.id} q: ${params.equation.q} indice: ${params.equation.start} entrante desde rabbitmq`);
+            await logger.info('search engine', `worker ${this.routingKey}`, `ecuacion entrante`, params.equation.id, params.equation.q, params.equation.start);
             await this.search(params);
             this.channel.ack(msg);
         });
@@ -77,12 +77,11 @@ class Worker {
                 if (hasPages) {
                     await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateRequestCount', data: this.requestCount });
                     await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateEquationStart', data: { id: params.equation.id, start: params.equation.start } });
-                } else {
-                    await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateEquationStart', data: { id: params.equation.id, start: 1 } });
                 }
             }
 
             if (!hasPages && this.requestCount < requestLimit) {
+                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateEquationStart', data: { id: params.equation.id, start: 1 } });
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'getNextEquationDate', data: { id: params.equation.id } });
             }
 

@@ -91,7 +91,7 @@ class RabbitMQService {
 
             for (const article of extraction.items) {
                 try {
-                    await Article.create(article);
+                    await Article.findOrCreate({ link: article.link }, article);
                 } catch (error) {
                     console.log('error:', error);
                 }

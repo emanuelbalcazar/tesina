@@ -17,12 +17,12 @@ async function crawl(params) {
             allHtml.push(newItem);
         }
 
-        await logger.success('crawl extractors', 'crawl', `ecuacion: ${params.equation.id} q: ${params.equation.q} indice: ${params.equation.start} cant. de articulos: ${allHtml.length}`);
+        await logger.success('crawl extractors', 'crawl', `cantidad de articulos: ${allHtml.length}`, params.equation.id, params.equation.q, params.equation.start);
         params.items = allHtml;
         return params;
     } catch (error) {
         await logger.error('crawl extractors', 'crawl', error.message, error.stack);
-        throw new Error(error);
+        throw error;
     }
 }
 

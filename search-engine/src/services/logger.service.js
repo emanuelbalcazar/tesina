@@ -10,65 +10,37 @@ class Logger {
 
     constructor() { }
 
-    /**
-     * @param  {String} level
-     * @param  {String} component
-     * @param  {String} operation
-     * @param  {String} message
-     * @return {void}
-     * @memberof Logger
-     */
-    async log(level, component, operation, message) {
-        await createLog(level, component, operation, message);
+    async log(level, component, operation, message, equationId, q, start) {
+        await createLog(level, component, operation, message, equationId, q, start);
     }
 
-    /**
-     *
-     * @param  {String} component
-     * @param  {String} operation
-     * @param  {String} message
-     * @return {void}
-     * @memberof Logger
-     */
-    async info(component, operation, message) {
-        await createLog('info', component, operation, message);
+    async info(component, operation, message, equationId, q, start) {
+        await createLog('info', component, operation, message, equationId, q, start);
     }
 
-    /**
-     * @param  {String} component
-     * @param  {String} operation
-     * @param  {String} message
-     * @return {void}
-     * @memberof Logger
-     */
-    async debug(component, operation, message) {
-        await createLog('debug', component, operation, message);
+    async debug(component, operation, message, equationId, q, start) {
+        await createLog('debug', component, operation, message, equationId, q, start);
     }
 
-    async success(component, operation, message) {
-        await createLog('success', component, operation, message);
+    async success(component, operation, message, equationId, q, start) {
+        await createLog('success', component, operation, message, equationId, q, start);
     }
 
-    /**
-     * @param  {String} component
-     * @param  {String} operation
-     * @param  {String} message
-     * @param  {String} stack
-     * @return {void}
-     * @memberof Logger
-     */
     async error(component, operation, message, stack) {
-        await createLog('error', component, operation, message, stack);
+        await createLog('error', component, operation, message, '', '', 0, stack);
     }
 }
 
-async function createLog(level, component, operation, message, stack) {
+async function createLog(level, component, operation, message, equationId, q, start, stack) {
 
     let log = {
         level: level || 'info',
         component: component || 'no identificado',
         operation: operation || 'no identificada',
         message: message || '',
+        equation_id: equationId || '',
+        q: q || '',
+        start: start || 0,
         stack: stack || '',
         date: new Date().toLocaleString()
     };
