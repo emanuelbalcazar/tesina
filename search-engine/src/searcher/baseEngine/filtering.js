@@ -3,9 +3,9 @@ const logger = require('../../services/logger.service');
 
 /**
  * Filter the information received using some evaluation criteria.
- * @param {Object} [criteria={}]
- * @param {Array} records
- * @returns filtered data
+ * @param  {Object} params
+ * @param  {Object} records
+ * @return filtered data
  */
 async function filter(params, records) {
 

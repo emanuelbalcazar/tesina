@@ -5,7 +5,6 @@ const logger = require('../../services/logger.service');
 
 /**
  * Build the search query corresponding to the search engine.
- * You can overwrite the implementation.
  * @param {Object} params request parameters.
  * @returns query ready to execute.
  */

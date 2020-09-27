@@ -60,7 +60,7 @@ class Worker {
             let results = await service.extract(message);
             await rabbitmq.sendToQueue(config.PUBLISH_QUEUE, results);
         } catch (error) {
-            throw new Error(error);
+            await logger.error('crawl extractors', `worker ${this.routingKey}`, error.message, error.stack);
         }
     }
 }

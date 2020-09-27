@@ -3,7 +3,7 @@ const logger = require('../../services/logger.service');
 
 /**
  * Execute the search.
- * You can overwrite the implementation.
+ * @param {Object} params
  * @param {String} query
  * @returns search results.
  */

@@ -2,7 +2,8 @@ const logger = require('../../services/logger.service');
 
 /**
  * Normalize search results
- * @param  {Array} records
+ * @param {Object} params
+ * @param {Object} records
  * @return normalized articles
  */
 async function normalize(params, records) {

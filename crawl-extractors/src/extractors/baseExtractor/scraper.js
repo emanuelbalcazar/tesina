@@ -2,9 +2,9 @@ const parse = require('node-html-parser');
 const logger = require('../../services/logger.service');
 
 /**
- * You can overwrite the implementation.
  * @param {Object} params
- * @returns
+ * @param {Object} params
+ * @returns scrapped data
  */
 async function scraping(params, records) {
     try {

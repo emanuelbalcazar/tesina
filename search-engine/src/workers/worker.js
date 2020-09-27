@@ -85,8 +85,8 @@ class Worker {
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'getNextEquationDate', data: { id: params.equation.id } });
             }
 
-            if (this.requestCount == requestLimit) {
-                this.requestCount == 0;
+            if (this.requestCount === requestLimit) {
+                this.requestCount = 0;
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateRequestCount', data: 0 });
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' });
             }
@@ -97,7 +97,7 @@ class Worker {
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' });
             }
 
-            await logger.error('search engine', 'worker', error.message, error.stack);
+            await logger.error('search engine', `worker ${this.routingKey}`, error.message, error.stack);
         }
     }
 }

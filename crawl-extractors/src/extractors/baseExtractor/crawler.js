@@ -2,8 +2,7 @@ const axios = require("axios");
 const logger = require('../../services/logger.service');
 
 /**
- * You can overwrite the implementation.
- * @param {String} params
+ * @param {Object} params
  * @returns search results.
  */
 async function crawl(params) {
