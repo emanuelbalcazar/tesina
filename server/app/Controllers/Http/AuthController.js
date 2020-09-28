@@ -7,7 +7,7 @@
 const User = use('App/Models/User');
 
 /**
- * A controller for user authentication
+ * Controller for user authentication
  */
 class AuthController {
 
@@ -19,7 +19,7 @@ class AuthController {
             if (await auth.attempt(email, password)) {
                 let user = await User.findBy('email', email);
                 let accessToken = await auth.generate(user);
-                return response.json({ user: user, token: accessToken });
+                return response.json({ user: user, token: accessToken.token });
             }
         }
         catch (error) {

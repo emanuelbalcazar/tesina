@@ -93,6 +93,7 @@ class Worker {
 
             return;
         } catch (error) {
+            // Quota exceeded for quota metric 'Queries' and limit 'Queries per day' of service 'customsearch.googleapis.com'
             if (error.code == 429) {
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateRequestCount', data: 0 });
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' });
