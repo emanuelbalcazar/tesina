@@ -85,7 +85,7 @@ class Worker {
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'getNextEquationDate', data: { id: params.equation.id } });
             }
 
-            if (this.requestCount === requestLimit) {
+            if (this.requestCount > requestLimit) {
                 this.requestCount = 0;
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateRequestCount', data: 0 });
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' });
@@ -94,6 +94,7 @@ class Worker {
             return;
         } catch (error) {
             if (error.code == 429) {
+                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateRequestCount', data: 0 });
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' });
             }
 

@@ -19,7 +19,7 @@ class Equation extends Model {
     }
 
     /**
-     * Find equations with query and selector population
+     * Find equations with selector population
      * @static
      * @param  {Object} [where={}] conditional search
      * @return {Array} equations
