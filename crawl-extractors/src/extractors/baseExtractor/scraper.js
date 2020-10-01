@@ -17,26 +17,30 @@ async function scraping(params, records) {
             article.body = '';
 
             for (const selector of params.selectors) {
-                let elements = root.querySelectorAll(selector.selector);
+                try {
+                    let elements = root.querySelectorAll(selector.selector);
 
-                if (selector.section == 'titulo') {
-                    article.title = elements[0].text || elements[0].innerText || elements[0].childNodes[0].rawText;
-                }
+                    if (selector.section == 'titulo') {
+                        article.title = elements[0].text || elements[0].innerText || elements[0].childNodes[0].rawText;
+                    }
 
-                if (selector.section == 'bajada') {
-                    article.snippet = elements[0].text || elements[0].innerText || elements[0].childNodes[0].rawText;
-                }
+                    if (selector.section == 'bajada') {
+                        article.snippet = elements[0].text || elements[0].innerText || elements[0].childNodes[0].rawText;
+                    }
 
-                if (selector.section == 'cuerpo') {
-                    let text = elements.map(elem => {
-                        return elem.text || elem.innerText || elem.childNodes[0].rawText;
-                    });
+                    if (selector.section == 'cuerpo') {
+                        let text = elements.map(elem => {
+                            return elem.text || elem.innerText || elem.childNodes[0].rawText;
+                        });
 
-                    article.body += text.join('\n').trim();
-                }
+                        article.body += text.join('\n').trim();
+                    }
 
-                if (selector.section == 'fecha') {
-                    article.published = elements[0].text || elements[0].innerText || elements[0].childNodes[0].rawText;
+                    if (selector.section == 'fecha') {
+                        article.published = elements[0].text || elements[0].innerText || elements[0].childNodes[0].rawText;
+                    }
+                } catch (error) {
+                    await logger.error('crawl extractors', 'scrapping', `articulo: ${article.link} selector: ${selector.selector} error: ${error.message}`, error.stack);
                 }
             }
 
@@ -44,7 +48,7 @@ async function scraping(params, records) {
                 articles.push(article);
         }
 
-        await logger.success('crawl extractors', 'scrapping', `cantidad de articulos: ${articles.length}`,  params.equation.id, params.equation.q, params.equation.start);
+        await logger.success('crawl extractors', 'scrapping', `cantidad de articulos: ${articles.length}`, params.equation.id, params.equation.q, params.equation.start);
         records.items = articles;
         return records;
     } catch (error) {

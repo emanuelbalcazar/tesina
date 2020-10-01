@@ -10,10 +10,14 @@ async function crawl(params) {
         let allHtml = [];
 
         for (const item of params.items) {
-            let newItem = item;
-            let response = await axios.get(item.link);
-            newItem.html = response.data;
-            allHtml.push(newItem);
+            try {
+                let newItem = item;
+                let response = await axios.get(item.link);
+                newItem.html = response.data;
+                allHtml.push(newItem);
+            } catch (error) {
+                await logger.error('crawl extractors', 'crawl', `articulo: ${item.link} error: ${error.message}`, error.stack);
+            }
         }
 
         await logger.success('crawl extractors', 'crawl', `cantidad de articulos: ${allHtml.length}`, params.equation.id, params.equation.q, params.equation.start);
