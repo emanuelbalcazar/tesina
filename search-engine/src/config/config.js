@@ -20,4 +20,4 @@ module.exports.LOGS_QUEUE_NAME = 'logs';
 module.exports.PRINT_LOGS_ON_CONSOLE = true;
 
 // excluded words for article links
-module.exports.excludedWords = ['/tag', '/tags', '/seccion', '/impresa/'];
+module.exports.excludedWords = ['/tag', '/tags', '/seccion', '/impresa/', '/noticias/buscar/'];

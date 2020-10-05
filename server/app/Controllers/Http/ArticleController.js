@@ -21,7 +21,11 @@ class ArticleController {
      */
     async index({ request, response, view }) {
         let params = request.all();
-        let articles = await Article.query().paginate(params.page, params.perPage);
+
+        params.columnName = params.columnName || 'title';
+        params.columnValue = params.columnValue || '';
+
+        let articles = await Article.query().where(params.columnName, 'ILIKE', `%${params.columnValue}%`).paginate(params.page, params.perPage);
         return response.json(articles);
     }
 
