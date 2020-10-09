@@ -38,6 +38,7 @@ class Scheduler {
 
             let equations = await Equation.findWithPopulate({ active: true });
 
+            await Config.query().where('key', 'requestCount').update({ value: 0 });
             let requestLimit = await Config.query().where('key', 'requestLimit').first();
             let workers = await Config.query().where('key', 'workers').first();
 

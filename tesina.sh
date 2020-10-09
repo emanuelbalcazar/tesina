@@ -32,6 +32,12 @@ case "$1" in
         adonis seed
     ;;
 
+    config)
+        echo -e "Accediendo a la configuración del servidor..."
+        cd $root/server
+        adonis config
+    ;;
+
     *)
         echo "Comando no reconocido"
     ;;

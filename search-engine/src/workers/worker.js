@@ -43,6 +43,9 @@ class Worker {
 
         console.log(`[${this.routingKey}] - worker esperando nuevos mensajes...`);
 
+        // only consume one message at a time
+        this.channel.prefetch(1);
+
         this.channel.consume(queueInstance.queue, async (msg) => {
             let params = JSON.parse(msg.content.toString());
             await logger.info('search engine', `worker ${this.routingKey}`, `ecuacion entrante`, params.equation.id, params.equation.q, params.equation.start);
@@ -63,8 +66,8 @@ class Worker {
             let hasPages = true;
 
             while ((this.requestCount <= requestLimit) && hasPages) {
-                let results = await service.search(params);
 
+                let results = await service.search(params);
                 this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
                 await this.channel.publish(config.PUBLISH_EXCHANGE, this.routingKey, Buffer.from(JSON.stringify(results)));
 
@@ -75,9 +78,12 @@ class Worker {
 
                 // update equation start values
                 if (hasPages) {
-                    await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateRequestCount', data: this.requestCount });
+                    await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'incrementRequestCount', data: '' });
                     await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateEquationStart', data: { id: params.equation.id, start: params.equation.start } });
                 }
+
+                // sleep so as not to saturate the request to google
+                await sleep(config.WORKER_SLEEP_TIME);
             }
 
             if (!hasPages && this.requestCount < requestLimit) {
@@ -86,22 +92,29 @@ class Worker {
             }
 
             if (this.requestCount > requestLimit) {
+                await logger.success('search engine', `worker ${this.routingKey}`, `termino su cuota diaria con ${this.requestCount} de ${requestLimit} realizados`, params.equation.id, params.equation.q, params.equation.start);
                 this.requestCount = 0;
-                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateRequestCount', data: 0 });
-                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' });
+                //await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'resetRequestCount', data: '' });
+                //await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' });
             }
 
             return;
         } catch (error) {
             // Quota exceeded for quota metric 'Queries' and limit 'Queries per day' of service 'customsearch.googleapis.com'
             if (error.code == 429) {
-                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateRequestCount', data: 0 });
+                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'resetRequestCount', data: '' });
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' });
             }
 
             await logger.error('search engine', `worker ${this.routingKey}`, error.message, error.stack);
         }
     }
+}
+
+function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
 }
 
 module.exports = Worker;
