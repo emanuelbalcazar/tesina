@@ -98,5 +98,25 @@
         "selector": ".fecha-detallenota",
         "site": "https://www.elpatagonico.com",
         "section": "fecha"
+    },
+    {
+        "selector": "#mvp-post-head h1",
+        "site": "https://radio3cadenapatagonia.com.ar",
+        "section": "titulo"
+    },
+    {
+        "selector": "#mvp-post-head span p",
+        "site": "https://radio3cadenapatagonia.com.ar",
+        "section": "bajada"
+    },
+    {
+        "selector": "span.mvp-post-date.updated time.post-date.updated",
+        "site": "https://radio3cadenapatagonia.com.ar",
+        "section": "fecha"
+    },
+    {
+        "selector": "#mvp-content-main .theiaPostSlider_slides .theiaPostSlider_preloadedSlide",
+        "site": "https://radio3cadenapatagonia.com.ar",
+        "section": "cuerpo"
     }
 ]

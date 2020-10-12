@@ -18,5 +18,9 @@
     {
         "site": "https://diariocronica.com.ar",
         "dateFormat": "DD/MM/YYYY"
+    },
+    {
+        "site": "https://radio3cadenapatagonia.com.ar",
+        "dateFormat": "\"MMMM DD, YYYY\""
     }
 ]

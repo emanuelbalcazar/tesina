@@ -21,7 +21,7 @@ module.exports.LOGS_QUEUE_NAME = 'logs';
 module.exports.PRINT_LOGS_ON_CONSOLE = true;
 
 // excluded words for article links
-module.exports.excludedWords = ['/tag', '/tags', '/seccion', '/impresa/', '/noticias/buscar/'];
+module.exports.excludedWords = ['/tag', '/tags', '/seccion', '/impresa/', '/noticias/buscar/', '/contenidos/terminos-condiciones'];
 
 // timeout of each request in the worker
 module.exports.WORKER_SLEEP_TIME = 2000;

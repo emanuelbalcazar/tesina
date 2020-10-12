@@ -28,5 +28,11 @@
         "site": "https://diariocronica.com.ar",
         "start": 1,
         "active": true
+    },
+    {
+        "dateToFind": "01/03/2020",
+        "site": "https://radio3cadenapatagonia.com.ar",
+        "start": 1,
+        "active": true
     }
 ]

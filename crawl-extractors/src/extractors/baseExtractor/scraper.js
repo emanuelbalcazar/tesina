@@ -25,7 +25,7 @@ async function scraping(params, records) {
                     }
 
                     if (selector.section == 'bajada') {
-                        article.snippet = elements[0].text || elements[0].innerText || elements[0].childNodes[0].rawText;
+                        article.snippet = elements[0].text || elements[0].innerText || elements[0].childNodes[0].rawText || '';
                     }
 
                     if (selector.section == 'cuerpo') {
