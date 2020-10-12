@@ -138,5 +138,25 @@
         "selector": ".td-post-content p",
         "site": "https://diariolaportada.com.ar",
         "section": "cuerpo"
+    },
+    {
+        "selector": ".news-amp-title h1",
+        "site": "https://www.red43.com.ar",
+        "section": "titulo"
+    },
+    {
+        "selector": ".news-amp-caption",
+        "site": "https://www.red43.com.ar",
+        "section": "bajada"
+    },
+    {
+        "selector": ".news-amp-date .np_fecha",
+        "site": "https://www.red43.com.ar",
+        "section": "fecha"
+    },
+    {
+        "selector": ".news-amp-body",
+        "site": "https://www.red43.com.ar",
+        "section": "cuerpo"
     }
 ]

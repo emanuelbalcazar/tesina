@@ -40,5 +40,11 @@
         "site": "https://diariolaportada.com.ar",
         "start": 1,
         "active": true
+    },
+    {
+        "dateToFind": "01/03/2020",
+        "site": "https://www.red43.com.ar",
+        "start": 1,
+        "active": true
     }
 ]

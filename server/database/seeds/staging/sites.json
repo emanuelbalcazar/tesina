@@ -26,5 +26,9 @@
     {
         "site": "https://diariolaportada.com.ar",
         "dateFormat": "YYYY/MM/DD"
+    },
+    {
+        "site": "https://www.red43.com.ar",
+        "dateFormat": "DD/MM/YYYY"
     }
 ]
