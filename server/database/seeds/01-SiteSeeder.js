@@ -18,7 +18,7 @@ class SiteSeeder {
     async run() {
 
         for (const site of sites) {
-            await Site.findOrCreate(site, site);
+            await Site.findOrCreate({ site: site.site }, site);
         }
 
         console.log('Se cargaron los sitios correctamente.');

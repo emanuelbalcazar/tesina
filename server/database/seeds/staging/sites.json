@@ -22,5 +22,9 @@
     {
         "site": "https://radio3cadenapatagonia.com.ar",
         "dateFormat": "\"MMMM DD, YYYY\""
+    },
+    {
+        "site": "https://diariolaportada.com.ar",
+        "dateFormat": "YYYY/MM/DD"
     }
 ]

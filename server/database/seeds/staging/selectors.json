@@ -118,5 +118,25 @@
         "selector": "#mvp-content-main .theiaPostSlider_slides .theiaPostSlider_preloadedSlide",
         "site": "https://radio3cadenapatagonia.com.ar",
         "section": "cuerpo"
+    },
+    {
+        "selector": ".td-post-title .entry-title",
+        "site": "https://diariolaportada.com.ar",
+        "section": "titulo"
+    },
+    {
+        "selector": ".td-post-sub-title",
+        "site": "https://diariolaportada.com.ar",
+        "section": "bajada"
+    },
+    {
+        "selector": ".td-post-date",
+        "site": "https://diariolaportada.com.ar",
+        "section": "fecha"
+    },
+    {
+        "selector": ".td-post-content p",
+        "site": "https://diariolaportada.com.ar",
+        "section": "cuerpo"
     }
 ]
