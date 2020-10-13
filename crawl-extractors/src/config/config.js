@@ -1,4 +1,5 @@
-require('dotenv').config()
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 // declare HOST and PORT.
 module.exports.HOST = process.env.HOST || 'http://localhost';
