@@ -25,4 +25,4 @@ module.exports.PRINT_LOGS_ON_CONSOLE = true;
 module.exports.excludedWords = ['/tag', '/tags', '/seccion', '/impresa/', '/noticias/buscar/', '/contenidos/terminos-condiciones'];
 
 // timeout of each request in the worker
-module.exports.WORKER_SLEEP_TIME = 2000;
+module.exports.WORKER_SLEEP_TIME = 5000;
