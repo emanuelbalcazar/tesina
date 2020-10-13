@@ -11,7 +11,7 @@
     },
     {
         "key": "workers",
-        "value": 7,
+        "value": 8,
         "description": "Cantidad de workers disponibles"
     },
     {
