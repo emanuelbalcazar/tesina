@@ -10,9 +10,10 @@ module.exports.CONSUMER_EXCHANGE = 'equations';
 module.exports.PUBLISH_EXCHANGE = 'searches';
 module.exports.SERVER_QUEUE = 'server';
 
-// declare google cse config
-// 'https://www.googleapis.com/customsearch/v1/siterestrict?'
-module.exports.GOOGLE_API = 'https://www.googleapis.com/customsearch/v1?';
+// declare google cse config, options:
+// https://www.googleapis.com/customsearch/v1/siterestrict?
+// https://www.googleapis.com/customsearch/v1?
+module.exports.GOOGLE_API = 'https://www.googleapis.com/customsearch/v1/siterestrict?';
 module.exports.CX = process.env.CX;
 module.exports.KEY = process.env.KEY;
 
