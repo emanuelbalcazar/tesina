@@ -38,6 +38,36 @@ case "$1" in
         adonis config
     ;;
 
+    forever:start)
+        forever start $2
+    ;;
+
+    forever:startall)
+        forever start $root/crawl-extractors/src/index.js &
+        forever start $root/search-engine/src/index.js &
+        forever start $root/server/server.js
+    ;;
+
+    forever:stop)
+        forever stop $2
+    ;;
+
+    forever:stopall)
+        forever stopall
+    ;;
+
+    forever:restart)
+        forever restart $2
+    ;;
+
+    forever:list)
+        forever list
+    ;;
+
+    forever:logs)
+        forever logs
+    ;;
+
     *)
         echo "Comando no reconocido"
     ;;
