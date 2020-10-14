@@ -23,7 +23,7 @@ class AuthController {
             }
         }
         catch (error) {
-            return response.unauthorized('Usuario o contraseña invalidos.');
+            return response.unauthorized({ code: 401, message: 'Usuario o contraseña invalidos.' });
         }
     }
 }

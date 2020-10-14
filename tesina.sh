@@ -26,6 +26,12 @@ case "$1" in
         adonis migration:run
     ;;
 
+    rollback)
+        echo -e "Deshaciendo migración en el servidor"
+        cd $root/server
+        adonis migration:rollback
+    ;;
+
     seed)
         echo -e "Ejecutando seeder en el servidor"
         cd $root/server
@@ -60,12 +66,16 @@ case "$1" in
         forever restart $2
     ;;
 
+    forever:restartall)
+        forever restartall
+    ;;
+
     forever:list)
         forever list
     ;;
 
     forever:logs)
-        forever logs
+        forever logs $2
     ;;
 
     *)

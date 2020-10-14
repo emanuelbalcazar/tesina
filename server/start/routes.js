@@ -17,15 +17,17 @@
 const Route = use('Route')
 
 Route.get('/', () => {
-    return { name: 'server', version: '2020-09', status: 'active' };
+    return { name: 'server', version: '2020-10', status: 'active' };
 });
 
-// routes with prefix 'api'
+// routes without jwt
 Route.group(() => {
-
     Route.post('/auth/login', 'AuthController.login');
-    Route.get('/extractions/execute/:id', 'ExtractionController.execute');
+}).prefix('api');
 
+// routes with jwt
+Route.group(() => {
+    Route.get('/extractions/execute/:id', 'ExtractionController.execute');
     Route.resource('/articles', 'ArticleController');
     Route.resource('/configs', 'ConfigController');
     Route.resource('/equations', 'EquationController');
@@ -34,5 +36,4 @@ Route.group(() => {
     Route.resource('/selectors', 'SelectorController');
     Route.resource('/sites', 'SiteController');
     Route.resource('/users', 'UserController');
-
-}).prefix('api');
+}).prefix('api').middleware(['auth:jwt']);
