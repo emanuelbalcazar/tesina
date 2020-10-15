@@ -5,25 +5,29 @@ const RabbitMQ = use('RabbitMQ');
 const moment = require('moment');
 
 module.exports.execute = async (operation) => {
-    let equations = await Equation.findWithPopulate({ id: operation.data.id });
-    let equation = equations[0];
+    try {
+        let equations = await Equation.findWithPopulate({ id: operation.data.id });
+        let equation = equations[0];
 
-    // calculate request limit for every worker
-    let requestLimit = await Config.query().where('key', 'requestLimit').first();
-    let workers = await Config.query().where('key', 'workers').first();
-    requestLimit = Math.floor(requestLimit.value / workers.value);
+        // calculate request limit for every worker
+        let requestLimit = await Config.query().where('key', 'requestLimit').first();
+        let workers = await Config.query().where('key', 'workers').first();
+        requestLimit = Math.floor(requestLimit.value / workers.value);
 
-    // calculate next day
-    let nextDate = moment(equation.dateToFind).add(1, 'day');
-    equation.dateToFind = nextDate;
+        // calculate next day
+        let nextDate = moment(equation.dateToFind).add(1, 'day');
+        equation.dateToFind = nextDate;
 
-    // normalize equation and set request limit
-    let message = Util.normalizeEquation(equation);
-    message.requestLimit = requestLimit;
+        // normalize equation and set request limit
+        let message = Util.normalizeEquation(equation);
+        message.requestLimit = requestLimit;
 
-    // send equation to rabbitmq and update dateToFind
-    RabbitMQ.sendEquationsToRabbitMQ([message]);
+        // send equation to rabbitmq and update dateToFind
+        RabbitMQ.sendEquationsToRabbitMQ([message]);
 
-    let updated = await Equation.query().where('id', operation.data.id).update({ dateToFind: nextDate });
-    return updated;
+        let updated = await Equation.query().where('id', operation.data.id).update({ dateToFind: nextDate });
+        return updated;
+    } catch (error) {
+        throw error;
+    }
 }
