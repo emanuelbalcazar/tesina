@@ -17,7 +17,7 @@ class UserSeeder {
 
     async run() {
         for (const user of users) {
-            await User.findOrCreate({ username: user.username }, user);
+            await User.findOrCreate({ email: user.email }, user);
         }
 
         console.log('Se cargaron los usuarios correctamente.');
