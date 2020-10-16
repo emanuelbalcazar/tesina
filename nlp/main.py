@@ -1,3 +1,6 @@
+# main application module
+# author: Emanuel Balcazar
+
 from flask import Flask
 from config import get_config
 
@@ -9,6 +12,6 @@ app = Flask(__name__)
 def hello():
     return 'NLP is running!'
 
-## start the app
+# start the app
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=get_config('PORT'))
+    app.run(host='0.0.0.0', port=get_config('APP', 'port'))
