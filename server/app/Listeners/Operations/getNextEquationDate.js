@@ -4,10 +4,20 @@ const Config = use('App/Models/Config');
 const RabbitMQ = use('RabbitMQ');
 const moment = require('moment');
 
+const MIN_NUMBER_OF_DAYS = 14;
+
 module.exports.execute = async (operation) => {
     try {
         let equations = await Equation.findWithPopulate({ id: operation.data.id });
         let equation = equations[0];
+        let today = moment();
+
+        let numberOfDays = moment(today).diff(equation.dateToFind, 'days');
+
+        // the equation is not executed if I do not spend a minimum number of days
+        if (numberOfDays < MIN_NUMBER_OF_DAYS) {
+            return false;
+        }
 
         // calculate request limit for every worker
         let requestLimit = await Config.query().where('key', 'requestLimit').first();
