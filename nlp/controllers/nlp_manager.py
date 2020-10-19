@@ -20,6 +20,7 @@ def execute():
             print("[*] - normalizando articulo con ID {id} ".format(id=record[0]))
             text = process_article(record)
             normalized_article.create(text, record[3], record[0])
+            article.set_analyzed(record[0])
 
     except (Exception) as error:
         print(error)
