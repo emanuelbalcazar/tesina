@@ -22,3 +22,13 @@ def connect():
             return _connection
         except (Exception, psycopg2.DatabaseError) as error:
             print('[PostgreSQL] - error de conexión a la base de datos, error {0}'.format(error))
+
+    else:
+        return _connection
+
+def disconnect():
+    global _connection
+
+    if _connection:
+        print("Desconectando...")
+        _connection.close()
