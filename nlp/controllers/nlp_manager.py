@@ -6,7 +6,7 @@ import controllers.process.remove_characters as remove_characters
 import controllers.process.remove_whitespaces as remove_whitespaces
 import controllers.process.remove_stopwords as remove_stopwords
 import controllers.process.stemmer as stemmer
-import controllers.process.lemmatize as lemmatize
+import controllers.process.lemmatizer as lemmatizer
 import controllers.process.remove_accents as remove_accents
 
 # execute nlp process
@@ -33,7 +33,7 @@ def process_article(article):
         text = remove_stopwords.execute(text)
         text = remove_accents.execute(text)
         #text = stemmer.execute(text)
-        #text = lemmatize.execute(text)
+        text = lemmatizer.execute(text)
 
         return text
     except (Exception) as error:

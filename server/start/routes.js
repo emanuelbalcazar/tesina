@@ -32,7 +32,6 @@ Route.group(() => {
     Route.resource('/configs', 'ConfigController');
     Route.resource('/equations', 'EquationController');
     Route.resource('/logs', 'LogController');
-    Route.resource('/queries', 'QueryController');
     Route.resource('/selectors', 'SelectorController');
     Route.resource('/sites', 'SiteController');
     Route.resource('/users', 'UserController');

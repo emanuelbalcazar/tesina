@@ -10,10 +10,6 @@ class Equation extends Model {
         this.addTrait('NoTimestamp');
     }
 
-    query() {
-        return this.hasOne('App/Models/Query', 'query_id', 'id');
-    }
-
     site() {
         return this.hasOne('App/Models/Site', 'site_id', 'id');
     }

@@ -21,7 +21,7 @@ class EquationController {
      */
     async index({ request, response, view }) {
         let params = request.all();
-        let equations = await Equation.query().with('query').with('site').paginate(params.page, params.perPage);
+        let equations = await Equation.query().with('site').paginate(params.page, params.perPage);
         return response.json(equations);
     }
 
