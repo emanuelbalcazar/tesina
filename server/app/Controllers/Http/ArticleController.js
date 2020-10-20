@@ -99,6 +99,17 @@ class ArticleController {
      */
     async destroy({ params, request, response }) {
     }
+
+    async findByExpectedDate({ request, response }) {
+        let params = request.all();
+
+        if (!params.date) {
+            return response.badRequest('Debe proporcionar una fecha valida');
+        }
+
+        let articles = Article.query().select('id').where('expected_date', params.date).fetch();
+        return articles;
+    }
 }
 
 module.exports = ArticleController

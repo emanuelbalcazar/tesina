@@ -27,12 +27,19 @@ Route.group(() => {
 
 // routes with jwt
 Route.group(() => {
-    Route.get('/extractions/execute/:id', 'ExtractionController.execute');
     Route.resource('/articles', 'ArticleController');
+    Route.resource('/normalizedArticles', 'NormalizedArticleController');
     Route.resource('/configs', 'ConfigController');
     Route.resource('/equations', 'EquationController');
     Route.resource('/logs', 'LogController');
     Route.resource('/selectors', 'SelectorController');
     Route.resource('/sites', 'SiteController');
     Route.resource('/users', 'UserController');
+
+    Route.post('/articles/findByExpectedDate', 'ArticleController.findByExpectedDate');
+    Route.get('/extractions/execute/:id', 'ExtractionController.execute');
+    Route.post('/normalizedArticles/findByArticleIds', 'NormalizedArticleController.findByArticleIds');
+    Route.post('/normalizedArticles/getWordCloud', 'NormalizedArticleController.getWordCloud');
+
+
 }).prefix('api').middleware(['auth:jwt']);
