@@ -22,7 +22,6 @@ def find_all():
         return articles
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
-        cur.execute("rollback")
 
 def set_analyzed(id):
     try:
