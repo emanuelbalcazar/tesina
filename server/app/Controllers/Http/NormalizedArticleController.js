@@ -124,10 +124,16 @@ class NormalizedArticleController {
         let result = [];
 
         for (const key in words) {
-            if (words.hasOwnProperty(key) && words[key] > 5) {
-                result.push({ text: key, value: words[key] })
+            if (words.hasOwnProperty(key) && words[key] > 60) {
+                if (key.length > 2) {
+                    result.push({ text: key, value: words[key] })
+                }
             }
         }
+
+        result = result.sort(function (a, b) {
+            return b.value - a.value;
+        });
 
         return result;
     }

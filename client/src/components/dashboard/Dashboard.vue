@@ -7,6 +7,9 @@
                 Periodística relacionada al COVID-19 en Chubut</b
             >
         </h1>
+
+        <p>Max:{{max}}</p>
+        <p>Min:{{min}}</p>
         <br>
         <cloud :data="words" :fontSizeMapper="fontSizeMapper" />
     </div>
@@ -22,6 +25,8 @@ export default {
     data() {
         return {
             words: [],
+            max: { text: '', value: 0},
+            min: { text: '', value: 0 },
             fontSizeMapper: word => Math.log2(word.value) * 5,
         };
     },
@@ -60,6 +65,8 @@ export default {
                 }
 
                 this.words = response.data;
+                this.max = this.words[0];
+                this.min = this.words[this.words.length - 1];
             } catch (error) {
                 if (!error.response) {
                     return this.showToast("Error al obtener los articulos", {
