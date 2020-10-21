@@ -11,7 +11,7 @@
         <p>Max:{{max}}</p>
         <p>Min:{{min}}</p>
         <br>
-        <cloud :data="words" :fontSizeMapper="fontSizeMapper" />
+        <cloud :data="words" :fontSizeMapper="fontSizeMapper" :onWordClick="onClick" />
     </div>
 </template>
 
@@ -27,13 +27,16 @@ export default {
             words: [],
             max: { text: '', value: 0},
             min: { text: '', value: 0 },
-            fontSizeMapper: word => Math.log2(word.value) * 5,
+            fontSizeMapper: word => word.value * 0.4,
         };
     },
     created() {
         this.findArticles();
     },
     methods: {
+        onClick(word) {
+            alert(`Click en: ${word.text} - frecuencia: ${word.value}`)
+        },
         async findArticles() {
             try {
                 let response = await axios.post(

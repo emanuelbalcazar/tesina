@@ -105,6 +105,11 @@ class NormalizedArticleController {
 
     async getWordCloud({ request, response }) {
         let params = request.all();
+
+        if (!params.ids || params.ids.length == 0) {
+            return response.badRequest('Debe proporcionar un arreglo de al menos un id');
+        }
+
         let articles = await NormalizedArticle.query().whereIn('article_id', params.ids).fetch();
 
         // get all text
@@ -123,9 +128,10 @@ class NormalizedArticleController {
 
         let result = [];
 
+        // TODO parametrizar valores y longitud minimo de palabras
         for (const key in words) {
-            if (words.hasOwnProperty(key) && words[key] > 60) {
-                if (key.length > 2) {
+            if (words.hasOwnProperty(key) && words[key] > 50) {
+                if (key.length > 3) {
                     result.push({ text: key, value: words[key] })
                 }
             }

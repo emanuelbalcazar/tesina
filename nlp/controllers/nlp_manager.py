@@ -8,6 +8,7 @@ import controllers.process.remove_whitespaces as remove_whitespaces
 import controllers.process.remove_stopwords as remove_stopwords
 import controllers.process.lemmatizer as lemmatizer
 import controllers.process.remove_accents as remove_accents
+import controllers.process.remove_words as remove_words
 
 # TODO mover a otra parte (quizas un enum)
 ID = 0
@@ -41,6 +42,7 @@ def process_article(article):
         text = remove_accents.execute(text)
         text = remove_characters.execute(text)
         text = lemmatizer.execute(text)
+        text = remove_words.execute(text)
 
         return text
     except (Exception) as error:
