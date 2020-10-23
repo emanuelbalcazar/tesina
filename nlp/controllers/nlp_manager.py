@@ -15,6 +15,7 @@ import controllers.process.stemmer as stemmer
 # TODO mover a otra parte (quizas un enum)
 ID = 0
 LINK = 3
+TEXT = 5
 
 # execute nlp process
 def execute():
@@ -24,7 +25,7 @@ def execute():
         for record in articles:
             print("[NLP] - normalizando articulo con ID {id} ".format(id=record[ID]))
             text = process_article(record)
-            normalized_article.create(text, record[LINK], record[ID])
+            #normalized_article.create(text, record[LINK], record[ID])
             article.set_analyzed(record[ID])
 
     except (Exception) as error:
@@ -36,18 +37,48 @@ def process_article(article):
         if not article:
             return
 
-        text = article[5]
+        # first, persist article link for future updates
+        print("[nlp] - guardando articulo {id} con su link original".format(id=article[ID]))
+        normalized_article.create_article_link(article[LINK], article[ID])
+
+        text = article[TEXT]
         text = lower_case.execute(text)
-        text = remove_numbers.execute(text)
         text = remove_whitespaces.execute(text)
+
+        print("[nlp] - guardando articulo {id} despues de aplicar: lower_case".format(id=article[ID]))
+        normalized_article.update_lower_case(text, article[ID])
+
+        text = remove_numbers.execute(text)
+        print("[nlp] - guardando articulo {id} despues de aplicar: remove_numbers".format(id=article[ID]))
+        normalized_article.update_removed_numbers(text, article[ID])
+
         text = remove_stopwords.execute(text)
+        print("[nlp] - guardando articulo {id} despues de aplicar: remove_stopwords".format(id=article[ID]))
+        normalized_article.update_removed_stopwords(text, article[ID])
+
         text = remove_accents.execute(text)
+        print("[nlp] - guardando articulo {id} despues de aplicar: remove_accents".format(id=article[ID]))
+        normalized_article.update_removed_accents(text, article[ID])
+
         text = remove_characters.execute(text)
+        print("[nlp] - guardando articulo {id} despues de aplicar: remove_characters".format(id=article[ID]))
+        normalized_article.update_removed_characters(text, article[ID])
+
         text = remove_words.execute(text)
+        print("[nlp] - guardando articulo {id} despues de aplicar: remove_words".format(id=article[ID]))
+        normalized_article.update_removed_words(text, article[ID])
+
         text = remove_prepositions.execute(text)
+        print("[nlp] - guardando articulo {id} despues de aplicar: remove_prepositions".format(id=article[ID]))
+        normalized_article.update_removed_prepositions(text, article[ID])
 
         text = lemmatizer.execute(text)
+        print("[nlp] - guardando articulo {id} despues de aplicar: lemmatized".format(id=article[ID]))
+        normalized_article.update_lemmatized(text, article[ID])
+
         text = stemmer.execute(text)
+        print("[nlp] - guardando articulo {id} despues de aplicar: stemmer".format(id=article[ID]))
+        normalized_article.update_stemmer(text, article[ID])
 
         return text
     except (Exception) as error:
