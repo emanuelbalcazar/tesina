@@ -9,6 +9,8 @@ import controllers.process.remove_stopwords as remove_stopwords
 import controllers.process.lemmatizer as lemmatizer
 import controllers.process.remove_accents as remove_accents
 import controllers.process.remove_words as remove_words
+import controllers.process.remove_prepositions as remove_prepositions
+import controllers.process.stemmer as stemmer
 
 # TODO mover a otra parte (quizas un enum)
 ID = 0
@@ -41,8 +43,11 @@ def process_article(article):
         text = remove_stopwords.execute(text)
         text = remove_accents.execute(text)
         text = remove_characters.execute(text)
-        text = lemmatizer.execute(text)
         text = remove_words.execute(text)
+        text = remove_prepositions.execute(text)
+
+        text = lemmatizer.execute(text)
+        text = stemmer.execute(text)
 
         return text
     except (Exception) as error:
