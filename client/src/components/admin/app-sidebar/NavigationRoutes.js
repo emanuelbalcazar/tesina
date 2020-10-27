@@ -6,7 +6,7 @@ export const navigationRoutes = {
     routes: [
         {
             name: 'dashboard',
-            displayName: 'Dashboard',
+            displayName: 'Principal',
             meta: {
                 iconClass: 'fa fa-home'
             }

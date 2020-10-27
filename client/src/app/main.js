@@ -14,7 +14,7 @@ import VeeValidate from 'vee-validate';
 import axios from 'axios';
 import '../i18n/index';
 import { ColorThemePlugin } from 'vuestic-ui/src/services/ColorThemePlugin'
-import VueCookies from 'vue-cookies'
+import VueCookies from 'vue-cookies';
 
 // Dialogs
 import VModal from 'vue-js-modal'
@@ -31,8 +31,20 @@ axios.defaults.baseURL = process.env.VUE_APP_SERVER_URL;
 // set token on header authorization
 axios.interceptors.request.use(config => {
     config.headers.Authorization = "Bearer " + VueCookies.get("token");
+    store.commit('setLoading', true)
     return config;
 }, error => Promise.reject(error)
+);
+
+axios.interceptors.response.use(
+    response => {
+        store.commit('setLoading', false);
+        return response;
+    },
+    error => {
+        store.commit('setLoading', false);
+        return Promise.reject(error);
+    }
 );
 
 // VUE IMPORTS...
@@ -62,7 +74,7 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach((to, from) => {
-    store.commit('setLoading', false)
+    store.commit('setLoading', false);
 });
 
 /* eslint-disable no-new */

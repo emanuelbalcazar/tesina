@@ -66,9 +66,8 @@ export default {
                 });
 
                 if (response && response.data) {
+                    this.$cookies.set("user", JSON.stringify(response.data.user));
                     this.$cookies.set("token", response.data.token);
-                    this.$cookies.set("userId", response.data.user.id);
-                    this.$cookies.set("email", response.data.user.email);
                     this.$router.push("dashboard");
 
                     this.showToast("Bienvenido " + response.data.user.name, {

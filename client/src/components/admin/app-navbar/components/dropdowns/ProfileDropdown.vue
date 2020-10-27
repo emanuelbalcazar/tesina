@@ -42,9 +42,7 @@ export default {
     methods: {
         onClick(option) {
             if (option.name == "logout") {
-                this.$cookies.remove("userId");
-                this.$cookies.remove("username");
-                this.$cookies.remove("email");
+                this.$cookies.remove("user");
                 this.$cookies.remove("token");
                 window.location.reload();
             }
@@ -83,7 +81,7 @@ export default {
         background-color: $dropdown-background;
         box-shadow: $gray-box-shadow;
         border-radius: 0.5rem;
-        width: 8rem;
+        width: 10rem;
     }
     &__item {
         display: block;

@@ -103,7 +103,7 @@ class NormalizedArticleController {
 
             // get params
             let date = params.date;
-            let min = params.min || 1;
+            let minPercentage = params.minPercentage || 30;
 
             // find articles by expected date
             let articles = await Article.findByExpectedDate(date);
@@ -129,26 +129,40 @@ class NormalizedArticleController {
                 return hash;
             }, {});
 
+
             let result = [];
 
             for (const key in words) {
-                if (words.hasOwnProperty(key) && words[key] > min) {
-                    if (key.length > 1) {
-                        result.push({ text: key, value: words[key] })
-                    }
+                if (words.hasOwnProperty(key) && key.length > 1) {
+                    result.push({ text: key, value: words[key] });
                 }
             }
 
-            // sort results desc
+            // sort by desc
             result = result.sort(function (a, b) {
                 return b.value - a.value;
             });
 
+            let maxValue = result[0].value;
+            let percentage = (minPercentage * maxValue / 100);
+
+            // filter by minimum percentage
+            result = result.filter(w => {
+                return (w.value >= percentage);
+            });
+
+            await sleep(5000)
             return result;
         } catch (error) {
             return response.unauthorized(error);
         }
     }
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 }
 
 module.exports = NormalizedArticleController

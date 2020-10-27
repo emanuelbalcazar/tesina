@@ -1,20 +1,28 @@
 <template>
-    <div class="">
-        <h3>Nube de palabras</h3>
-        <br />
-        <div class="flex md2 sm2 xs2">
-            <va-input
-                label="Frecuencia minima"
-                v-model="min"
-                v-on:keyup.enter="findArticles"
-                type="number"
-            />
+    <div class="row">
+        <div class="flex">
+            <div class="flex">
+                <va-input
+                    label="Frecuencia minima (%)"
+                    v-model="minPercentage"
+                    v-on:keyup.enter="findArticles"
+                    type="number"
+                    min="1"
+                    max="100"
+                    class="input"
+                >
+                    <va-button
+                        slot="append"
+                        @click="findArticles"
+                        style="margin-right: 10;"
+                        small
+                    >
+                        Buscar
+                    </va-button>
+                </va-input>
+            </div>
         </div>
-        <div class="flex md3 sm3 xs6">
-            <va-button color="success" type="button" @click="findArticles"
-                >Buscar</va-button
-            >
-        </div>
+
         <cloud
             :data="words"
             :fontSizeMapper="fontSizeMapper"
@@ -32,7 +40,7 @@ export default {
     components: { Cloud },
     data() {
         return {
-            min: 50,
+            minPercentage: 30,
             words: [],
             fontSizeMapper: word => word.value * 0.5
         };
@@ -48,20 +56,21 @@ export default {
             try {
                 let response = await axios.post(
                     "/normalizedArticles/getWordCloud",
-                    { date: "01/03/2020", min: this.min }
+                    { date: "01/03/2020", minPercentage: this.minPercentage }
                 );
 
                 if (!response.data) {
                     return this.showToast(
-                        "No se pudieron obtener las palabras de los articulos",
+                        "No se pudo obtener la nube de palabras",
                         { position: "bottom-right", icon: "fa-times" }
                     );
                 }
 
                 this.words = response.data;
+
             } catch (error) {
                 if (!error.response) {
-                    return this.showToast("Error al obtener los articulos", {
+                    return this.showToast("Error al obtener la nube de palabras", {
                         position: "bottom-right",
                         icon: "fa-times"
                     });
@@ -78,9 +87,8 @@ export default {
         height: 100%;
     }
 }
-.dashboard {
-    .va-card {
-        margin-bottom: 0 !important;
-    }
+
+.input {
+    width: 130%;
 }
 </style>

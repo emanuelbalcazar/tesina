@@ -7,7 +7,7 @@
 
         <div class="app-navbar__actions row flex-nowrap align--center">
             <profile-dropdown class="va-navbar__item">
-                <span>{{ userName }}</span>
+                <span>{{ email }}</span>
             </profile-dropdown>
         </div>
     </va-navbar>
@@ -35,7 +35,7 @@ export default {
     },
     data() {
         return {
-            userName: this.$cookies.get("email")
+
         };
     },
     computed: {
@@ -46,6 +46,13 @@ export default {
             set(minimized) {
                 this.$emit("update:minimized", minimized);
             }
+        },
+        email: {
+            get() {
+                let user = this.$cookies.get("user");
+                return user.email;
+            }
+
         }
     }
 };
