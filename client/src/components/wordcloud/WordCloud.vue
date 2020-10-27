@@ -1,6 +1,7 @@
 <template>
     <div class="row">
         <div class="flex">
+            <h3>Nube de palabras de la fecha {{date}}</h3>
             <div class="flex">
                 <va-input
                     label="Frecuencia minima (%)"
@@ -14,7 +15,7 @@
                     <va-button
                         slot="append"
                         @click="findArticles"
-                        style="margin-right: 10;"
+                        style="margin-right: 0;"
                         small
                     >
                         Buscar
@@ -42,6 +43,7 @@ export default {
         return {
             minPercentage: 30,
             words: [],
+            date: "01/03/2020",
             fontSizeMapper: word => word.value * 0.5
         };
     },
@@ -56,7 +58,7 @@ export default {
             try {
                 let response = await axios.post(
                     "/normalizedArticles/getWordCloud",
-                    { date: "01/03/2020", minPercentage: this.minPercentage }
+                    { date: this.date, minPercentage: this.minPercentage }
                 );
 
                 if (!response.data) {
@@ -89,6 +91,6 @@ export default {
 }
 
 .input {
-    width: 130%;
+    width: 100%;
 }
 </style>
