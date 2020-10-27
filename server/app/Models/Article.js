@@ -9,6 +9,11 @@ class Article extends Model {
         super.boot();
         this.addTrait('NoTimestamp');
     }
+
+    static async findByExpectedDate(date) {
+        let articles = await Article.query().select('id').where('expected_date', date).fetch();
+        return articles;
+    }
 }
 
 module.exports = Article

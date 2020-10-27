@@ -22,7 +22,10 @@ Route.get('/', () => {
 
 // routes without jwt
 Route.group(() => {
+
     Route.post('/auth/login', 'AuthController.login');
+    Route.post('/auth/register', 'AuthController.register');
+
 }).prefix('api');
 
 // routes with jwt
@@ -38,8 +41,6 @@ Route.group(() => {
 
     Route.post('/articles/findByExpectedDate', 'ArticleController.findByExpectedDate');
     Route.get('/extractions/execute/:id', 'ExtractionController.execute');
-    Route.post('/normalizedArticles/findByArticleIds', 'NormalizedArticleController.findByArticleIds');
     Route.post('/normalizedArticles/getWordCloud', 'NormalizedArticleController.getWordCloud');
-
 
 }).prefix('api').middleware(['auth:jwt']);

@@ -107,7 +107,7 @@ class ArticleController {
             return response.badRequest('Debe proporcionar una fecha valida');
         }
 
-        let articles = Article.query().select('id').where('expected_date', params.date).fetch();
+        let articles = await Article.findByExpectedDate(params.date);
         return articles;
     }
 }

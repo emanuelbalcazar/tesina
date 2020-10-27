@@ -5,7 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const NormalizedArticle = use('App/Models/NormalizedArticle');
-
+const Article = use('App/Models/Article');
 
 /**
  * Resourceful controller for interacting with normalizedarticles
@@ -90,58 +90,64 @@ class NormalizedArticleController {
      * @param {Response} ctx.response
      */
     async destroy({ params, request, response }) {
-    }
 
-    async findByArticleIds({ request, response }) {
-        let params = request.all();
-
-        if (!params.ids || params.ids.length == 0) {
-            return response.badRequest('Debe proporcionar un arreglo de al menos un id');
-        }
-
-        let articles = NormalizedArticle.query().whereIn('article_id', params.ids).fetch();
-        return articles;
     }
 
     async getWordCloud({ request, response }) {
-        let params = request.all();
+        try {
+            let params = request.all();
 
-        if (!params.ids || params.ids.length == 0) {
-            return response.badRequest('Debe proporcionar un arreglo de al menos un id');
-        }
+            if (!params.date) {
+                return response.badRequest('Debe proporcionar una fecha valida');
+            }
 
-        let articles = await NormalizedArticle.query().whereIn('article_id', params.ids).fetch();
+            // get params
+            let date = params.date;
+            let min = params.min || 1;
 
-        // get all text
-        let text = articles.toJSON().map(article => {
-            return article.body
-        });
+            // find articles by expected date
+            let articles = await Article.findByExpectedDate(date);
+            articles = articles.toJSON();
 
-        text = text.join(" "); // join text on single string
+            let ids = articles.map(article => { return article.id });
 
-        // count words frecuency
-        let words = text.split(" ").reduce((hash, word) => {
-            hash[word] = hash[word] || 0;
-            hash[word]++;
-            return hash;
-        }, {});
+            // get normalized articles with previous ids
+            let normalized = await NormalizedArticle.query().whereIn('article_id', ids).fetch();
+            normalized = normalized.toJSON();
 
-        let result = [];
+            // get all text
+            let text = normalized.map(article => {
+                return article.stemmer
+            });
 
-        // TODO parametrizar valores y longitud minimo de palabras
-        for (const key in words) {
-            if (words.hasOwnProperty(key) && words[key] > 50) {
-                if (key.length > 3) {
-                    result.push({ text: key, value: words[key] })
+            text = text.join(" "); // join text on single string
+
+            // count words frecuency
+            let words = text.split(" ").reduce((hash, word) => {
+                hash[word] = hash[word] || 0;
+                hash[word]++;
+                return hash;
+            }, {});
+
+            let result = [];
+
+            for (const key in words) {
+                if (words.hasOwnProperty(key) && words[key] > min) {
+                    if (key.length > 1) {
+                        result.push({ text: key, value: words[key] })
+                    }
                 }
             }
+
+            // sort results desc
+            result = result.sort(function (a, b) {
+                return b.value - a.value;
+            });
+
+            return result;
+        } catch (error) {
+            return response.unauthorized(error);
         }
-
-        result = result.sort(function (a, b) {
-            return b.value - a.value;
-        });
-
-        return result;
     }
 }
 

@@ -10,6 +10,13 @@ export const navigationRoutes = {
             meta: {
                 iconClass: 'fa fa-home'
             }
+        },
+        {
+            name: 'wordcloud',
+            displayName: 'Nube de palabras',
+            meta: {
+                iconClass: 'fa fa-cloud'
+            }
         }
     ]
 }
