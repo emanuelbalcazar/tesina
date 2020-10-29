@@ -5,6 +5,7 @@ stemmer = SnowballStemmer('spanish')
 
 def execute(text):
     try:
+        previousText = text
         stemmed_text = [stemmer.stem(i) for i in word_tokenize(text)]
 
         new_text = " "

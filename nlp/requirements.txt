@@ -7,7 +7,7 @@ click==7.1.2
 cymem==2.0.3
 cytoolz==0.11.0
 decorator==4.4.2
-es-core-news-md @ https://github.com/explosion/spacy-models/releases/download/es_core_news_md-2.3.1/es_core_news_md-2.3.1.tar.gz
+es-core-news-lg @ https://github.com/explosion/spacy-models/releases/download/es_core_news_lg-2.3.1/es_core_news_lg-2.3.1.tar.gz
 Flask==1.1.2
 idna==2.10
 itsdangerous==1.1.0
@@ -30,6 +30,7 @@ scikit-learn==0.23.2
 scipy==1.5.3
 spacy==2.3.2
 srsly==1.0.2
+textdistance==4.2.0
 thinc==7.4.1
 threadpoolctl==2.1.0
 toolz==0.11.1

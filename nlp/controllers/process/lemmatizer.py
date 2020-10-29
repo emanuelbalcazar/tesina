@@ -2,7 +2,7 @@ import spacy
 
 def execute(text):
     try:
-        nlp = spacy.load('es_core_news_md')
+        nlp = spacy.load('es_core_news_lg')
         text_normalized = ""
         doc = nlp(text)
         sents = list(doc.sents)

@@ -11,6 +11,7 @@ import controllers.process.remove_accents as remove_accents
 import controllers.process.remove_words as remove_words
 import controllers.process.remove_prepositions as remove_prepositions
 import controllers.process.stemmer as stemmer
+import controllers.process.text_distance as text_distance
 
 # TODO mover a otra parte (quizas un enum)
 ID = 0
@@ -25,7 +26,6 @@ def execute():
         for record in articles:
             print("[NLP] - normalizando articulo con ID {id} ".format(id=record[ID]))
             text = process_article(record)
-            #normalized_article.create(text, record[LINK], record[ID])
             article.set_analyzed(record[ID])
 
     except (Exception) as error:
@@ -72,14 +72,16 @@ def process_article(article):
         print("[nlp] - guardando articulo {id} despues de aplicar: remove_prepositions".format(id=article[ID]))
         normalized_article.update_removed_prepositions(text, article[ID])
 
-        text = lemmatizer.execute(text)
+        lemmatized = lemmatizer.execute(text)
         print("[nlp] - guardando articulo {id} despues de aplicar: lemmatized".format(id=article[ID]))
-        normalized_article.update_lemmatized(text, article[ID])
+        normalized_article.update_lemmatized(lemmatized, article[ID])
 
-        text = stemmer.execute(text)
+        stemmed = stemmer.execute(lemmatized)
         print("[nlp] - guardando articulo {id} despues de aplicar: stemmer".format(id=article[ID]))
-        normalized_article.update_stemmer(text, article[ID])
+        normalized_article.update_stemmer(stemmed, article[ID])
 
-        return text
+        text_distance.execute(stemmed, lemmatized)
+
+        return stemmed
     except (Exception) as error:
         print(error)
