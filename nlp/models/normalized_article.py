@@ -112,3 +112,25 @@ def update_stemmer(text, article_id):
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
         cur.execute("rollback")
+
+def update_remove_ends(text, article_id):
+    try:
+        conn = connect()
+        cur = conn.cursor()
+        cur.execute('UPDATE normalized_articles SET removed_ends = %s WHERE article_id = %s', (text, article_id))
+        conn.commit()
+        return True
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        cur.execute("rollback")
+
+def update_word_cloud(text, article_id):
+    try:
+        conn = connect()
+        cur = conn.cursor()
+        cur.execute('UPDATE normalized_articles SET wordcloud = %s WHERE article_id = %s', (text, article_id))
+        conn.commit()
+        return True
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        cur.execute("rollback")

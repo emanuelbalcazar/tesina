@@ -117,7 +117,7 @@ class NormalizedArticleController {
 
             // get all text
             let text = normalized.map(article => {
-                return article.stemmer
+                return article.wordcloud
             });
 
             text = text.join(" "); // join text on single string

@@ -12,6 +12,7 @@ import controllers.process.remove_words as remove_words
 import controllers.process.remove_prepositions as remove_prepositions
 import controllers.process.stemmer as stemmer
 import controllers.process.text_distance as text_distance
+import controllers.process.remove_ends as remove_ends
 
 # TODO mover a otra parte (quizas un enum)
 ID = 0
@@ -22,11 +23,16 @@ TEXT = 5
 def execute():
     try:
         articles = article.find_all()
+        total = len(articles)
+        count = 1
+
+        print("[NLP] - cantidad de articulos sin procesar: {total}".format(total=total))
 
         for record in articles:
-            print("[NLP] - normalizando articulo con ID {id} ".format(id=record[ID]))
+            print("\n[NLP] - normalizando articulo con ID {id}, van: ({count}/{total}) ".format(id=record[ID], count=count, total=total))
             text = process_article(record)
             article.set_analyzed(record[ID])
+            count = count + 1
 
     except (Exception) as error:
         print(error)
@@ -68,20 +74,26 @@ def process_article(article):
         print("[nlp] - guardando articulo {id} despues de aplicar: remove_words".format(id=article[ID]))
         normalized_article.update_removed_words(text, article[ID])
 
-        text = remove_prepositions.execute(text)
+        without_prepositions = remove_prepositions.execute(text)
         print("[nlp] - guardando articulo {id} despues de aplicar: remove_prepositions".format(id=article[ID]))
-        normalized_article.update_removed_prepositions(text, article[ID])
+        normalized_article.update_removed_prepositions(without_prepositions, article[ID])
 
-        lemmatized = lemmatizer.execute(text)
+        lemmatized = lemmatizer.execute(without_prepositions)
         print("[nlp] - guardando articulo {id} despues de aplicar: lemmatized".format(id=article[ID]))
         normalized_article.update_lemmatized(lemmatized, article[ID])
 
-        stemmed = stemmer.execute(lemmatized)
+        removed_endings = remove_ends.execute(lemmatized)
+        print("[nlp] - guardando articulo {id} despues de aplicar: remove_ends".format(id=article[ID]))
+        normalized_article.update_remove_ends(removed_endings, article[ID])
+
+        stemmed = stemmer.execute(removed_endings)
         print("[nlp] - guardando articulo {id} despues de aplicar: stemmer".format(id=article[ID]))
         normalized_article.update_stemmer(stemmed, article[ID])
 
-        text_distance.execute(stemmed, lemmatized)
+        final_text = text_distance.execute(stemmed, lemmatized)
+        print("[nlp] - guardando articulo {id} despues de aplicar: text_distance".format(id=article[ID]))
+        normalized_article.update_word_cloud(final_text, article[ID])
 
-        return stemmed
+        return final_text
     except (Exception) as error:
         print(error)

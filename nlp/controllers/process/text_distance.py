@@ -11,28 +11,23 @@ def execute(stemmed_text, lemmatized_text):
         final_text = []
 
         # iterate all lemmas
-        for lemma in lemmatized_words:
+        for stemm in stemmed_words:
 
             min_distance = 10
             current_word = ''
 
             # for each stemm, calculate distance
-            for stemm in stemmed_words:
+            for lemma in lemmatized_words:
                 distance = textdistance.hamming(stemm, lemma)
 
                 # only keep words with min distance
                 if distance < min_distance:
                     min_distance = distance
                     current_word = lemma
-                    print(distance, stemm, lemma)
 
             final_text.append(current_word)
 
         result = ' '.join(final_text)
-
-        print(lemmatized_text)
-        print("")
-        print(result)
 
         return result
     except (Exception) as error:

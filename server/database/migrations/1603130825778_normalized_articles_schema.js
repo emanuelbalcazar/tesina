@@ -15,8 +15,10 @@ class NormalizedArticlesSchema extends Schema {
             table.text('removed_characters', 'longtext').defaultTo('');
             table.text('removed_words', 'longtext').defaultTo('');
             table.text('removed_prepositions', 'longtext').defaultTo('');
+            table.text('removed_ends', 'longtext').defaultTo('');
             table.text('lemmatized', 'longtext').defaultTo('');
             table.text('stemmer', 'longtext').defaultTo('');
+            table.text('wordcloud', 'longtext').defaultTo('');
             table.integer('article_id').references('id').inTable('articles');
         })
     }
