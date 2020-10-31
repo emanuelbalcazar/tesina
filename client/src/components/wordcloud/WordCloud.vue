@@ -71,10 +71,11 @@ export default {
                 this.words = response.data;
 
             } catch (error) {
-                if (!error.response) {
-                    return this.showToast("Error al obtener la nube de palabras", {
+                if (error.response && error.response.data) {
+                    return this.showToast(error.response.data, {
                         position: "bottom-right",
-                        icon: "fa-times"
+                        icon: "fa-times",
+                        duration: 5000
                     });
                 }
             }

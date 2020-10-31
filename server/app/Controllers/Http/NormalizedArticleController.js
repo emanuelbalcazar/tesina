@@ -107,13 +107,23 @@ class NormalizedArticleController {
 
             // find articles by expected date
             let articles = await Article.findByExpectedDate(date);
+
+            if (!articles) {
+                return response.unauthorized('No se encontraron articulos');
+            }
+
             articles = articles.toJSON();
 
             let ids = articles.map(article => { return article.id });
 
             // get normalized articles with previous ids
             let normalized = await NormalizedArticle.query().whereIn('article_id', ids).fetch();
+
             normalized = normalized.toJSON();
+
+            if (normalized.length == 0) {
+                return response.unauthorized('No se encontraron articulos procesados para crear la nube');
+            }
 
             // get all text
             let text = normalized.map(article => {
