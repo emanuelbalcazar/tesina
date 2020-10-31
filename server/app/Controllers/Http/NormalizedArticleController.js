@@ -107,22 +107,20 @@ class NormalizedArticleController {
 
             // find articles by expected date
             let articles = await Article.findByExpectedDate(date);
-
-            if (!articles) {
-                return response.unauthorized('No se encontraron articulos');
-            }
-
             articles = articles.toJSON();
+
+            if (articles.length == 0) {
+                return response.forbidden('No se encontraron articulos');
+            }
 
             let ids = articles.map(article => { return article.id });
 
             // get normalized articles with previous ids
             let normalized = await NormalizedArticle.query().whereIn('article_id', ids).fetch();
-
             normalized = normalized.toJSON();
 
             if (normalized.length == 0) {
-                return response.unauthorized('No se encontraron articulos procesados para crear la nube');
+                return response.forbidden('No se encontraron articulos procesados para crear la nube');
             }
 
             // get all text
@@ -139,9 +137,9 @@ class NormalizedArticleController {
                 return hash;
             }, {});
 
-
             let result = [];
 
+            // create array of objects for wordcloud
             for (const key in words) {
                 if (words.hasOwnProperty(key) && key.length > 1) {
                     result.push({ text: key, value: words[key] });
@@ -161,18 +159,11 @@ class NormalizedArticleController {
                 return (w.value >= percentage);
             });
 
-            await sleep(5000)
             return result;
         } catch (error) {
-            return response.unauthorized(error);
+            return response.forbidden(error);
         }
     }
-}
-
-function sleep(ms) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
 }
 
 module.exports = NormalizedArticleController

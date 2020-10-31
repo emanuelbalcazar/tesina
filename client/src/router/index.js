@@ -57,7 +57,6 @@ export default new Router({
                     component: () => import('../components/dashboard/Dashboard.vue'),
                     default: true,
                 },
-
                 {
                     name: 'pages',
                     path: 'pages',
@@ -78,7 +77,7 @@ export default new Router({
             children: [
                 {
                     name: 'wordcloud',
-                    path: 'wordcloud',
+                    path: '',
                     component: () => import('../components/wordcloud/WordCloud.vue')
                 }
             ]
