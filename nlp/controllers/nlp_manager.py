@@ -91,8 +91,11 @@ def process_article(article):
         normalized_article.update_stemmer(stemmed, article[ID])
 
         final_text = text_distance.execute(stemmed, lemmatized)
+        final_text = remove_words.execute(final_text)
         print("[nlp] - guardando articulo {id} despues de aplicar: text_distance".format(id=article[ID]))
         normalized_article.update_word_cloud(final_text, article[ID])
+
+        final_text = remove_words.execute(final_text)
 
         return final_text
     except (Exception) as error:

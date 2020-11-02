@@ -1,35 +1,37 @@
 <template>
-    <div class="row">
-        <div class="flex">
-            <h3>Nube de palabras de la fecha {{date}}</h3>
+    <va-card title="Nube de palabras">
+        <div class="row">
             <div class="flex">
-                <va-input
-                    label="Frecuencia minima (%)"
-                    v-model="minPercentage"
-                    v-on:keyup.enter="findArticles"
-                    type="number"
-                    min="1"
-                    max="100"
-                    class="input"
-                >
-                    <va-button
-                        slot="append"
-                        @click="findArticles"
-                        style="margin-right: 0;"
-                        small
+                <h3>Nube de palabras de la Fecha: {{ date }}</h3>
+                <div class="flex">
+                    <va-input
+                        label="Frecuencia minima (%)"
+                        v-model="minPercentage"
+                        v-on:keyup.enter="findArticles"
+                        type="number"
+                        min="1"
+                        max="100"
+                        class="input"
                     >
-                        Buscar
-                    </va-button>
-                </va-input>
+                        <va-button
+                            slot="append"
+                            @click="findArticles"
+                            style="margin-right: 0;"
+                            small
+                        >
+                            Buscar
+                        </va-button>
+                    </va-input>
+                </div>
             </div>
-        </div>
 
-        <cloud
-            :data="words"
-            :fontSizeMapper="fontSizeMapper"
-            :onWordClick="onClick"
-        />
-    </div>
+            <cloud
+                :data="words"
+                :fontSizeMapper="fontSizeMapper"
+                :onWordClick="onClick"
+            />
+        </div>
+    </va-card>
 </template>
 
 <script>
@@ -69,7 +71,6 @@ export default {
                 }
 
                 this.words = response.data;
-
             } catch (error) {
                 if (error.response && error.response.data) {
                     return this.showToast(error.response.data, {
