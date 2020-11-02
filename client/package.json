@@ -11,6 +11,7 @@
     "inspect": "vue-cli-service inspect > inspect.js"
   },
   "dependencies": {
+    "@mathieustan/vue-datepicker": "^0.2.8",
     "approximate-number": "^2.0.0",
     "asva-executors": "^0.1.22",
     "babel-polyfill": "^6.26.0",

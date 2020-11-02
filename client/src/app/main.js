@@ -15,6 +15,8 @@ import axios from 'axios';
 import '../i18n/index';
 import { ColorThemePlugin } from 'vuestic-ui/src/services/ColorThemePlugin'
 import VueCookies from 'vue-cookies';
+import VueDatePicker from '@mathieustan/vue-datepicker';
+import '@mathieustan/vue-datepicker/dist/vue-datepicker.min.css';
 
 // Dialogs
 import VModal from 'vue-js-modal'
@@ -53,6 +55,10 @@ Vue.use(VuesticPlugin);
 Vue.use(VueClipboard);
 Vue.use(ColorThemePlugin);
 Vue.use(VueCookies);
+// options: You can set lang by default
+Vue.use(VueDatePicker, {
+    lang: 'es'
+});
 
 // set default config
 VueCookies.config('2h');

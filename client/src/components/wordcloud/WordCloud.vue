@@ -1,9 +1,12 @@
 <template>
-    <va-card title="Nube de palabras">
+    <va-card>
         <div class="row">
             <div class="flex">
-                <h3>Nube de palabras de la Fecha: {{ date }}</h3>
+                <h3>Nube de palabras</h3>
                 <div class="flex">
+                    <VueDatePicker v-model="date" format="DD/MM/YYYY" />
+                    <br>
+
                     <va-input
                         label="Frecuencia minima (%)"
                         v-model="minPercentage"
@@ -36,6 +39,7 @@
 
 <script>
 const axios = require("axios");
+const moment = require("moment")
 import Cloud from "vue-d3-cloud";
 
 export default {
@@ -45,8 +49,8 @@ export default {
         return {
             minPercentage: 30,
             words: [],
-            date: "01/03/2020",
-            fontSizeMapper: word => word.value * 0.5
+            date: new Date(),
+            fontSizeMapper: word => word.value * 0.6
         };
     },
     created() {
@@ -58,9 +62,11 @@ export default {
         },
         async findArticles() {
             try {
+                let dateToSearch = moment(this.date).format("DD/MM/YYYY");
+
                 let response = await axios.post(
                     "/normalizedArticles/getWordCloud",
-                    { date: this.date, minPercentage: this.minPercentage }
+                    { date: dateToSearch, minPercentage: this.minPercentage }
                 );
 
                 if (!response.data) {
