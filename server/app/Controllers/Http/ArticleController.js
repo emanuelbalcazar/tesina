@@ -20,13 +20,13 @@ class ArticleController {
      * @param {View} ctx.view
      */
     async index({ request, response, view }) {
-        let params = request.all();
-
-        params.columnName = params.columnName || 'title';
-        params.columnValue = params.columnValue || '';
-
-        let articles = await Article.query().where(params.columnName, 'ILIKE', `%${params.columnValue}%`).paginate(params.page, params.perPage);
-        return response.json(articles);
+        try {
+            let params = request.all();
+            let articles = await Article.searchByCriteria(params.criteria, params.page, params.perPage);
+            return response.json(articles);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
@@ -62,8 +62,12 @@ class ArticleController {
      * @param {View} ctx.view
      */
     async show({ params, request, response, view }) {
-        let article = await Article.findBy('id', params.id);
-        return response.json(article);
+        try {
+            let article = await Article.findBy('id', params.id);
+            return response.json(article);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
@@ -101,14 +105,17 @@ class ArticleController {
     }
 
     async findByExpectedDate({ request, response }) {
-        let params = request.all();
+        try {
+            let params = request.all();
 
-        if (!params.date) {
-            return response.badRequest('Debe proporcionar una fecha valida');
+            if (!params.date)
+                return response.badRequest({ error: 'Debe proporcionar una fecha valida' });
+
+            let articles = await Article.findByExpectedDate(params.date);
+            return response.json(articles);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
         }
-
-        let articles = await Article.findByExpectedDate(params.date);
-        return articles;
     }
 }
 

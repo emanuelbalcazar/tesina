@@ -14,6 +14,13 @@ class Article extends Model {
         let articles = await Article.query().select('id').where('expected_date', date).fetch();
         return articles;
     }
+
+    static async searchByCriteria(criteria = '', page, perPage) {
+        if (!page || page == undefined || page == null)
+            return await this.query().where('title', 'ilike', `%${criteria}%`).orWhere('link', 'ilike', `%${criteria}%`).orWhere('body', 'ilike', `%${criteria}%`).orWhere('published', 'ilike', `%${criteria}%`).fetch();
+
+        return await this.query().where('title', 'ilike', `%${criteria}%`).orWhere('link', 'ilike', `%${criteria}%`).orWhere('body', 'ilike', `%${criteria}%`).orWhere('published', 'ilike', `%${criteria}%`).paginate(page, perPage);
+    }
 }
 
 module.exports = Article

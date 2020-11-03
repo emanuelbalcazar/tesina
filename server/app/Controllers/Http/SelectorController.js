@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Selector = use('App/Models/Selector');
+const { validate } = use('Validator');
 
 /**
  * Resourceful controller for interacting with selectors
@@ -20,15 +21,13 @@ class SelectorController {
      * @param {View} ctx.view
      */
     async index({ request, response, view }) {
-        let params = request.all();
-        params.columnName = params.columnName || 'selector';
-        params.columnValue = params.columnValue || '';
-
-        if (params.page == "all")
-            return await Selector.all();
-
-        let selectors = await Selector.query().where(params.columnName, 'ILIKE', `%${params.columnValue}%`).paginate(params.page, params.perPage);
-        return response.json(selectors);
+        try {
+            let params = request.all();
+            let selectors = await Selector.searchByCriteria(params.criteria, params.page, params.perPage);
+            return response.json(selectors);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
@@ -52,14 +51,29 @@ class SelectorController {
      * @param {Response} ctx.response
      */
     async store({ request, response }) {
-        let selector = request.post();
-        let count = await Selector.query().where({ selector: selector.selector }).getCount();
+        try {
+            const rules = {
+                selector: 'required'
+            };
 
-        if (count > 0)
-            return response.conflict({ code: 409, message: 'El selector ya existe' })
+            const validation = await validate(request.post(), rules);
 
-        let record = await Selector.create(selector);
-        return response.json(record);
+            if (validation.fails()) {
+                let messages = validation.messages()[0];
+                return response.unauthorized({ error: `El campo: ${messages.field} es obligatorio` });
+            }
+
+            let selector = request.post();
+            let count = await Selector.query().where({ selector: selector.selector, section: selector.section }).getCount();
+
+            if (count > 0)
+                return response.conflict({ error: 'El selector ya existe' })
+
+            let record = await Selector.create(selector);
+            return response.json(record);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
@@ -72,8 +86,12 @@ class SelectorController {
      * @param {View} ctx.view
      */
     async show({ params, request, response, view }) {
-        let selector = await Selector.findBy('id', params.id);
-        return response.json(selector);
+        try {
+            let selector = await Selector.findBy('id', params.id);
+            return response.json(selector);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
@@ -97,8 +115,13 @@ class SelectorController {
      * @param {Response} ctx.response
      */
     async update({ params, request, response }) {
-        let updated = await Selector.query().where('id', params.id).update(request.all());
-        return response.json({ updated: updated });
+        try {
+            let updated = await Selector.query().where('id', params.id).update(request.all());
+            let selector = await Selector.findBy('id', params.id);
+            return response.json(selector);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
@@ -110,8 +133,12 @@ class SelectorController {
      * @param {Response} ctx.response
      */
     async destroy({ params, request, response }) {
-        let deleted = await Selector.query().where('id', params.id).delete();
-        return deleted;
+        try {
+            let deleted = await Selector.query().where('id', params.id).delete();
+            return response.json({ deleted: deleted });
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 }
 

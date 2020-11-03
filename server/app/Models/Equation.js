@@ -27,6 +27,13 @@ class Equation extends Model {
 
         return records.toJSON();
     }
+
+    static async searchByCriteria(criteria = '', page, perPage) {
+        if (!page || page == undefined || page == null)
+            return await this.query().where('dateToFind', 'ilike', `%${criteria}%`).fetch();
+
+        return await this.query().where('dateToFind', 'ilike', `%${criteria}%`).paginate(page, perPage);
+    }
 }
 
 module.exports = Equation

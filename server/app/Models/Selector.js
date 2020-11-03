@@ -10,6 +10,13 @@ class Selector extends Model {
         this.addTrait('NoTimestamp');
     }
 
+    static async searchByCriteria(criteria = '', page, perPage) {
+        if (!page || page == undefined || page == null)
+            return await this.query().where('section', 'ilike', `%${criteria}%`).fetch();
+
+        return await this.query().where('section', 'ilike', `%${criteria}%`).paginate(page, perPage);
+    }
+
     site() {
         return this.hasOne('App/Models/Site');
     }

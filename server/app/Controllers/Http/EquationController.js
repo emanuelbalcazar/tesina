@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Equation = use('App/Models/Equation');
+const { validate } = use('Validator');
 
 /**
  * Resourceful controller for interacting with equations
@@ -20,9 +21,13 @@ class EquationController {
      * @param {View} ctx.view
      */
     async index({ request, response, view }) {
-        let params = request.all();
-        let equations = await Equation.query().with('site').paginate(params.page, params.perPage);
-        return response.json(equations);
+        try {
+            let params = request.all();
+            let equations = await Equation.query().with('site').paginate(params.page, params.perPage);
+            return response.json(equations);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
@@ -46,14 +51,30 @@ class EquationController {
      * @param {Response} ctx.response
      */
     async store({ request, response }) {
-        let equation = request.post();
-        let count = await Equation.query().where({ query_id: equation.query_id, site_id: equation.site_id }).getCount();
+        try {
+            const rules = {
+                dateToFind: 'required',
+                site_id: 'required'
+            };
 
-        if (count > 0)
-            return response.conflict({ code: 409, message: 'La ecuación con su consulta y sitio ya existe' });
+            const validation = await validate(request.post(), rules);
 
-        let record = await Equation.create(equation);
-        return response.json(record);
+            if (validation.fails()) {
+                let messages = validation.messages()[0];
+                return response.unauthorized({ error: `El campo: ${messages.field} es obligatorio` });
+            }
+
+            let equation = request.post();
+            let count = await Equation.query().where({ dateToFind: equation.dateToFind, site_id: equation.site_id }).getCount();
+
+            if (count > 0)
+                return response.conflict({ error: 'La ecuación con su consulta y sitio ya existe' });
+
+            let record = await Equation.create(equation);
+            return response.json(record);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
@@ -66,8 +87,12 @@ class EquationController {
      * @param {View} ctx.view
      */
     async show({ params, request, response, view }) {
-        let equation = await Equation.findWithPopulate({ id: params.id });
-        return response.json(equation);
+        try {
+            let equation = await Equation.findWithPopulate({ id: params.id });
+            return response.json(equation);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
@@ -91,8 +116,13 @@ class EquationController {
      * @param {Response} ctx.response
      */
     async update({ params, request, response }) {
-        let updated = await Equation.query().where('id', params.id).update(request.all());
-        return response.json({ updated: updated });
+        try {
+            let updated = await Equation.query().where('id', params.id).update(request.all());
+            let equation = await Equation.findBy('id', params.id);
+            return response.json(equation);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**

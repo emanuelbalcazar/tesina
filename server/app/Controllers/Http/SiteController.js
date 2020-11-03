@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Site = use('App/Models/Site');
+const { validate } = use('Validator')
 
 /**
  * Resourceful controller for interacting with sites
@@ -20,17 +21,13 @@ class SiteController {
      * @param {View} ctx.view
      */
     async index({ request, response, view }) {
-        let params = request.all();
-        params.columnName = params.columnName || 'site';
-        params.columnValue = params.columnValue || '';
-
-        if (params.page == "all")
-            return await Site.all();
-
-        let sites = await Site.query().with('selectors')
-            .where(params.columnName, 'ILIKE', `%${params.columnValue}%`).paginate(params.page, params.perPage);
-
-        return response.json(sites);
+        try {
+            let params = request.all();
+            let sites = await Site.searchByCriteria(params.criteria, params.page, params.perPage);
+            return response.json(sites);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
@@ -54,15 +51,30 @@ class SiteController {
      * @param {Response} ctx.response
      */
     async store({ request, response }) {
-        let site = request.post();
+        try {
+            const rules = {
+                site: 'required'
+            };
 
-        let count = await Site.query().where({ site: site.site }).getCount();
+            const validation = await validate(request.post(), rules);
 
-        if (count > 0)
-            return response.conflict({ code: 409, message: 'El sitio ya existe' })
+            if (validation.fails()) {
+                let messages = validation.messages()[0];
+                return response.unauthorized({ error: `El campo: ${messages.field} es obligatorio` });
+            }
 
-        let record = await Site.create(site);
-        return response.json(record);
+            let site = request.post();
+
+            let count = await Site.query().where({ site: site.site }).getCount();
+
+            if (count > 0)
+                return response.conflict({ error: 'El sitio ya existe' })
+
+            let record = await Site.create(site);
+            return response.json(record);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
@@ -75,8 +87,12 @@ class SiteController {
      * @param {View} ctx.view
      */
     async show({ params, request, response, view }) {
-        let site = await Site.query().with('selectors').where('id', params.id).first();
-        return response.json(site);
+        try {
+            let site = await Site.query().with('selectors').where('id', params.id).first();
+            return response.json(site);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
@@ -100,8 +116,13 @@ class SiteController {
      * @param {Response} ctx.response
      */
     async update({ params, request, response }) {
-        let updated = await Site.query().where('id', params.id).update(request.all());
-        return response.json({ updated: updated });
+        try {
+            let updated = await Site.query().where('id', params.id).update(request.all());
+            let site = await Site.findBy('id', params.id);
+            return response.json(site);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
