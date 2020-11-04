@@ -20,13 +20,13 @@ class LogController {
      * @param {View} ctx.view
      */
     async index({ request, response, view }) {
-        let params = request.all();
-        params.columnName = params.columnName || 'level';
-        params.columnValue = params.columnValue || '';
-
-        let logs = await Log.query().where(params.columnName, 'ILIKE', `%${params.columnValue}%`).orderBy('date', 'DESC').paginate(params.page, params.perPage);
-
-        return response.json(logs);
+        try {
+            let params = request.all();
+            let logs = await Log.searchByCriteria(params.criteria, params.page, params.perPage);
+            return response.json(logs);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
@@ -62,8 +62,12 @@ class LogController {
      * @param {View} ctx.view
      */
     async show({ params, request, response, view }) {
-        let log = await Log.findBy('id', params.id);
-        return response.json(log);
+        try {
+            let log = await Log.findBy('id', params.id);
+            return response.json(log);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**

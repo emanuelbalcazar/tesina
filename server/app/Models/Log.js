@@ -10,6 +10,13 @@ class Log extends Model {
         this.addTrait('NoTimestamp');
     }
 
+    static async searchByCriteria(criteria = '', page, perPage) {
+        if (!page || page == undefined || page == null)
+            return await this.query().where('level', 'ilike', `%${criteria}%`).orWhere('component', 'ilike', `%${criteria}%`).orWhere('operation', 'ilike', `%${criteria}%`).orWhere('message', 'ilike', `%${criteria}%`).fetch();
+
+        return await this.query().where('level', 'ilike', `%${criteria}%`).orWhere('component', 'ilike', `%${criteria}%`).orWhere('operation', 'ilike', `%${criteria}%`).orWhere('message', 'ilike', `%${criteria}%`).paginate(page, perPage);
+    }
+
 }
 
 module.exports = Log
