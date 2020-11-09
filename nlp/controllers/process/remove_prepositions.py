@@ -2,12 +2,12 @@ import spacy
 
 def execute(text):
     try:
-        nlp = spacy.load('es_core_news_md')
+        nlp = spacy.load('es_core_news_lg')
         doc = nlp(text)
         new_sentence = []
 
         for token in doc:
-            if token.pos_ == "ADJ" or token.pos_ == "VERB" or token.pos_ == "NOUN" or token.pos_ == "ADV" or token.pos_ == "AUX":
+            if token.pos_ == "ADJ" or token.pos_ == "VERB" or token.pos_ == "NOUN" or token.pos_ == "ADV" or token.pos_ == "AUX" or token.pos_ == "PROPN":
                 new_sentence.append(token.text)
 
         new_text = " "
