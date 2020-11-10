@@ -15,6 +15,9 @@ import controllers.process.stemmer as stemmer
 import controllers.process.text_distance as text_distance
 import controllers.process.remove_ends as remove_ends
 
+from multiprocessing import Pool
+from config import get_config
+
 # TODO mover a otra parte (quizas un enum o constantes en una clase/configuración)
 ID = 0
 LINK = 3
@@ -25,22 +28,35 @@ def execute():
     try:
         articles = article.find_all()
         total = len(articles)
-        count = 1
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
         print("[NLP] {now} - cantidad de articulos sin procesar: {total}".format(total=total, now=dt_string))
 
-        for record in articles:
+        # Run this with a pool of 5 agents having a chunksize of 3 until finished
+        agents = get_config('WORKER', 'agents')
+        chunksize = get_config('WORKER', 'chunksize')
+
+        parallel_process(articles)
+
+        #with Pool(processes=int(agents)) as pool:
+        #    result = pool.map(process_article, articles, int(chunksize))
+
+    except (Exception) as error:
+        print(error)
+
+# DEPRECATED
+def parallel_process(articles):
+    count = 1
+    total = len(articles)
+
+    for record in articles:
             now = datetime.now()
             dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
             print("\n[NLP] {now} - normalizando articulo con ID {id}, van: ({count}/{total}) ".format(id=record[ID], count=count, total=total, now=dt_string))
             text = process_article(record)
             article.set_analyzed(record[ID])
             count = count + 1
-
-    except (Exception) as error:
-        print(error)
 
 # applying the different filters to normalize the text
 def process_article(article):

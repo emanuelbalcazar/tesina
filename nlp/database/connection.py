@@ -8,6 +8,7 @@ port = get_config('DATABASE', 'port')
 database = get_config('DATABASE', 'database')
 user = get_config('DATABASE', 'user')
 password = get_config('DATABASE', 'password')
+sslmode = get_config('DATABASE', 'sslmode')
 
 _connection = None
 
@@ -17,7 +18,7 @@ def connect():
 
     if not _connection:
         try:
-            _connection = psycopg2.connect(database=database, user=user, host=host, port=port, password=password)
+            _connection = psycopg2.connect(database=database, user=user, host=host, port=port, password=password, sslmode=sslmode)
             print('[PostgreSQL] - connectado a la base de datos con exito')
             return _connection
         except (Exception, psycopg2.DatabaseError) as error:
