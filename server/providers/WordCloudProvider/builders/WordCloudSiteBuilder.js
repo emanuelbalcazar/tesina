@@ -28,8 +28,6 @@ class WordCloudSiteBuilder {
                 }
             }
 
-            Logger.info(`[WordCloudSiteBuilder] ${Date().toLocaleString()} - el articlo ${normalizedArticle.id} se agrego a la nube de palabras por sitio`);
-
             return true;
         } catch (error) {
             throw error;

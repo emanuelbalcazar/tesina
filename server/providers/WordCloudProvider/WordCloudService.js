@@ -1,8 +1,10 @@
-const WordCloudDateBuilder = require('./builders/WordCloudDateBuilder');
-const WordCloudSiteBuilder = require('./builders/WordCloudSiteBuilder');
-
+const WordCloudDate = use('App/Models/WordCloudDate');
+const WordCloudSite = use('App/Models/WordCloudSite');
 const NormalizedArticle = use('App/Models/NormalizedArticle');
 const Logger = use('Logger');
+
+const WordCloudDateBuilder = require('./builders/WordCloudDateBuilder');
+const WordCloudSiteBuilder = require('./builders/WordCloudSiteBuilder');
 
 /**
  * @class WordCloudService
@@ -41,6 +43,60 @@ class WordCloudService {
             throw error;
         }
     };
+
+    async getByDate(date, minPercentage = 0) {
+        try {
+            let wordcloud = await WordCloudDate.query().where('date', date).orderBy('frecuency', 'desc').fetch();
+            wordcloud = wordcloud.toJSON();
+
+            if (wordcloud.length == 0) {
+                throw 'No se encontro una nube de palabras con la fecha ' + date;
+            }
+
+            let maxValue = wordcloud[0].frecuency;
+            let percentage = (minPercentage * maxValue / 100);
+
+            // filter by minimum percentage
+            let result = wordcloud.filter(w => {
+                return (w.frecuency >= percentage);
+            });
+
+            result = result.map(word => {
+                return { text: word.word, value: word.frecuency, date: word.date };
+            });
+
+            return result;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getBySite(site, minPercentage = 0) {
+        try {
+            let wordcloud = await WordCloudSite.query().where('site', 'ilike', `%${site}%`).orderBy('frecuency', 'desc').fetch();
+            wordcloud = wordcloud.toJSON();
+
+            if (wordcloud.length == 0) {
+                throw 'No se encontro una nube de palabras con el sitio ' + site;
+            }
+
+            let maxValue = wordcloud[0].frecuency;
+            let percentage = (minPercentage * maxValue / 100);
+
+            // filter by minimum percentage
+            let result = wordcloud.filter(w => {
+                return (w.frecuency >= percentage);
+            });
+
+            result = result.map(word => {
+                return { text: word.word, value: word.frecuency, site: word.site };
+            });
+
+            return result;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = WordCloudService;

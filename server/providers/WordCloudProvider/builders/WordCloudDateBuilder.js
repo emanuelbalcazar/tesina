@@ -38,8 +38,6 @@ class WordCloudDateBuilder {
                 }
             }
 
-            Logger.info(`[WordCloudDateBuilder] ${Date().toLocaleString()} - el articlo ${normalizedArticle.id} se agrego a la nube de palabras por fecha`);
-
             return true;
         } catch (error) {
             throw error;
