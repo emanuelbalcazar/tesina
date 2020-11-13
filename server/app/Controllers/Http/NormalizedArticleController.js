@@ -4,15 +4,15 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Article = use('App/Models/Article');
+const NormalizedArticle = use('App/Models/NormalizedArticle');
 
 /**
- * Resourceful controller for interacting with articles
+ * Resourceful controller for interacting with normalizedarticles
  */
-class ArticleController {
+class NormalizedArticleController {
     /**
-     * Show a list of all articles.
-     * GET articles
+     * Show a list of all normalizedarticles.
+     * GET normalizedarticles
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -20,18 +20,11 @@ class ArticleController {
      * @param {View} ctx.view
      */
     async index({ request, response, view }) {
-        try {
-            let params = request.all();
-            let articles = await Article.searchByCriteria(params.criteria, params.page, params.perPage);
-            return response.json(articles);
-        } catch (error) {
-            return response.unauthorized({ error: error.message });
-        }
     }
 
     /**
-     * Render a form to be used for creating a new article.
-     * GET articles/create
+     * Render a form to be used for creating a new normalizedarticle.
+     * GET normalizedarticles/create
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -42,8 +35,8 @@ class ArticleController {
     }
 
     /**
-     * Create/save a new article.
-     * POST articles
+     * Create/save a new normalizedarticle.
+     * POST normalizedarticles
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -53,8 +46,8 @@ class ArticleController {
     }
 
     /**
-     * Display a single article.
-     * GET articles/:id
+     * Display a single normalizedarticle.
+     * GET normalizedarticles/:id
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -62,17 +55,11 @@ class ArticleController {
      * @param {View} ctx.view
      */
     async show({ params, request, response, view }) {
-        try {
-            let article = await Article.findBy('id', params.id);
-            return response.json(article);
-        } catch (error) {
-            return response.unauthorized({ error: error.message });
-        }
     }
 
     /**
-     * Render a form to update an existing article.
-     * GET articles/:id/edit
+     * Render a form to update an existing normalizedarticle.
+     * GET normalizedarticles/:id/edit
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -83,8 +70,8 @@ class ArticleController {
     }
 
     /**
-     * Update article details.
-     * PUT or PATCH articles/:id
+     * Update normalizedarticle details.
+     * PUT or PATCH normalizedarticles/:id
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -94,8 +81,8 @@ class ArticleController {
     }
 
     /**
-     * Delete a article with id.
-     * DELETE articles/:id
+     * Delete a normalizedarticle with id.
+     * DELETE normalizedarticles/:id
      *
      * @param {object} ctx
      * @param {Request} ctx.request
@@ -104,23 +91,9 @@ class ArticleController {
     async destroy({ params, request, response }) {
     }
 
-    async findByExpectedDate({ request, response }) {
-        try {
-            let params = request.all();
-
-            if (!params.date)
-                return response.badRequest({ error: 'Debe proporcionar una fecha valida' });
-
-            let articles = await Article.findByExpectedDate(params.date);
-            return response.json(articles);
-        } catch (error) {
-            return response.unauthorized({ error: error.message });
-        }
-    }
-
     async getCount({ request, response }) {
         try {
-            let count = await Article.getCount();
+            let count = await NormalizedArticle.getCount();
             return response.json({ total: count });
         } catch (error) {
             return response.unauthorized({ error: error.message });
@@ -128,4 +101,4 @@ class ArticleController {
     }
 }
 
-module.exports = ArticleController
+module.exports = NormalizedArticleController

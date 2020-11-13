@@ -30,6 +30,15 @@ Route.group(() => {
 
 // routes with jwt
 Route.group(() => {
+
+    Route.get('/articles/count', 'ArticleController.getCount');
+    Route.post('/articles/findByExpectedDate', 'ArticleController.findByExpectedDate');
+    Route.get('/extractions/execute/:id', 'ExtractionController.execute');
+    Route.get('/normalizedArticles/count', 'NormalizedArticleController.getCount');
+    Route.get('/wordcloud/byDate', 'WordCloudController.getByDate');
+    Route.get('/wordcloud/bySite', 'WordCloudController.getBySite');
+
+    // resource routes
     Route.resource('/articles', 'ArticleController');
     Route.resource('/configs', 'ConfigController');
     Route.resource('/equations', 'EquationController');
@@ -37,11 +46,5 @@ Route.group(() => {
     Route.resource('/selectors', 'SelectorController');
     Route.resource('/sites', 'SiteController');
     Route.resource('/users', 'UserController');
-
-    Route.post('/articles/findByExpectedDate', 'ArticleController.findByExpectedDate');
-    Route.get('/extractions/execute/:id', 'ExtractionController.execute');
-
-    Route.get('/wordcloud/date', 'WordCloudController.getByDate');
-    Route.get('/wordcloud/site', 'WordCloudController.getBySite');
 
 }).prefix('api')//.middleware(['auth:jwt']);
