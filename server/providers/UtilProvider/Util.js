@@ -50,6 +50,31 @@ class Util {
         let formatted = moment(date).locale('es').format(dateFormat);
         return formatted.toLowerCase();
     }
+
+    /**
+     * Count word frecuency
+     * @param  {String} text
+     * @return
+     */
+    countWords(text) {
+        let result = [];
+
+        let words = text.split(" ").reduce((hash, word) => {
+            hash[word] = hash[word] || 0;
+            hash[word]++;
+            return hash;
+        }, {});
+
+        // create array of objects for wordcloud
+        for (const key in words) {
+            if (words.hasOwnProperty(key) && key.length > 3) {
+                result.push({ text: key, value: words[key] });
+            }
+        }
+
+        return result;
+    }
+
 }
 
 module.exports = Util;

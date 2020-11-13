@@ -10,8 +10,12 @@ class NormalizedArticle extends Model {
         this.addTrait('NoTimestamp');
     }
 
+    static async setArticleInWordCloud(id, value) {
+        return await this.query().where('id', id).update({ in_wordcloud: value })
+    }
+
     article() {
-        return this.hasOne('App/Models/Article');
+        return this.belongsTo('App/Models/Article');
     }
 }
 

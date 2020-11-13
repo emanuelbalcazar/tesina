@@ -17,7 +17,7 @@
 const Route = use('Route')
 
 Route.get('/', () => {
-    return { name: 'server', version: '2020-10', status: 'active' };
+    return { name: 'server', version: '2020-11', status: 'active' };
 });
 
 // routes without jwt
@@ -43,4 +43,4 @@ Route.group(() => {
     Route.get('/extractions/execute/:id', 'ExtractionController.execute');
     Route.post('/normalizedArticles/getWordCloud', 'NormalizedArticleController.getWordCloud');
 
-}).prefix('api').middleware(['auth:jwt']);
+}).prefix('api')//.middleware(['auth:jwt']);

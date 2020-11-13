@@ -28,5 +28,10 @@
         "key": "nextDayCron",
         "value": "30 14 */1 * *",
         "description": "Notacion Cron de ejecución una vez por dia"
+    },
+    {
+        "key": "wordcloudScheduler",
+        "value": "*/5 * * * *",
+        "description": "Periodicidad del constructor de nubes de palabras"
     }
 ]

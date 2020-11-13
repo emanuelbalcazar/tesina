@@ -19,8 +19,9 @@ class NormalizedArticlesSchema extends Schema {
             table.text('lemmatized', 'longtext').defaultTo('');
             table.text('stemmer', 'longtext').defaultTo('');
             table.text('wordcloud', 'longtext').defaultTo('');
+            table.boolean('in_wordcloud').defaultTo(false);
             table.integer('article_id').references('id').inTable('articles');
-        })
+        });
     }
 
     down() {

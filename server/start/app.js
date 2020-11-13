@@ -20,7 +20,9 @@ const providers = [
     '@adonisjs/validator/providers/ValidatorProvider',
     path.join(__dirname, '..', 'providers', 'RabbitMQProvider', 'Provider'),
     path.join(__dirname, '..', 'providers', 'UtilProvider', 'Provider'),
-    path.join(__dirname, '..', 'providers', 'SchedulerProvider', 'Provider')
+    path.join(__dirname, '..', 'providers', 'SchedulerProvider', 'Provider'),
+    path.join(__dirname, '..', 'providers', 'WordCloudProvider', 'Provider'),
+    path.join(__dirname, '..', 'providers', 'WordCloudSchedulerProvider', 'Provider')
 ]
 
 /*
