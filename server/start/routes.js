@@ -37,6 +37,8 @@ Route.group(() => {
     Route.get('/normalizedArticles/count', 'NormalizedArticleController.getCount');
     Route.get('/wordcloud/byDate', 'WordCloudController.getByDate');
     Route.get('/wordcloud/bySite', 'WordCloudController.getBySite');
+    Route.get('/wordcloud/wordCount', 'WordCloudController.getWordCount');
+    Route.get('/wordcloud/mostFrecuent', 'WordCloudController.getMostFrecuentWords');
 
     // resource routes
     Route.resource('/articles', 'ArticleController');

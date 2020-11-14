@@ -97,6 +97,25 @@ class WordCloudService {
             throw error;
         }
     }
+
+    async getWordCount() {
+        try {
+            let count = await WordCloudDate.getCount();
+            return count;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getMostFrecuentWords(limit) {
+        try {
+            let words = await WordCloudDate.query().orderBy('frecuency', 'desc').paginate(1, limit);
+            return words;
+        } catch (error) {
+            console.log(error)
+            throw error;
+        }
+    }
 }
 
 module.exports = WordCloudService;

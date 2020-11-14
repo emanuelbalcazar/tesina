@@ -63,11 +63,7 @@ export default {
         async findArticles() {
             try {
                 let dateToSearch = moment(this.date).format("DD/MM/YYYY");
-
-                let response = await axios.post(
-                    "/normalizedArticles/getWordCloud",
-                    { date: dateToSearch, minPercentage: this.minPercentage }
-                );
+                let response = await axios.get(`/wordcloud/byDate?date=${dateToSearch}&minPercentage=${this.minPercentage}`);
 
                 if (!response.data) {
                     return this.showToast(
@@ -78,8 +74,9 @@ export default {
 
                 this.words = response.data;
             } catch (error) {
+
                 if (error.response && error.response.data) {
-                    return this.showToast(error.response.data, {
+                    return this.showToast(error.response.data.error, {
                         position: "bottom-right",
                         icon: "fa-times",
                         duration: 5000

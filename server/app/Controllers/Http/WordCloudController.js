@@ -35,6 +35,25 @@ class WordCloudController {
             return response.unauthorized({ error: error });
         }
     }
+
+    async getWordCount({ request, response }) {
+        try {
+            let count = await WordCloudService.getWordCount();
+            return response.json({ total: count });
+        } catch (error) {
+            return response.unauthorized({ error: error });
+        }
+    }
+
+    async getMostFrecuentWords({ request, response }) {
+        try {
+            let params = request.get();
+            let words = await WordCloudService.getMostFrecuentWords(params.limit);
+            return response.json(words);
+        } catch (error) {
+            return response.unauthorized({ error: error });
+        }
+    }
 }
 
 module.exports = WordCloudController

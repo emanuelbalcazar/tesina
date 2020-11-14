@@ -7,13 +7,160 @@
                 Periodística relacionada al COVID-19 en Chubut</b
             >
         </h1>
+
+        <div class="row">
+            <div
+                class="flex xs6 sm4"
+                v-for="(info, idx) in infoTiles"
+                :key="idx"
+            >
+                <va-card class="mb-4" :color="info.color">
+                    <p class="display-2 mb-0" style="color: white;">
+                        {{ info.value }}
+                    </p>
+                    <p>{{ info.text }}</p>
+                </va-card>
+            </div>
+        </div>
+
+        <va-card
+            title="Top 5 palabras más frecuentes"
+            class="d-flex dashboard-contributors-list"
+        >
+            <va-inner-loading :loading="loading">
+                <div
+                    class="mb-3"
+                    v-for="(word, idx) in mostFrecuentWords"
+                    :key="idx"
+                >
+                    <va-progress-bar
+                        :value="getPercent(word.frecuency)"
+                        :color="getRandomColor()"
+                    >
+                        {{ word.word }}
+                    </va-progress-bar>
+                    {{ word.frecuency }}
+                </div>
+            </va-inner-loading>
+        </va-card>
     </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     name: "dashboard",
-    components: { }
+    components: {},
+    data() {
+        return {
+            articlesCount: 0,
+            mostFrecuentWords: [],
+            progressMax: 100,
+            loading: false,
+            infoTiles: [
+                {
+                    color: "success",
+                    value: 0,
+                    text: "Cantidad de articulos extraidos",
+                    icon: ""
+                },
+                {
+                    color: "danger",
+                    value: 0,
+                    text: "Cantidad de articulos normalizados",
+                    icon: ""
+                },
+                {
+                    color: "info",
+                    value: 0,
+                    text: "Cantidad de palabras obtenidas",
+                    icon: ""
+                }
+            ]
+        };
+    },
+    created() {
+        this.getArticlesCount();
+        this.getNormalizedArticlesCount();
+        this.getWordCount();
+        this.getMostFrecuentWords();
+    },
+    methods: {
+        async getArticlesCount() {
+            try {
+                let response = await axios.get("/articles/count");
+                this.infoTiles[0].value = response.data.total;
+            } catch (error) {
+                return this.showToast(
+                    "No se pudieron obtener el total de articulos",
+                    {
+                        position: "bottom-right",
+                        icon: "fa-times",
+                        duration: 5000
+                    }
+                );
+            }
+        },
+        async getNormalizedArticlesCount() {
+            try {
+                let response = await axios.get("/normalizedArticles/count");
+                this.infoTiles[1].value = response.data.total;
+            } catch (error) {
+                return this.showToast(
+                    "No se pudieron obtener el total de articulos normalizados",
+                    {
+                        position: "bottom-right",
+                        icon: "fa-times",
+                        duration: 5000
+                    }
+                );
+            }
+        },
+        async getWordCount() {
+            try {
+                let response = await axios.get("/wordcloud/wordCount");
+                this.infoTiles[2].value = response.data.total;
+            } catch (error) {
+                return this.showToast(
+                    "No se pudieron obtener la cantidad de palabras",
+                    {
+                        position: "bottom-right",
+                        icon: "fa-times",
+                        duration: 5000
+                    }
+                );
+            }
+        },
+        async getMostFrecuentWords() {
+            try {
+                let response = await axios.get(
+                    "/wordcloud/mostFrecuent?limit=5"
+                );
+                this.mostFrecuentWords = response.data.data;
+
+                this.progressMax = Math.max(
+                    ...this.mostFrecuentWords.map(word => word.frecuency)
+                );
+            } catch (error) {
+                return this.showToast(
+                    "No se pudieron obtener las palabras mas frecuentes",
+                    {
+                        position: "bottom-right",
+                        icon: "fa-times",
+                        duration: 5000
+                    }
+                );
+            }
+        },
+        getPercent(val) {
+            return (val / this.progressMax) * 100;
+        },
+        getRandomColor() {
+            const keys = Object.keys(this.$themes);
+            return this.$themes[keys[(keys.length * Math.random()) << 0]];
+        }
+    }
 };
 </script>
 
@@ -27,5 +174,13 @@ export default {
     .va-card {
         margin-bottom: 0 !important;
     }
+}
+
+.dashboard-contributors-list {
+    flex-direction: column;
+    .inner-loading {
+        height: 100%;
+    }
+    width: 32%;
 }
 </style>
