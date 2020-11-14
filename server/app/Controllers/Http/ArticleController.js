@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Article = use('App/Models/Article');
+const Database = use('Database');
 
 /**
  * Resourceful controller for interacting with articles
@@ -122,6 +123,15 @@ class ArticleController {
         try {
             let count = await Article.getCount();
             return response.json({ total: count });
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
+    }
+
+    async totalPerSite({request, response}) {
+        try {
+            let result = await Article.query().select(Database.raw('COUNT(*), "displayLink"')).groupBy('displayLink').fetch();
+            return response.json(result);
         } catch (error) {
             return response.unauthorized({ error: error.message });
         }

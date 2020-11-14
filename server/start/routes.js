@@ -33,8 +33,12 @@ Route.group(() => {
 
     Route.get('/articles/count', 'ArticleController.getCount');
     Route.post('/articles/findByExpectedDate', 'ArticleController.findByExpectedDate');
+    Route.get('/articles/totalPerSite', 'ArticleController.totalPerSite');
+
     Route.get('/extractions/execute/:id', 'ExtractionController.execute');
+
     Route.get('/normalizedArticles/count', 'NormalizedArticleController.getCount');
+
     Route.get('/wordcloud/byDate', 'WordCloudController.getByDate');
     Route.get('/wordcloud/bySite', 'WordCloudController.getBySite');
     Route.get('/wordcloud/wordCount', 'WordCloudController.getWordCount');

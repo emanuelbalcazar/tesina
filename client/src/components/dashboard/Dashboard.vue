@@ -21,28 +21,38 @@
                     <p>{{ info.text }}</p>
                 </va-card>
             </div>
-        </div>
 
-        <va-card
-            title="Top 5 palabras más frecuentes"
-            class="d-flex dashboard-contributors-list"
-        >
-            <va-inner-loading :loading="loading">
-                <div
-                    class="mb-3"
-                    v-for="(word, idx) in mostFrecuentWords"
-                    :key="idx"
-                >
-                    <va-progress-bar
-                        :value="getPercent(word.frecuency)"
-                        :color="getRandomColor()"
+            <va-card
+                title="Top 5 palabras más frecuentes"
+                class=" xs6 sm4 d-flex dashboard-contributors-list"
+            >
+                <va-inner-loading :loading="loading">
+                    <div
+                        class="mb-3"
+                        v-for="(word, idx) in mostFrecuentWords"
+                        :key="idx"
                     >
-                        {{ word.word }}
-                    </va-progress-bar>
-                    {{ word.frecuency }}
-                </div>
-            </va-inner-loading>
-        </va-card>
+                        <va-progress-bar
+                            :value="getPercent(word.frecuency)"
+                            :color="getRandomColor()"
+                        >
+                            {{ word.word }}
+                        </va-progress-bar>
+                        {{ word.frecuency }}
+                    </div>
+                </va-inner-loading>
+            </va-card>
+
+            <div class="xs6 xl6 d-flex chart-card">
+                <va-card title="Cantidad de articulos por sitio">
+                    <va-chart
+                        class="chart chart--donut"
+                        :data="articlesPerSite"
+                        type="donut"
+                    />
+                </va-card>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -56,25 +66,26 @@ export default {
         return {
             articlesCount: 0,
             mostFrecuentWords: [],
+            articlesPerSite: {},
             progressMax: 100,
             loading: false,
             infoTiles: [
                 {
                     color: "success",
                     value: 0,
-                    text: "Cantidad de articulos extraidos",
+                    text: "Articulos extraidos",
                     icon: ""
                 },
                 {
                     color: "danger",
                     value: 0,
-                    text: "Cantidad de articulos normalizados",
+                    text: "Articulos normalizados",
                     icon: ""
                 },
                 {
                     color: "info",
                     value: 0,
-                    text: "Cantidad de palabras obtenidas",
+                    text: "Palabras obtenidas",
                     icon: ""
                 }
             ]
@@ -85,6 +96,7 @@ export default {
         this.getNormalizedArticlesCount();
         this.getWordCount();
         this.getMostFrecuentWords();
+        this.getArticlesPerSite();
     },
     methods: {
         async getArticlesCount() {
@@ -153,6 +165,48 @@ export default {
                 );
             }
         },
+        async getArticlesPerSite() {
+            try {
+                let response = await axios.get("/articles/totalPerSite");
+
+                let labels = response.data.map(site => {
+                    return site.displayLink;
+                });
+
+                let data = response.data.map(site => {
+                    return site.count;
+                });
+
+                this.articlesPerSite = {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Articulos por sitio",
+                            backgroundColor: [
+                                this.$themes.danger,
+                                this.$themes.dark,
+                                this.$themes.primary,
+                                this.$themes.info,
+                                this.$themes.secondary,
+                                this.$themes.success,
+                                this.$themes.warning,
+                                this.$themes.danger
+                            ],
+                            data: data
+                        }
+                    ]
+                };
+            } catch (error) {
+                return this.showToast(
+                    "No se pudieron obtener la cantidad de articulos por sitio",
+                    {
+                        position: "bottom-right",
+                        icon: "fa-times",
+                        duration: 5000
+                    }
+                );
+            }
+        },
         getPercent(val) {
             return (val / this.progressMax) * 100;
         },
@@ -181,6 +235,15 @@ export default {
     .inner-loading {
         height: 100%;
     }
+    height: 100%;
     width: 32%;
+}
+
+.chart {
+    height: 350px;
+}
+
+.chart-card {
+    margin-left: 2.5%;
 }
 </style>

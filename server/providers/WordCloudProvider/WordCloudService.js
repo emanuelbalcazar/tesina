@@ -112,7 +112,6 @@ class WordCloudService {
             let words = await WordCloudDate.query().orderBy('frecuency', 'desc').paginate(1, limit);
             return words;
         } catch (error) {
-            console.log(error)
             throw error;
         }
     }
