@@ -9,7 +9,7 @@ class WordCloudController {
             let params = request.get();
 
             if (!params.date) {
-                return response.badRequest('Debe proporcionar una fecha valida');
+                return response.badRequest({ error: 'Debe proporcionar una fecha valida' });
             }
 
             let wordcloud = await WordCloudService.getByDate(params.date, params.minPercentage);
@@ -25,7 +25,7 @@ class WordCloudController {
             let params = request.get();
 
             if (!params.site) {
-                return response.badRequest('Debe proporcionar un sitio');
+                return response.badRequest({ error: 'Debe proporcionar un sitio web' });
             }
 
             let wordcloud = await WordCloudService.getBySite(params.site, params.minPercentage);
@@ -50,6 +50,15 @@ class WordCloudController {
             let params = request.get();
             let words = await WordCloudService.getMostFrecuentWords(params.limit);
             return response.json(words);
+        } catch (error) {
+            return response.unauthorized({ error: error });
+        }
+    }
+
+    async getSites({ request, response }) {
+        try {
+            let sites = await WordCloudService.getSites();
+            return response.json(sites);
         } catch (error) {
             return response.unauthorized({ error: error });
         }

@@ -2,7 +2,7 @@
     <va-card>
         <div class="row">
             <div class="flex">
-                <h3>Nube de palabras</h3>
+                <h3>Nube de palabras por fecha</h3>
                 <div class="flex">
                     <VueDatePicker v-model="date" format="DD/MM/YYYY" />
                     <br>

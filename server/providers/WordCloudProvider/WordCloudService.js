@@ -5,6 +5,7 @@ const Logger = use('Logger');
 
 const WordCloudDateBuilder = require('./builders/WordCloudDateBuilder');
 const WordCloudSiteBuilder = require('./builders/WordCloudSiteBuilder');
+const Database = use('Database');
 
 /**
  * @class WordCloudService
@@ -111,6 +112,16 @@ class WordCloudService {
         try {
             let words = await WordCloudDate.query().orderBy('frecuency', 'desc').paginate(1, limit);
             return words;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getSites() {
+        try {
+            let sites = await Database.raw('SELECT DISTINCT(site) as site FROM public.word_cloud_sites')
+            sites = sites.rows.map(site => { return site.site });
+            return sites;
         } catch (error) {
             throw error;
         }
