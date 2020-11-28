@@ -3,7 +3,7 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
-class WordCloudSite extends Model {
+class WordCloud extends Model {
 
     static boot() {
         super.boot();
@@ -11,4 +11,4 @@ class WordCloudSite extends Model {
     }
 }
 
-module.exports = WordCloudSite
+module.exports = WordCloud

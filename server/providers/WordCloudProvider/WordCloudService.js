@@ -1,10 +1,7 @@
-const WordCloudDate = use('App/Models/WordCloudDate');
-const WordCloudSite = use('App/Models/WordCloudSite');
+const WordCloud = use('App/Models/WordCloud');
 const NormalizedArticle = use('App/Models/NormalizedArticle');
 const Logger = use('Logger');
-
-const WordCloudDateBuilder = require('./builders/WordCloudDateBuilder');
-const WordCloudSiteBuilder = require('./builders/WordCloudSiteBuilder');
+const WordCloudBuilder = require('./builders/WordCloudBuilder');
 const Database = use('Database');
 
 /**
@@ -29,8 +26,7 @@ class WordCloudService {
 
             for (const article of normalizedArticles) {
                 try {
-                    await WordCloudDateBuilder.create(article);
-                    await WordCloudSiteBuilder.create(article);
+                    await WordCloudBuilder.create(article);
                     await NormalizedArticle.setArticleInWordCloud(article.id, true);
                 } catch (error) {
                     Logger.error(`[WordCloudService] ${Date().toLocaleString()} - error al crear nube del articulo ${article.id}, ${error}`);
@@ -45,9 +41,14 @@ class WordCloudService {
         }
     };
 
+    /**
+     * Get wordcloud by date
+     * @param  {Date} date
+     * @param  {number} [minPercentage=0]
+     */
     async getByDate(date, minPercentage = 0) {
         try {
-            let wordcloud = await WordCloudDate.query().where('date', date).orderBy('frecuency', 'desc').fetch();
+            let wordcloud = await WordCloud.query().where('date', date).orderBy('frecuency', 'desc').fetch();
             wordcloud = wordcloud.toJSON();
 
             if (wordcloud.length == 0) {
@@ -72,9 +73,14 @@ class WordCloudService {
         }
     }
 
+    /**
+     * Get wordcloud by site
+     * @param  {Site} site
+     * @param  {number} [minPercentage=0]
+     */
     async getBySite(site, minPercentage = 0) {
         try {
-            let wordcloud = await WordCloudSite.query().where('site', 'ilike', `%${site}%`).orderBy('frecuency', 'desc').fetch();
+            let wordcloud = await WordCloud.query().where('site', 'ilike', `%${site}%`).orderBy('frecuency', 'desc').fetch();
             wordcloud = wordcloud.toJSON();
 
             if (wordcloud.length == 0) {
@@ -99,27 +105,38 @@ class WordCloudService {
         }
     }
 
+    /**
+     * @return number of words
+     */
     async getWordCount() {
         try {
-            let count = await WordCloudDate.getCount();
+            let count = await WordCloud.getCount();
             return count;
         } catch (error) {
             throw error;
         }
     }
 
+    /**
+     * Get most frecuent words with limit
+     * @TODO acumular valores de las palabras
+     * @param  {Number} limit
+     */
     async getMostFrecuentWords(limit) {
         try {
-            let words = await WordCloudDate.query().orderBy('frecuency', 'desc').paginate(1, limit);
+            let words = await WordCloud.query().orderBy('frecuency', 'desc').paginate(1, limit);
             return words;
         } catch (error) {
             throw error;
         }
     }
 
+    /**
+     * Get all available sites
+     */
     async getSites() {
         try {
-            let sites = await Database.raw('SELECT DISTINCT(site) as site FROM public.word_cloud_sites')
+            let sites = await Database.raw('SELECT DISTINCT(site) as site FROM public.word_clouds')
             sites = sites.rows.map(site => { return site.site });
             return sites;
         } catch (error) {

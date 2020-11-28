@@ -4,7 +4,7 @@ const WordCloudService = use('WordCloudService');
 const NormalizedArticle = use('App/Models/NormalizedArticle');
 
 // TODO optimizar
-const MAX_ARTICLE_LIMIT = 50;
+const MAX_ARTICLE_LIMIT = 60;
 
 class WordCloudScheduler {
 

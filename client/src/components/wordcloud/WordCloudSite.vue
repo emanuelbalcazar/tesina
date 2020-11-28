@@ -55,11 +55,10 @@ export default {
             words: [],
             sites: [],
             selectedSite: "",
-            fontSizeMapper: word => word.value * 0.6
+            fontSizeMapper: word => word.value * 0.65
         };
     },
     mounted() {
-        //this.findArticles();
         this.findSites();
     },
     methods: {
