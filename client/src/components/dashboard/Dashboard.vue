@@ -48,7 +48,7 @@
                     <va-chart
                         class="chart chart--donut"
                         :data="articlesPerSite"
-                        type="donut"
+                        type="horizontal-bar"
                     />
                 </va-card>
             </div>
@@ -181,7 +181,7 @@ export default {
                     labels: labels,
                     datasets: [
                         {
-                            label: "Articulos por sitio",
+                            label: "Cantidad de articulos por sitio",
                             backgroundColor: [
                                 this.$themes.danger,
                                 this.$themes.dark,

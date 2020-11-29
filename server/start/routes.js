@@ -54,4 +54,4 @@ Route.group(() => {
     Route.resource('/sites', 'SiteController');
     Route.resource('/users', 'UserController');
 
-}).prefix('api')//.middleware(['auth:jwt']);
+}).prefix('api').middleware(['auth:jwt']);
