@@ -3,6 +3,7 @@ const NormalizedArticle = use('App/Models/NormalizedArticle');
 const Logger = use('Logger');
 const WordCloudBuilder = require('./builders/WordCloudBuilder');
 const Database = use('Database');
+const GlobalWord = use('App/Models/GlobalWord');
 
 /**
  * @class WordCloudService
@@ -110,7 +111,7 @@ class WordCloudService {
      */
     async getWordCount() {
         try {
-            let count = await WordCloud.getCount();
+            let count = await GlobalWord.getCount();
             return count;
         } catch (error) {
             throw error;
@@ -124,7 +125,7 @@ class WordCloudService {
      */
     async getMostFrecuentWords(limit) {
         try {
-            let words = await WordCloud.query().orderBy('frecuency', 'desc').paginate(1, limit);
+            let words = await GlobalWord.query().orderBy('total', 'desc').paginate(1, limit);
             return words;
         } catch (error) {
             throw error;

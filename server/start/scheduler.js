@@ -14,11 +14,14 @@ async function start() {
         Scheduler.start();
     }
 
-    // always must be run
-    let wordCloudEvery = await Config.query().where('key', 'wordcloudScheduler').first();
-    Logger.info(`[server] - iniciando constructor de nubes de palabras con periodicidad: ${wordCloudEvery.value}`);
-    WordCloudScheduler.setScheduleEvery(wordCloudEvery.value);
-    WordCloudScheduler.start();
+    let wordcloudSchedulerOnStart = await Config.query().where('key', 'wordcloudSchedulerOnStart').first();
+    let wordCloudEvery = await Config.query().where('key', 'wordcloudSchedulerEvery').first();
+
+    if (wordcloudSchedulerOnStart.value == 'true') {
+        Logger.info(`[server] - iniciando constructor de nubes de palabras con periodicidad: ${wordCloudEvery.value}`);
+        WordCloudScheduler.setScheduleEvery(wordCloudEvery.value);
+        WordCloudScheduler.start();
+    }
 }
 
 start();

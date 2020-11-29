@@ -1,6 +1,6 @@
 const Util = use('Util');
 const WordCloud = use('App/Models/WordCloud');
-const Logger = use('Logger');
+const GlobalWord = use('App/Models/GlobalWord');
 
 /**
  * @class WordCloudDateBuilder
@@ -31,8 +31,12 @@ class WordCloudBuilder {
                         await wordRecord.save();
                     } else {
                         let value = (isNaN(word.value)) ? 0 : word.value;
-                        await WordCloud.create({ word: word.text, frecuency: value, normalized_article_id: normalizedArticle.id, date: normalizedArticle.article.expected_date, site: normalizedArticle.article.displayLink  });
+                        await WordCloud.create({ word: word.text, frecuency: value, normalized_article_id: normalizedArticle.id, date: normalizedArticle.article.expected_date, site: normalizedArticle.article.displayLink });
                     }
+
+                    // add word and frecuency in global table
+                    await GlobalWord.create(word.text, word.value);
+
                 } catch (error) {
                     throw error;
                 }

@@ -33,12 +33,12 @@
                         :key="idx"
                     >
                         <va-progress-bar
-                            :value="getPercent(word.frecuency)"
+                            :value="getPercent(word.total)"
                             :color="getRandomColor()"
                         >
                             {{ word.word }}
                         </va-progress-bar>
-                        {{ word.frecuency }}
+                        {{ word.total }}
                     </div>
                 </va-inner-loading>
             </va-card>
@@ -152,7 +152,7 @@ export default {
                 this.mostFrecuentWords = response.data.data;
 
                 this.progressMax = Math.max(
-                    ...this.mostFrecuentWords.map(word => word.frecuency)
+                    ...this.mostFrecuentWords.map(word => word.total)
                 );
             } catch (error) {
                 return this.showToast(

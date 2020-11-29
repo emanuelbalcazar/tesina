@@ -30,8 +30,13 @@
         "description": "Notacion Cron de ejecución una vez por dia"
     },
     {
-        "key": "wordcloudScheduler",
+        "key": "wordcloudSchedulerEvery",
         "value": "*/5 * * * *",
         "description": "Periodicidad del constructor de nubes de palabras"
+    },
+    {
+        "key": "wordcloudSchedulerOnStart",
+        "value": true,
+        "description": "¿Iniciar el planificador de construcción de nube de palabras?"
     }
 ]
