@@ -2,11 +2,16 @@
     <va-card>
         <div class="row">
             <div class="flex">
-                <h3>Nube de palabras por fecha</h3>
+                <h3>Nube de palabras por rango de fechas</h3>
                 <div class="flex">
-                    <VueDatePicker v-model="date" format="DD/MM/YYYY" />
+                    <div class="pickers">
+                        Desde:&nbsp;
+                        <VueDatePicker v-model="from" format="DD/MM/YYYY" />
+                        Hasta:&nbsp;
+                        <VueDatePicker v-model="to" format="DD/MM/YYYY" />
+                        <br />
+                    </div>
                     <br>
-
                     <va-input
                         label="Frecuencia minima (%)"
                         v-model="minPercentage"
@@ -39,7 +44,7 @@
 
 <script>
 const axios = require("axios");
-const moment = require("moment")
+const moment = require("moment");
 import Cloud from "vue-d3-cloud";
 
 export default {
@@ -49,8 +54,9 @@ export default {
         return {
             minPercentage: 30,
             words: [],
-            date: new Date(),
-            fontSizeMapper: word => word.value * 0.6
+            from: new Date(),
+            to: new Date(),
+            fontSizeMapper: word => word.value * 0.65
         };
     },
     created() {
@@ -62,8 +68,12 @@ export default {
         },
         async findArticles() {
             try {
-                let dateToSearch = moment(this.date).format("DD/MM/YYYY");
-                let response = await axios.get(`/wordcloud/byDate?date=${dateToSearch}&minPercentage=${this.minPercentage}`);
+                let dateFrom = moment(this.from).format("DD/MM/YYYY");
+                let dateTo = moment(this.to).format("DD/MM/YYYY");
+
+                let response = await axios.get(
+                    `/wordcloud/byDateRange?from=${dateFrom}&to=${dateTo}&minPercentage=${this.minPercentage}`
+                );
 
                 if (!response.data) {
                     return this.showToast(
@@ -74,7 +84,6 @@ export default {
 
                 this.words = response.data;
             } catch (error) {
-
                 if (error.response && error.response.data) {
                     return this.showToast(error.response.data.error, {
                         position: "bottom-right",
@@ -96,6 +105,11 @@ export default {
 }
 
 .input {
-    width: 100%;
+    width: 45%;
+}
+
+.pickers {
+    display: flex; /* or inline-flex */
+    flex-direction: row;
 }
 </style>

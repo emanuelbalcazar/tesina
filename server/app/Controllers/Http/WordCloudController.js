@@ -4,18 +4,19 @@ const WordCloudService = use('WordCloudService');
 
 class WordCloudController {
 
-    async getByDate({ request, response }) {
+    async getByDateRange({ request, response }) {
         try {
             let params = request.get();
 
-            if (!params.date) {
+            if (!params.from || !params.to) {
                 return response.badRequest({ error: 'Debe proporcionar una fecha valida' });
             }
 
-            let wordcloud = await WordCloudService.getByDate(params.date, params.minPercentage);
+            let wordcloud = await WordCloudService.getByDateRange(params.from, params.to, params.minPercentage);
 
             return response.json(wordcloud);
         } catch (error) {
+            console.log(error)
             return response.unauthorized({ error: error });
         }
     }

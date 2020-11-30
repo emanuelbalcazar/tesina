@@ -47,13 +47,13 @@ class WordCloudService {
      * @param  {Date} date
      * @param  {number} [minPercentage=0]
      */
-    async getByDate(date, minPercentage = 0) {
+    async getByDateRange(from, to, minPercentage = 0) {
         try {
-            let wordcloud = await WordCloud.query().where('date', date).orderBy('frecuency', 'desc').fetch();
+            let wordcloud = await WordCloud.query().whereBetween('date', [from, to]).orderBy('frecuency', 'desc').fetch();
             wordcloud = wordcloud.toJSON();
 
             if (wordcloud.length == 0) {
-                throw 'No se encontro una nube de palabras con la fecha ' + date;
+                throw `No se encontraron nubes de palabras con la fecha desde ${from} a ${to}`;
             }
 
             let maxValue = wordcloud[0].frecuency;
