@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const User = use('App/Models/User');
+const { validate } = use('Validator');
 
 /**
  * Controller for user authentication
@@ -30,6 +31,8 @@ class AuthController {
     async register({ request, auth, response }) {
 
         const rules = {
+            name: 'required',
+            surname: 'required',
             email: 'required|email',
             password: 'required'
         };
