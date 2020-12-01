@@ -39,11 +39,6 @@ def execute():
             process(articles, total)
             count = count + limit
 
-        # Run this with a pool of 5 agents having a chunksize of 3 until finished
-        agents = get_config('WORKER', 'agents')
-        chunksize = get_config('WORKER', 'chunksize')
-
-
     except (Exception) as error:
         print(error)
 
