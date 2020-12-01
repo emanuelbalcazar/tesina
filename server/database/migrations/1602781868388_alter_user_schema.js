@@ -17,6 +17,7 @@ class AlterUserSchema extends Schema {
     down() {
         this.table('users', (table) => {
             // reverse alternations
+            table.string('username');
             table.dropColumn('name');
             table.dropColumn('surname');
             table.dropColumn('active');

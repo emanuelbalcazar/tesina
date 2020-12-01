@@ -34,7 +34,7 @@ def find_all():
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
-def find_by_page(limit):
+def get_by_limit(limit):
     try:
         conn = connect()
         cur = conn.cursor()

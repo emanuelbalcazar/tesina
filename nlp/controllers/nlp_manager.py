@@ -31,15 +31,13 @@ def execute():
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
         print("[NLP] {now} - cantidad de articulos sin procesar: {total}".format(total=total, now=dt_string))
 
-        # TODO hacer en cuotas
-        #articles = article.find_all()
-
         count = 0
+        limit = 50
 
         while count <= total:
-            articles = article.find_by_page(50)
+            articles = article.get_by_limit(limit)
             process(articles, total)
-            count = count + 1
+            count = count + limit
 
         # Run this with a pool of 5 agents having a chunksize of 3 until finished
         agents = get_config('WORKER', 'agents')
