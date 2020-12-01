@@ -17,6 +17,10 @@ case "$1" in
 
         cd $root/server
         echo "[install] instalando dependencias en el servidor"
+        npm install
+
+        cd $root/client
+        echo "[install] instalando dependencias en el cliente"
         npm install 
     ;;
 
@@ -49,9 +53,10 @@ case "$1" in
     ;;
 
     forever:startall)
-        forever start $root/crawl-extractors/src/index.js &
-        forever start $root/search-engine/src/index.js &
+        forever start $root/crawl-extractors/src/index.js
+        forever start $root/search-engine/src/index.js
         forever start $root/server/server.js
+        forever start $root/client/index.js
     ;;
 
     forever:stop)
