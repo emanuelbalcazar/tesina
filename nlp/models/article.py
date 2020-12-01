@@ -12,11 +12,33 @@ def find_by_id(id):
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
+def count():
+    try:
+        conn = connect()
+        cur = conn.cursor()
+        cur.execute('SELECT COUNT(*) as count FROM ARTICLES WHERE analyzed = false')
+        count = cur.fetchone();
+
+        return count[0]
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
 def find_all():
     try:
         conn = connect()
         cur = conn.cursor()
         cur.execute('SELECT * FROM ARTICLES WHERE analyzed = false')
+        articles = cur.fetchall();
+
+        return articles
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
+def find_by_page(limit):
+    try:
+        conn = connect()
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM ARTICLES WHERE analyzed = false LIMIT {limit}'.format(limit=limit))
         articles = cur.fetchall();
 
         return articles

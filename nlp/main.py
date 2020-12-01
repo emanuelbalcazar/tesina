@@ -10,4 +10,3 @@ port = get_config('APP', 'port')
 
 ## execute nlp process
 nlp.execute()
-

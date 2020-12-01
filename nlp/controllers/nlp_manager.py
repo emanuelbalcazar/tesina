@@ -26,29 +26,31 @@ TEXT = 5
 # execute nlp process
 def execute():
     try:
-        articles = article.find_all()
-        total = len(articles)
-
+        total = article.count()
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
         print("[NLP] {now} - cantidad de articulos sin procesar: {total}".format(total=total, now=dt_string))
+
+        # TODO hacer en cuotas
+        #articles = article.find_all()
+
+        count = 0
+
+        while count <= total:
+            articles = article.find_by_page(50)
+            process(articles, total)
+            count = count + 1
 
         # Run this with a pool of 5 agents having a chunksize of 3 until finished
         agents = get_config('WORKER', 'agents')
         chunksize = get_config('WORKER', 'chunksize')
 
-        parallel_process(articles)
-
-        #with Pool(processes=int(agents)) as pool:
-        #    result = pool.map(process_article, articles, int(chunksize))
 
     except (Exception) as error:
         print(error)
 
-# DEPRECATED
-def parallel_process(articles):
+def process(articles, total):
     count = 1
-    total = len(articles)
 
     for record in articles:
             now = datetime.now()
