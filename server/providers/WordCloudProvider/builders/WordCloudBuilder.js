@@ -25,21 +25,22 @@ class WordCloudBuilder {
                 try {
                     let expected_date = normalize(normalizedArticle.article.expected_date);
 
-                    let wordRecord = await WordCloud.query().where({ word: word.text, date: expected_date, site: normalizedArticle.article.displayLink }).first();
+                    if (expected_date != null || expected_date != undefined) {
+                        let wordRecord = await WordCloud.query().where({ word: word.text, date: expected_date, site: normalizedArticle.article.displayLink }).first();
 
-                    // if exists, update word frecuency in database, else create a new word
-                    if (wordRecord && wordRecord !== null && wordRecord !== undefined) {
-                        let value = (isNaN(word.value)) ? 0 : word.value;
-                        wordRecord.frecuency = wordRecord.frecuency + value;
-                        await wordRecord.save();
-                    } else {
-                        let value = (isNaN(word.value)) ? 0 : word.value;
-                        await WordCloud.create({ word: word.text, frecuency: value, normalized_article_id: normalizedArticle.id, date: expected_date, site: normalizedArticle.article.displayLink });
+                        // if exists, update word frecuency in database, else create a new word
+                        if (wordRecord && wordRecord !== null && wordRecord !== undefined) {
+                            let value = (isNaN(word.value)) ? 0 : word.value;
+                            wordRecord.frecuency = wordRecord.frecuency + value;
+                            await wordRecord.save();
+                        } else {
+                            let value = (isNaN(word.value)) ? 0 : word.value;
+                            await WordCloud.create({ word: word.text, frecuency: value, normalized_article_id: normalizedArticle.id, date: expected_date, site: normalizedArticle.article.displayLink });
+                        }
+
+                        // add word and frecuency in global table
+                        await GlobalWord.create(word.text, word.value);
                     }
-
-                    // add word and frecuency in global table
-                    await GlobalWord.create(word.text, word.value);
-
                 } catch (error) {
                     throw error;
                 }
