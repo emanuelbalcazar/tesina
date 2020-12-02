@@ -1,6 +1,7 @@
 const Util = use('Util');
 const WordCloud = use('App/Models/WordCloud');
 const GlobalWord = use('App/Models/GlobalWord');
+const moment = require('moment');
 
 /**
  * @class WordCloudDateBuilder
