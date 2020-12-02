@@ -53,23 +53,27 @@ class WordCloudBuilder {
 }
 
 function normalize(aDate) {
-    if (aDate == null || aDate == undefined) {
-        return '';
-    }
-
-    if (!String(aDate).includes('/')) {
-        aDate = moment(aDate, 'MMMM DD, YYYY').format("YYYY-MM-DD");
-    } else {
-        let slash = String(aDate).substr(0, String(aDate).indexOf('/'));
-
-        if (slash.length < 3) {
-            aDate = moment(aDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
-        } else {
-            aDate = moment(aDate, 'YYYY/MM/DD').format('YYYY-MM-DD');
+    try {
+        if (aDate == null || aDate == undefined) {
+            return '';
         }
-    }
 
-    return normalizeDate(aDate);
+        if (!String(aDate).includes('/')) {
+            aDate = moment(aDate, 'MMMM DD, YYYY').format("YYYY-MM-DD");
+        } else {
+            let slash = String(aDate).substr(0, String(aDate).indexOf('/'));
+
+            if (slash.length < 3) {
+                aDate = moment(aDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
+            } else {
+                aDate = moment(aDate, 'YYYY/MM/DD').format('YYYY-MM-DD');
+            }
+        }
+
+        return normalizeDate(aDate);
+    } catch (error) {
+        console.log(`[wordcloudBuilder] error al normalizar fecha: ${aDate} - ${error}`);
+    }
 }
 
 function normalizeDate(aDate) {
