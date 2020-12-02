@@ -53,6 +53,8 @@ class WordCloudBuilder {
 }
 
 function normalize(aDate) {
+    console.log('> normalize date', aDate);
+
     if (!String(aDate).includes('/')) {
         aDate = moment(aDate, 'MMMM DD, YYYY').format("YYYY-MM-DD");
     } else {
