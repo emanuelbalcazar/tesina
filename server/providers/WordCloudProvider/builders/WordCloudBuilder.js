@@ -58,7 +58,7 @@ function normalize(aDate) {
             return '';
         }
 
-        aDate = aDate.replace(/("|')/g, "")
+        aDate = aDate.replace(/(")/g, "")
 
         if (!String(aDate).includes('/')) {
             aDate = moment(aDate, 'MMMM DD, YYYY').format("YYYY-MM-DD");
