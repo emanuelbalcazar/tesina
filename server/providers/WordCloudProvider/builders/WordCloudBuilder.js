@@ -73,7 +73,9 @@ function normalize(aDate) {
             }
         }
 
-        return normalizeDate(aDate);
+        aDate = normalizeDate(aDate);
+
+        return aDate;
     } catch (error) {
         console.log(`[wordcloudBuilder] error al normalizar fecha: ${aDate} - ${error}`);
     }
