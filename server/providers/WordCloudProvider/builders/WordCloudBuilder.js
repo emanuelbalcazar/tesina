@@ -23,7 +23,7 @@ class WordCloudBuilder {
 
             for (const word of words) {
                 try {
-                    let expected_date = normalize(normalizedArticle.expected_date);
+                    let expected_date = normalize(normalizedArticle.article.expected_date);
 
                     let wordRecord = await WordCloud.query().where({ word: word.text, date: expected_date, site: normalizedArticle.article.displayLink }).first();
 
@@ -53,7 +53,9 @@ class WordCloudBuilder {
 }
 
 function normalize(aDate) {
-    console.log('> normalize date', aDate);
+    if (aDate == null || aDate == undefined) {
+        return '';
+    }
 
     if (!String(aDate).includes('/')) {
         aDate = moment(aDate, 'MMMM DD, YYYY').format("YYYY-MM-DD");
