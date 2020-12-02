@@ -56,6 +56,9 @@ case "$1" in
         forever start $root/crawl-extractors/src/index.js
         forever start $root/search-engine/src/index.js
         forever start $root/server/server.js
+        
+        cd $root/client
+        npm run build
         forever start $root/client/index.js
     ;;
 

@@ -36,22 +36,22 @@ def execute():
 
         while count <= total:
             articles = article.get_by_limit(limit)
-            process(articles, total)
+            process(articles, count, total)
             count = count + limit
 
     except (Exception) as error:
         print(error)
 
-def process(articles, total):
-    count = 1
+def process(articles, count, total):
+    local_count = count
 
     for record in articles:
             now = datetime.now()
             dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-            print("\n[NLP] {now} - normalizando articulo con ID {id}, van: ({count}/{total}) ".format(id=record[ID], count=count, total=total, now=dt_string))
+            print("\n[NLP] {now} - normalizando articulo con ID {id}, van: ({count}/{total}) ".format(id=record[ID], count=local_count, total=total, now=dt_string))
             text = process_article(record)
             article.set_analyzed(record[ID])
-            count = count + 1
+            local_count = local_count + 1
 
 # applying the different filters to normalize the text
 def process_article(article):
