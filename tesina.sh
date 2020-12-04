@@ -59,7 +59,7 @@ case "$1" in
         
         cd $root/client
         npm run build
-        forever start $root/client/index.js
+        forever start index.js
     ;;
 
     forever:stop)
