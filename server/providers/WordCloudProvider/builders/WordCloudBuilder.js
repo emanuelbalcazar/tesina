@@ -23,6 +23,7 @@ class WordCloudBuilder {
 
             for (const word of words) {
                 try {
+                    console.log('>>', normalizedArticle.id, normalizedArticle.article.expected_date)
                     let expected_date = normalize(normalizedArticle.article.expected_date);
 
                     if (expected_date != null || expected_date != undefined) {
@@ -72,7 +73,7 @@ function normalize(aDate) {
                 aDate = moment(aDate, 'YYYY/MM/DD').format('YYYY-MM-DD');
             }
         }
-
+        console.log('>>', aDate)
         aDate = normalizeDate(aDate);
 
         return aDate;
