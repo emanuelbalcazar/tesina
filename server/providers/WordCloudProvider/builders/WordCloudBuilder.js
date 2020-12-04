@@ -56,7 +56,7 @@ class WordCloudBuilder {
 function normalize(aDate) {
     try {
         if (aDate == null || aDate == undefined) {
-            return '';
+            return null;
         }
 
         aDate = aDate.replace(/(")/g, "")

@@ -31,7 +31,7 @@ def execute():
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
         print("[NLP] {now} - cantidad de articulos sin procesar: {total}".format(total=total, now=dt_string))
 
-        count = 0
+        count = 1
         limit = 50
 
         while count <= total:
