@@ -2,6 +2,7 @@ const Util = use('Util');
 const WordCloud = use('App/Models/WordCloud');
 const GlobalWord = use('App/Models/GlobalWord');
 const moment = require('moment');
+moment.locale('es-es');
 
 /**
  * @class WordCloudDateBuilder
@@ -23,7 +24,6 @@ class WordCloudBuilder {
 
             for (const word of words) {
                 try {
-                    console.log('antes:', normalizedArticle.id, normalizedArticle.article.expected_date)
                     let expected_date = normalize(normalizedArticle.article.expected_date);
 
                     if (expected_date != null || expected_date != undefined) {
@@ -73,8 +73,6 @@ function normalize(aDate) {
                 aDate = moment(aDate, 'YYYY/MM/DD').format('YYYY-MM-DD');
             }
         }
-
-        console.log('despues format', aDate)
 
         aDate = normalizeDate(aDate);
 
