@@ -67,7 +67,7 @@ export default {
             minPercentage: 30,
             words: [],
             step: 0.5,
-            min: 0,
+            min: 0.5,
             max: 10,
             from: new Date(),
             to: new Date(),

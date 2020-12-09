@@ -67,7 +67,7 @@ export default {
             words: [],
             sites: [],
             step: 0.5,
-            min: 0,
+            min: 0.5,
             max: 10,
             fontSize: 0.65,
             selectedSite: "",
