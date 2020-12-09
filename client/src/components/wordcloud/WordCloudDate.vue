@@ -9,9 +9,21 @@
                         <VueDatePicker v-model="from" format="DD/MM/YYYY" />
                         Hasta:&nbsp;
                         <VueDatePicker v-model="to" format="DD/MM/YYYY" />
-                        <br />
                     </div>
                     <br>
+                    <va-slider
+                        class="slider"
+                        label="Tamaño de fuente"
+                        :invert-label="true"
+                        color="info"
+                        value-visible
+                        v-model="fontSize"
+                        :step="step"
+                        :min="min"
+                        :max="max"
+                    />
+
+                    <br />
                     <va-input
                         label="Frecuencia minima (%)"
                         v-model="minPercentage"
@@ -54,10 +66,19 @@ export default {
         return {
             minPercentage: 30,
             words: [],
+            step: 0.5,
+            min: 0,
+            max: 10,
             from: new Date(),
             to: new Date(),
-            fontSizeMapper: word => word.value * 0.65
+            fontSize: 0.65,
+            fontSizeMapper: word => this.getFontSize(word.value)
         };
+    },
+    watch: {
+        fontSize(newVal, oldVal) {
+            this.fontSize = newVal;
+        }
     },
     created() {
         this.findArticles();
@@ -92,6 +113,9 @@ export default {
                     });
                 }
             }
+        },
+        getFontSize(value) {
+            return value * this.fontSize;
         }
     }
 };
@@ -111,5 +135,9 @@ export default {
 .pickers {
     display: flex; /* or inline-flex */
     flex-direction: row;
+}
+
+.slider {
+    width: 70%;
 }
 </style>

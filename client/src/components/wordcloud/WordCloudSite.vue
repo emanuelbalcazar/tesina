@@ -30,6 +30,18 @@
                         </va-button>
                     </va-input>
                 </div>
+
+                <va-slider
+                    class="slider"
+                    label="Tamaño de fuente"
+                    :invert-label="true"
+                    color="info"
+                    value-visible
+                    v-model="fontSize"
+                    :step="step"
+                    :min="min"
+                    :max="max"
+                />
             </div>
 
             <cloud
@@ -54,12 +66,21 @@ export default {
             minPercentage: 30,
             words: [],
             sites: [],
+            step: 0.5,
+            min: 0,
+            max: 10,
+            fontSize: 0.65,
             selectedSite: "",
-            fontSizeMapper: word => word.value * 0.65
+            fontSizeMapper: word => this.getFontSize(word.value)
         };
     },
     mounted() {
         this.findSites();
+    },
+    watch: {
+        fontSize(newVal, oldVal) {
+            this.fontSize = newVal;
+        }
     },
     methods: {
         onClick(word) {
@@ -104,6 +125,9 @@ export default {
                     });
                 }
             }
+        },
+        getFontSize(value) {
+            return value * this.fontSize;
         }
     }
 };
@@ -122,5 +146,9 @@ export default {
 
 .inputs {
     width: 300px;
+}
+
+.slider {
+    width: 70%;
 }
 </style>

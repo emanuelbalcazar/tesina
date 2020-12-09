@@ -105,6 +105,11 @@ class ArticleController {
     async destroy({ params, request, response }) {
     }
 
+    /**
+     * Find articles by expected date
+     * @param {Request} ctx.request
+     * @param {Response} ctx.response
+     */
     async findByExpectedDate({ request, response }) {
         try {
             let params = request.all();
@@ -119,6 +124,11 @@ class ArticleController {
         }
     }
 
+    /**
+     * Returns the total number of articles
+     * @param {Request} ctx.request
+     * @param {Response} ctx.response
+     */
     async getCount({ request, response }) {
         try {
             let count = await Article.getCount();
@@ -128,6 +138,11 @@ class ArticleController {
         }
     }
 
+    /**
+     * Number of articles per site
+     * @param {Request} ctx.request
+     * @param {Response} ctx.response
+     */
     async totalPerSite({request, response}) {
         try {
             let result = await Article.query().select(Database.raw('COUNT(*), "displayLink"')).groupBy('displayLink').fetch();
