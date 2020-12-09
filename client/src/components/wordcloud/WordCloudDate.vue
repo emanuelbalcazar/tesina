@@ -56,6 +56,7 @@ export default {
             words: [],
             from: new Date(),
             to: new Date(),
+            maxValue: 0,
             fontSize: 1,
             fontSizeMapper: word => this.getFontSize(word.value)
         };
