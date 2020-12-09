@@ -68,6 +68,8 @@ class WordCloudService {
                 return { text: word.word, value: word.frecuency, date: word.date };
             });
 
+            result = mergeWords(result);
+
             return result;
         } catch (error) {
             throw error;
@@ -99,6 +101,8 @@ class WordCloudService {
             result = result.map(word => {
                 return { text: word.word, value: word.frecuency, site: word.site };
             });
+
+            result = mergeWords(result);
 
             return result;
         } catch (error) {
@@ -144,6 +148,26 @@ class WordCloudService {
             throw error;
         }
     }
+}
+
+function mergeWords(words) {
+    let temp = {};
+    let result = [];
+
+    for (var i = 0; i < words.length; i++) {
+        let word = words[i];
+        if (!temp[word.text]) {
+            temp[word.text] = word.value;
+        } else {
+            temp[word.text] += word.value;
+        }
+    }
+
+    for (var prop in temp) {
+        result.push({ text: prop, value: temp[prop] });
+    }
+
+    return result;
 }
 
 module.exports = WordCloudService;
