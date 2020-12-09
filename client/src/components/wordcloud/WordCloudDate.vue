@@ -66,12 +66,12 @@ export default {
         return {
             minPercentage: 30,
             words: [],
-            step: 0.5,
-            min: 0.5,
-            max: 10,
+            step: 0.25,
+            min: 0,
+            max: 1,
             from: new Date(),
             to: new Date(),
-            fontSize: 0.65,
+            fontSize: 0.25,
             fontSizeMapper: word => this.getFontSize(word.value)
         };
     },

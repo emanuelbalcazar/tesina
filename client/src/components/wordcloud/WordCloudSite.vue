@@ -66,10 +66,10 @@ export default {
             minPercentage: 30,
             words: [],
             sites: [],
-            step: 0.5,
-            min: 0.5,
-            max: 10,
-            fontSize: 0.65,
+            step: 0.25,
+            min: 0,
+            max: 1,
+            fontSize: 0.25,
             selectedSite: "",
             fontSizeMapper: word => this.getFontSize(word.value)
         };
