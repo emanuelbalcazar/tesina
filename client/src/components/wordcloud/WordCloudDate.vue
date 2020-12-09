@@ -10,18 +10,6 @@
                         Hasta:&nbsp;
                         <VueDatePicker v-model="to" format="DD/MM/YYYY" />
                     </div>
-                    <br>
-                    <va-slider
-                        class="slider"
-                        label="Tamaño de fuente"
-                        :invert-label="true"
-                        color="info"
-                        value-visible
-                        v-model="fontSize"
-                        :step="step"
-                        :min="min"
-                        :max="max"
-                    />
 
                     <br />
                     <va-input
@@ -66,12 +54,9 @@ export default {
         return {
             minPercentage: 30,
             words: [],
-            step: 0.25,
-            min: 0,
-            max: 1,
             from: new Date(),
             to: new Date(),
-            fontSize: 0.25,
+            fontSize: 1,
             fontSizeMapper: word => this.getFontSize(word.value)
         };
     },
@@ -115,7 +100,7 @@ export default {
             }
         },
         getFontSize(value) {
-            return value * this.fontSize;
+            return value * 70 / this.maxValue;
         }
     }
 };
