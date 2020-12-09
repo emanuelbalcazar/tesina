@@ -89,6 +89,7 @@ export default {
                 }
 
                 this.words = response.data;
+                this.maxValue = this.words[0].value;
             } catch (error) {
                 if (error.response && error.response.data) {
                     return this.showToast(error.response.data.error, {
