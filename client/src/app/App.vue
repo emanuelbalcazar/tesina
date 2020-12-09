@@ -1,14 +1,32 @@
 <template>
     <div id="app" class="app">
+        <div class="background">
+            <div class="loader" v-if="loading">
+                <half-circle-spinner
+                    :animation-duration="1000"
+                    :size="60"
+                    color="#ff1d5e"
+                />
+            </div>
+        </div>
+
         <router-view />
     </div>
 </template>
 
 <script>
+import { HalfCircleSpinner } from "epic-spinners";
 
 export default {
     name: "app",
-    components: {}
+    components: {
+        HalfCircleSpinner
+    },
+    computed: {
+        loading: function() {
+            return this.$store.getters.isLoading;
+        }
+    }
 };
 </script>
 
@@ -21,5 +39,25 @@ body {
     #app {
         height: 100%;
     }
+}
+
+.loader {
+    z-index: 9999;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.background {
+    background: #f5f5f5;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 </style>

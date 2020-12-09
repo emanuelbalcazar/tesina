@@ -66,15 +66,18 @@ VueCookies.config('2h');
 // ROUTER...
 router.beforeEach((to, from, next) => {
     let hasToken = !!VueCookies.get('token');
+    store.commit('setLoading', true)
 
     if (to.name == 'login' && hasToken) {
+        store.commit('setLoading', false);
         return next({ name: 'dashboard' });
     }
 
     if ((to.name != 'login' && to.name != 'signup' && to.name != 'recover-password') && !hasToken) {
+        store.commit('setLoading', false);
         return next({ name: 'login' });
     } else {
-        store.commit('setLoading', true)
+        store.commit('setLoading', false);
         return next()
     }
 });

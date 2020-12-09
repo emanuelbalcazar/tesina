@@ -1,5 +1,6 @@
 <template>
     <va-card>
+
         <div class="row">
             <div class="flex">
                 <h3>Nube de palabras por sitio</h3>
@@ -114,7 +115,7 @@ export default {
             }
         },
         getFontSize(value) {
-            return value * 70 / this.maxValue;
+            return (value * 70) / this.maxValue;
         }
     }
 };
@@ -135,7 +136,4 @@ export default {
     width: 300px;
 }
 
-.slider {
-    width: 70%;
-}
 </style>
