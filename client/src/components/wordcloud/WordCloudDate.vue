@@ -6,9 +6,9 @@
                 <div class="flex">
                     <div class="pickers">
                         Desde:&nbsp;
-                        <VueDatePicker v-model="from" format="DD/MM/YYYY" />
+                        <VueDatePicker v-model="from" format="DD/MM/YYYY" minDate="2020-03"/>
                         Hasta:&nbsp;
-                        <VueDatePicker v-model="to" format="DD/MM/YYYY" />
+                        <VueDatePicker v-model="to" format="DD/MM/YYYY" minDate="2020-03"/>
                     </div>
 
                     <br />

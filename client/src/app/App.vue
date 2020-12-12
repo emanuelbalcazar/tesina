@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="app">
-        <div class="background">
+        <div class="">
             <div class="loader" v-if="loading">
                 <half-circle-spinner
                     :animation-duration="1000"
@@ -51,13 +51,6 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-}
-
-.background {
-    background: #f5f5f5;
-    position: relative;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    cursor: wait;
 }
 </style>

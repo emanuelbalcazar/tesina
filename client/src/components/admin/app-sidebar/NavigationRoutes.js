@@ -12,6 +12,20 @@ export const navigationRoutes = {
             }
         },
         {
+            name: 'articles',
+            displayName: 'Articulos',
+            meta: {
+                iconClass: 'fa fa-newspaper-o',
+            },
+            disabled: true,
+            children: [
+                {
+                    name: 'list-articles',
+                    displayName: 'Listar articulos'
+                }
+            ]
+        },
+        {
             name: 'wordcloud',
             displayName: 'Nube de palabras',
             meta: {

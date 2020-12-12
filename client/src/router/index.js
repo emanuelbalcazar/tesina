@@ -72,6 +72,17 @@ export default new Router({
             ],
         },
         {
+            path: '/articles',
+            component: AppLayout,
+            children: [
+                {
+                    name: 'list-articles',
+                    path: 'list',
+                    component: () => import('../components/articles/List.vue')
+                }
+            ],
+        },
+        {
             path: '/wordcloud',
             component: AppLayout,
             children: [
