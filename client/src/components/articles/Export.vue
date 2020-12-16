@@ -63,12 +63,6 @@ export default {
         this.findSites();
     },
     methods: {
-        handleSuccess() {
-            console.log("success");
-        },
-        handleError() {
-            console.log("error");
-        },
         async findSites() {
             try {
                 axios.get("/articles/sites").then(response => {
@@ -107,8 +101,6 @@ export default {
                     icon: "fa-check"
                 });
             } catch (error) {
-                console.log(error);
-
                 if (error.response && error.response.data) {
                     return this.showToast(error.response.data.error, {
                         position: "bottom-right",
