@@ -20,6 +20,10 @@ export const navigationRoutes = {
             disabled: true,
             children: [
                 {
+                    name: 'export-articles',
+                    displayName: 'Exportar articulos'
+                },
+                {
                     name: 'list-articles',
                     displayName: 'Listar articulos'
                 }

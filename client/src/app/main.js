@@ -17,6 +17,7 @@ import { ColorThemePlugin } from 'vuestic-ui/src/services/ColorThemePlugin'
 import VueCookies from 'vue-cookies';
 import VueDatePicker from '@mathieustan/vue-datepicker';
 import '@mathieustan/vue-datepicker/dist/vue-datepicker.min.css';
+import JsonCSV from 'vue-json-csv'
 
 // Dialogs
 import VModal from 'vue-js-modal'
@@ -55,6 +56,9 @@ Vue.use(VuesticPlugin);
 Vue.use(VueClipboard);
 Vue.use(ColorThemePlugin);
 Vue.use(VueCookies);
+Vue.component('downloadCsv', JsonCSV);
+
+
 // options: You can set lang by default
 Vue.use(VueDatePicker, {
     lang: 'es'

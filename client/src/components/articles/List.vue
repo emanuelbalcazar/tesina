@@ -1,5 +1,16 @@
 <template>
     <va-card :title="title.table">
+        <div class="row align--center">
+            <div class="flex xs12 md4">
+                <va-input
+                    :value="toSearch"
+                    placeholder="Buscar..."
+                    @input="search"
+                >
+                    <va-icon name="fa fa-search" slot="prepend" />
+                </va-input>
+            </div>
+        </div>
         <va-data-table
             :fields="fields"
             :data="items"
@@ -36,6 +47,7 @@ export default {
                 search: "Buscar por sitio",
                 noData: "No se encontraron articulos."
             },
+            toSearch: "",
             perPage: 10,
             totalPages: 0,
             items: [],
@@ -53,11 +65,6 @@ export default {
                 {
                     name: "title",
                     title: "Titulo",
-                    callback: this.formatMessage
-                },
-                {
-                    name: "snippet",
-                    title: "Resumen",
                     callback: this.formatMessage
                 },
                 {
@@ -86,7 +93,8 @@ export default {
         readItems(page = 1) {
             const params = {
                 perPage: this.perPage,
-                page: page
+                page: page,
+                criteria: this.toSearch
             };
 
             axios.get("/articles", { params }).then(response => {
@@ -101,6 +109,10 @@ export default {
         },
         formatMessage(value = "") {
             return value.substring(0, 50);
+        },
+        search(toSearch) {
+            this.toSearch = toSearch;
+            this.readItems();
         }
     }
 };

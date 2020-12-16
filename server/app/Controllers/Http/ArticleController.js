@@ -143,10 +143,29 @@ class ArticleController {
      * @param {Request} ctx.request
      * @param {Response} ctx.response
      */
-    async totalPerSite({request, response}) {
+    async totalPerSite({ request, response }) {
         try {
             let result = await Article.query().select(Database.raw('COUNT(*), "displayLink"')).groupBy('displayLink').fetch();
             return response.json(result);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
+    }
+
+    async exportToCsv({ request, response }) {
+        try {
+            let params = request.all();
+            let data = await Article.exportToCsv(params);
+            return response.json(data);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
+    }
+
+    async sitesAvailables({ request, response }) {
+        try {
+            let sites = await Article.sitesAvailables();
+            return response.json(sites);
         } catch (error) {
             return response.unauthorized({ error: error.message });
         }

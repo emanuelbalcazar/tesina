@@ -32,8 +32,10 @@ Route.group(() => {
 Route.group(() => {
 
     Route.get('/articles/count', 'ArticleController.getCount');
+    Route.get('/articles/export', 'ArticleController.exportToCsv');
     Route.post('/articles/findByExpectedDate', 'ArticleController.findByExpectedDate');
     Route.get('/articles/totalPerSite', 'ArticleController.totalPerSite');
+    Route.get('/articles/sites', 'ArticleController.sitesAvailables');
 
     Route.get('/extractions/execute/:id', 'ExtractionController.execute');
 
@@ -54,4 +56,4 @@ Route.group(() => {
     Route.resource('/sites', 'SiteController');
     Route.resource('/users', 'UserController');
 
-}).prefix('api').middleware(['auth:jwt']);
+}).prefix('api')//.middleware(['auth:jwt']);

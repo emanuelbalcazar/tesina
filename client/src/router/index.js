@@ -76,6 +76,11 @@ export default new Router({
             component: AppLayout,
             children: [
                 {
+                    name: 'export-articles',
+                    path: 'export',
+                    component: () => import('../components/articles/Export.vue')
+                },
+                {
                     name: 'list-articles',
                     path: 'list',
                     component: () => import('../components/articles/List.vue')
