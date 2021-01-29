@@ -22,7 +22,8 @@ const providers = [
     path.join(__dirname, '..', 'providers', 'UtilProvider', 'Provider'),
     path.join(__dirname, '..', 'providers', 'SchedulerProvider', 'Provider'),
     path.join(__dirname, '..', 'providers', 'WordCloudProvider', 'Provider'),
-    path.join(__dirname, '..', 'providers', 'WordCloudSchedulerProvider', 'Provider')
+    path.join(__dirname, '..', 'providers', 'WordCloudSchedulerProvider', 'Provider'),
+    path.join(__dirname, '..', 'providers', 'GlobalWordProvider', 'Provider')
 ]
 
 /*

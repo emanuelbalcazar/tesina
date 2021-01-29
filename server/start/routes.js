@@ -39,18 +39,20 @@ Route.group(() => {
 
     Route.get('/extractions/execute/:id', 'ExtractionController.execute');
 
+    Route.get('/globalwords/count', 'GlobalWordController.count');
+    Route.get('/globalwords/mostfrecuent', 'GlobalWordController.getMostFrecuentWords');
+
     Route.get('/normalizedArticles/count', 'NormalizedArticleController.getCount');
 
     Route.get('/wordcloud/byDateRange', 'WordCloudController.getByDateRange');
     Route.get('/wordcloud/bySite', 'WordCloudController.getBySite');
-    Route.get('/wordcloud/wordCount', 'WordCloudController.getWordCount');
-    Route.get('/wordcloud/mostFrecuent', 'WordCloudController.getMostFrecuentWords');
     Route.get('/wordcloud/sites', 'WordCloudController.getSites');
 
     // resource routes
     Route.resource('/articles', 'ArticleController');
     Route.resource('/configs', 'ConfigController');
     Route.resource('/equations', 'EquationController');
+    Route.resource('/globalwords', 'GlobalWordController');
     Route.resource('/logs', 'LogController');
     Route.resource('/selectors', 'SelectorController');
     Route.resource('/sites', 'SiteController');

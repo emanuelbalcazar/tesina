@@ -131,7 +131,7 @@ export default {
         },
         async getWordCount() {
             try {
-                let response = await axios.get("/wordcloud/wordCount");
+                let response = await axios.get("/globalwords/count");
                 this.infoTiles[2].value = response.data.total;
             } catch (error) {
                 return this.showToast(
@@ -147,7 +147,7 @@ export default {
         async getMostFrecuentWords() {
             try {
                 let response = await axios.get(
-                    "/wordcloud/mostFrecuent?limit=5"
+                    "/globalwords/mostfrecuent?limit=5"
                 );
                 this.mostFrecuentWords = response.data.data;
 

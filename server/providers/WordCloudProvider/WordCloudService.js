@@ -111,32 +111,6 @@ class WordCloudService {
     }
 
     /**
-     * @return number of words
-     */
-    async getWordCount() {
-        try {
-            let count = await GlobalWord.getCount();
-            return count;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    /**
-     * Get most frecuent words with limit
-     * @TODO acumular valores de las palabras
-     * @param  {Number} limit
-     */
-    async getMostFrecuentWords(limit) {
-        try {
-            let words = await GlobalWord.query().orderBy('total', 'desc').paginate(1, limit);
-            return words;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    /**
      * Get all available sites
      */
     async getSites() {

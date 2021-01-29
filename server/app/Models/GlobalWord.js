@@ -28,6 +28,13 @@ class GlobalWord extends Model {
             throw error;
         }
     }
+
+    static async searchByCriteria(criteria = '', page, perPage) {
+        if (!page || page == undefined || page == null)
+            return await this.query().where('word', 'ilike', `%${criteria}%`).orderBy('word', 'asc').fetch();
+
+        return await this.query().where('word', 'ilike', `%${criteria}%`).orderBy('word', 'asc').paginate(page, perPage);
+    }
 }
 
-module.exports = GlobalWord
+module.exports = GlobalWord;
