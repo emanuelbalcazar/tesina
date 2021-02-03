@@ -44,6 +44,10 @@ export const navigationRoutes = {
                 {
                     name: 'wordcloud-site',
                     displayName: 'Nube de palabras por sitio'
+                },
+                {
+                    name: 'global-words',
+                    displayName: 'Palabras globales'
                 }
             ]
         }

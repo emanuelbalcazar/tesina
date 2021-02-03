@@ -100,6 +100,11 @@ export default new Router({
                     name: 'wordcloud-site',
                     path: '/wordcloud/bySite',
                     component: () => import('../components/wordcloud/WordCloudSite.vue')
+                },
+                {
+                    name: 'global-words',
+                    path: '/wordcloud/globalwords',
+                    component: () => import('../components/wordcloud/GlobalWord.vue')
                 }
             ]
         },

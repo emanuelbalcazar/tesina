@@ -11,6 +11,7 @@ const GlobalWordService = use('GlobalWordService');
  * Resourceful controller for interacting with globalwords
  */
 class GlobalWordController {
+
     /**
      * Show a list of all globalwords.
      * GET globalwords
@@ -33,7 +34,7 @@ class GlobalWordController {
     async count({ request, response, view }) {
         try {
             let count = await GlobalWordService.count();
-            return response.json({ total: count});
+            return response.json({ total: count });
         } catch (error) {
             return response.unauthorized({ error: error.message });
         }
