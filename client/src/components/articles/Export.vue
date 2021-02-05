@@ -52,7 +52,7 @@ export default {
             from: new Date(),
             to: new Date(),
             data: [],
-            info: {},
+            info: { total: 0 },
             sites: [],
             selectedSites: [],
             filename: 'articulos.csv'

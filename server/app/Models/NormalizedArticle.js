@@ -14,6 +14,13 @@ class NormalizedArticle extends Model {
         return await this.query().where('id', id).update({ in_wordcloud: value })
     }
 
+    static async searchByCriteria(criteria = '', page, perPage) {
+        if (!page || page == undefined || page == null)
+            return await this.query().where('link', 'ilike', `%${criteria}%`).orWhere('wordcloud', 'ilike', `%${criteria}%`).orderBy('id', 'asc').fetch();
+
+        return await this.query().where('link', 'ilike', `%${criteria}%`).orWhere('wordcloud', 'ilike', `%${criteria}%`).orderBy('id', 'asc').paginate(page, perPage);
+    }
+
     article() {
         return this.belongsTo('App/Models/Article');
     }

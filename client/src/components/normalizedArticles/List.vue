@@ -21,6 +21,16 @@
             @page-selected="readItems"
             api-mode
         >
+            <template slot="actions" slot-scope="props">
+                <va-button
+                    flat
+                    small
+                    color
+                    @click="view(props.rowData)"
+                    class="ma-0"
+                    >Ver detalle</va-button
+                >
+            </template>
         </va-data-table>
     </va-card>
 </template>
@@ -32,10 +42,10 @@ export default {
     data() {
         return {
             title: {
-                table: "Listado de palabras globales",
+                table: "Listado de Articulos Normalizados",
                 perPage: "Por Páginas",
-                search: "Buscar por palabra",
-                noData: "No se encontraron palabras."
+                search: "Buscar por sitio",
+                noData: "No se encontraron articulos normalizados."
             },
             toSearch: "",
             perPage: 10,
@@ -53,12 +63,22 @@ export default {
                     title: "ID"
                 },
                 {
-                    name: "word",
-                    title: "Palabra"
+                    name: "link",
+                    title: "Link",
+                    callback: this.formatLink
                 },
                 {
-                    name: "total",
-                    title: "Frecuencia Total"
+                    name: "wordcloud",
+                    title: "Texto final",
+                    callback: this.formatMessage
+                },
+                {
+                    name: "article_id",
+                    title: "ID articulo original"
+                },
+                {
+                    name: "__slot:actions",
+                    dataClass: "text-center"
                 }
             ];
         }
@@ -78,11 +98,20 @@ export default {
                 criteria: this.toSearch
             };
 
-            axios.get("/globalwords", { params }).then(response => {
+            axios.get("/normalizedArticles", { params }).then(response => {
                 this.items = response.data.data;
                 this.totalPages = response.data.lastPage;
                 this.perPage = response.data.perPage;
             });
+        },
+        view(article) {
+            console.log(article)
+        },
+        formatLink(value = "") {
+            return value.substring(0, 60);
+        },
+        formatMessage(value = "") {
+            return value.substring(0, 100);
         },
         search(toSearch) {
             this.toSearch = toSearch;

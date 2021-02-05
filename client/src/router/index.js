@@ -84,6 +84,11 @@ export default new Router({
                     name: 'list-articles',
                     path: 'list',
                     component: () => import('../components/articles/List.vue')
+                },
+                {
+                    name: 'list-normalized-articles',
+                    path: 'normalized',
+                    component: () => import('../components/normalizedArticles/List.vue')
                 }
             ],
         },

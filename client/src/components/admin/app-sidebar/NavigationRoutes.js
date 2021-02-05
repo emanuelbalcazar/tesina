@@ -26,6 +26,10 @@ export const navigationRoutes = {
                 {
                     name: 'list-articles',
                     displayName: 'Listar articulos'
+                },
+                {
+                    name: 'list-normalized-articles',
+                    displayName: 'Listar articulos normalizados'
                 }
             ]
         },

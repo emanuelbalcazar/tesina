@@ -20,6 +20,13 @@ class NormalizedArticleController {
      * @param {View} ctx.view
      */
     async index({ request, response, view }) {
+        try {
+            let params = request.all();
+            let articles = await NormalizedArticle.searchByCriteria(params.criteria, params.page, params.perPage);
+            return response.json(articles);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**
@@ -55,6 +62,12 @@ class NormalizedArticleController {
      * @param {View} ctx.view
      */
     async show({ params, request, response, view }) {
+        try {
+            let article = await NormalizedArticle.query().with('article').where('id', params.id).first();
+            return response.json(article);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
     }
 
     /**

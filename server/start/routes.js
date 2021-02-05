@@ -54,8 +54,9 @@ Route.group(() => {
     Route.resource('/equations', 'EquationController');
     Route.resource('/globalwords', 'GlobalWordController');
     Route.resource('/logs', 'LogController');
+    Route.resource('/normalizedArticles', 'NormalizedArticleController');
     Route.resource('/selectors', 'SelectorController');
     Route.resource('/sites', 'SiteController');
     Route.resource('/users', 'UserController');
 
-}).prefix('api').middleware(['auth:jwt']);
+}).prefix('api')//.middleware(['auth:jwt']);
