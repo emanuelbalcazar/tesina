@@ -26,9 +26,9 @@
                     flat
                     small
                     color
-                    @click="openNewTab(props.rowData)"
+                    @click="view(props.rowData)"
                     class="ma-0"
-                    >Ver original</va-button
+                    >Ver detalle</va-button
                 >
             </template>
         </va-data-table>
@@ -106,6 +106,9 @@ export default {
         openNewTab(article) {
             let win = window.open(article.link, "_blank");
             win.focus();
+        },
+        view(article) {
+            this.$router.push({ name: "view-article", params: { id: article.id } });
         },
         formatMessage(value = "") {
             return value.substring(0, 50);

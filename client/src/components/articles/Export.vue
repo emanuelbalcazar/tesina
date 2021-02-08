@@ -94,7 +94,7 @@ export default {
                 this.data = response.data.data;
                 this.info = response.data;
 
-                this.filename = `articulos-${this.info.total}.csv`;
+                this.filename = `${this.info.total} articulos del ${dateFrom} al ${dateTo}.csv`;
 
                 this.showToast(`${this.info.total} articulos obtenidos`, {
                     position: "bottom-right",
