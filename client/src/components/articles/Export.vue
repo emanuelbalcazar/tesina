@@ -19,7 +19,7 @@
             </div>
             <br />
             <va-select
-                label="Sitios web"
+                label="Sitios web (opcional)"
                 v-model="selectedSites"
                 multiple
                 :options="sites"
@@ -31,7 +31,7 @@
             </va-button>
 
             <hr />
-            <p>Cantidad de articulos obtenidos: {{ this.info.total }}</p>
+            <p><b>Cantidad de articulos obtenidos:</b> {{ this.info.total }}</p>
             <br />
             <va-button color="info">
                 <download-csv :data="data" :name="filename">
