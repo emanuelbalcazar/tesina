@@ -48,6 +48,38 @@ case "$1" in
         adonis config
     ;;
 
+    docker:build)
+        docker-compose up -d --build $2
+    ;;
+
+    docker:start)
+        docker-compose start $2
+    ;;
+
+    docker:restart)
+        docker-compose restart $2
+    ;;
+
+    docker:stop)
+        docker-compose stop $2
+    ;;
+
+    docker:rm)
+        docker-compose rm $2
+    ;;
+
+    docker:list)
+        docker-compose ps -a
+    ;;
+
+    docker:logs)
+        docker-compose logs $2 $3
+    ;;
+
+    docker:services)
+        docker-compose ps --services
+    ;;
+
     forever:start)
         forever start $2
     ;;
