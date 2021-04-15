@@ -9,9 +9,19 @@ services:
         volumes: 
             -  db-data:/var/lib/postgresql/data:z
         stdin_open: true
-        #network_mode: host
         env_file: 
             - ./postgres/.env
+        
+    rabbitmq:
+        image: rabbitmq:3-management-alpine
+        container_name: rabbitmq
+        volumes:
+            - ./rabbitmq/data/etc/:/etc/rabbitmq/
+            - ./rabbitmq/data/data/:/var/lib/rabbitmq/
+            - ./rabbitmq/data/logs/:/var/log/rabbitmq/
+        ports:
+            - 5672:5672
+            - 15672:15672
 
 # https://stackoverflow.com/questions/53342053/starting-postgres-container-with-persistant-volume-docker-compose
 # docker volume inspect tesina_db-data

@@ -42,6 +42,12 @@ case "$1" in
         adonis seed
     ;;
 
+    routes)
+        echo -e "Listando las rutas rest del servidor"
+        cd $root/server
+        adonis route:list
+    ;;
+
     config)
         echo -e "Accediendo a la configuración del servidor..."
         cd $root/server
