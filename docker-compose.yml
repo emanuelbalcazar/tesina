@@ -23,6 +23,19 @@ services:
             - 5672:5672
             - 15672:15672
 
+    crawl-extractors:
+        build: ./crawl-extractors
+        env_file: 
+            - ./crawl-extractors/.env
+        ports:
+            - "8002:8002"
+        environment:
+            TZ: America/Argentina/Buenos_Aires
+        depends_on: 
+            - rabbitmq
+    
+    
+
 # https://stackoverflow.com/questions/53342053/starting-postgres-container-with-persistant-volume-docker-compose
 # docker volume inspect tesina_db-data
 # /var/lib/docker/volumes/tesina_db-data/_data
