@@ -18,3 +18,12 @@ rabbitmq/data/logs/*
 !rabbitmq/data/data/.gitkeep
 !rabbitmq/data/logs/.gitkeep
 
+search-engine/node_modules/
+search-engine/package-lock.json
+search-engine/.env
+
+server/node_modules
+server/tmp
+server/.env
+server/database/*.sqlite
+server/package-lock.json
