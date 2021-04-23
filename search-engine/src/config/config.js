@@ -14,7 +14,7 @@ module.exports.SERVER_QUEUE = 'server';
 // declare google cse config, options:
 // https://www.googleapis.com/customsearch/v1/siterestrict?
 // https://www.googleapis.com/customsearch/v1?
-module.exports.GOOGLE_API = 'https://www.googleapis.com/customsearch/v1/siterestrict?';
+module.exports.GOOGLE_API = 'https://www.googleapis.com/customsearch/v1?';
 module.exports.CX = process.env.CX;
 module.exports.KEY = process.env.KEY;
 

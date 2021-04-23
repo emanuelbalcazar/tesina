@@ -33,6 +33,18 @@ services:
             TZ: America/Argentina/Buenos_Aires
         depends_on: 
             - rabbitmq
+
+    search-engine:
+        build: ./search-engine
+        env_file: 
+            - ./search-engine/.env
+        ports:
+            - "8001:8001"
+        environment:
+            TZ: America/Argentina/Buenos_Aires
+        depends_on: 
+            - rabbitmq
+
     
     
 

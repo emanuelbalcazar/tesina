@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 // execute a search
-router.post('/search', async (req, res, next) => {
+router.post('/search', async (req, res) => {
     try {
         let results = await service.search(req.body, "google");
         return res.json(results);
