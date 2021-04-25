@@ -4,6 +4,7 @@ services:
 
     postgres:
         build: ./postgres
+        container_name: postgres
         ports:
         - "5432:5432"
         volumes: 
@@ -25,6 +26,7 @@ services:
 
     crawl-extractors:
         build: ./crawl-extractors
+        container_name: crawl-extractors
         env_file: 
             - ./crawl-extractors/.env
         ports:
@@ -36,6 +38,7 @@ services:
 
     search-engine:
         build: ./search-engine
+        container_name: search-engine
         env_file: 
             - ./search-engine/.env
         ports:
@@ -45,8 +48,28 @@ services:
         depends_on: 
             - rabbitmq
 
-    
-    
+    server:
+        build: ./server
+        container_name: server
+        env_file: 
+            - ./server/.env
+        ports: 
+            - "8000:8000"
+        environment:
+            TZ: America/Argentina/Buenos_Aires
+        depends_on: 
+            - rabbitmq
+            - postgres
+
+    client:
+        build: ./client
+        container_name: client
+        env_file: 
+            - ./client/.env
+        ports:
+            - "8080:8080"
+        environment:
+            TZ: America/Argentina/Buenos_Aires
 
 # https://stackoverflow.com/questions/53342053/starting-postgres-container-with-persistant-volume-docker-compose
 # docker volume inspect tesina_db-data

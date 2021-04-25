@@ -1,5 +1,5 @@
 # indico que version de node usar
-FROM node:12
+FROM node:14
 
 # agrego la carpeta dentro del contenedor
 ADD . ./server

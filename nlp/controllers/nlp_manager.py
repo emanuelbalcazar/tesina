@@ -22,7 +22,7 @@ from config import get_config
 ID = 0
 LINK = 3
 TEXT = 5
-
+    
 # execute nlp process
 def execute():
     try:

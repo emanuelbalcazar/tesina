@@ -2,10 +2,12 @@
 FROM node:14
 
 # agrego la carpeta dentro del contenedor
-ADD . ./crawl-extractors
+ADD . ./client
 
 # me muevo a la carpeta correspondiente
-WORKDIR /crawl-extractors
+WORKDIR /client
+
+RUN npm run build
 
 # inicio el servicio
 CMD npm start

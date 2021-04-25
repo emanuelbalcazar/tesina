@@ -9,7 +9,6 @@ cytoolz==0.11.0
 decorator==4.4.2
 docutils==0.16
 es-core-news-lg @ https://github.com/explosion/spacy-models/releases/download/es_core_news_lg-2.3.1/es_core_news_lg-2.3.1.tar.gz
-Flask==1.1.2
 idna==2.10
 itsdangerous==1.1.0
 jellyfish==0.8.2

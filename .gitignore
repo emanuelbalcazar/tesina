@@ -8,6 +8,10 @@ crawl-extractors/.env
 
 nlp/venv/
 nlp/__pycache__
+nlp/controllers/__pycache__
+nlp/controllers/process/__pycache__
+nlp/models/__pycache__
+nlp/database/__pycache__
 
 postgres/.env
 
