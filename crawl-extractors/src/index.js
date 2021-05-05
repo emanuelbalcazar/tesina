@@ -7,7 +7,7 @@ const compression = require('compression');
 const helmet = require('helmet');
 const logger = require('morgan');
 const chalk = require('chalk');
-const workerManagement =  require('./workers/index');
+const workerManagement = require('./workers/index');
 
 // load .env configuration
 require('dotenv').config();
@@ -48,5 +48,7 @@ app.set('port', config.PORT);
 // listening application.
 app.listen(app.get('port'), async () => {
     console.log(success(`[Crawl Extractors] - started in ${app.get('host')}:${app.get('port')}`));
-    await workerManagement.startAllWorkers();
+
+    if (config.CONNECT_TO_RABBIT)
+        await workerManagement.startAllWorkers();
 });

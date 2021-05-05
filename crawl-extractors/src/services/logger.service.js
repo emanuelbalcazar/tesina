@@ -48,7 +48,9 @@ async function createLog(level, component, operation, message, equationId, q, st
     if (config.PRINT_LOGS_ON_CONSOLE)
         printOnConsole(log);
 
-    await rabbitmq.sendToQueue(config.LOGS_QUEUE_NAME, log);
+    if (config.CONNECT_TO_RABBIT)
+        await rabbitmq.sendToQueue(config.LOGS_QUEUE_NAME, log);
+
     return;
 }
 
