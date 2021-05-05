@@ -31,7 +31,7 @@ const router = require('./routes/routes');
 app.use('/api', router);
 
 // catch all errors.
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
     console.log(error(err.stack));
     res.status(500).json({ code: 500, message: err.message });
 });

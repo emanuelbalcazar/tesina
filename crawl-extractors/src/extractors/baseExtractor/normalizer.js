@@ -12,7 +12,7 @@ async function normalize(params, records) {
 
         for (const article of records.items) {
             let data = article;
-            data.published = data.published.replace("|", "").trim();
+            data.published = data.published.replace('|', '').trim();
             data.expected_date = params.equation.q;
             articles.push(data);
         }

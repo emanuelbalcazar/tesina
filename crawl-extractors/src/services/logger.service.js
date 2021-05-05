@@ -70,12 +70,12 @@ function printOnConsole(log) {
  */
 function getChalk(level) {
     switch (level) {
-        case 'info': return chalk.blue;
-        case 'warn': return chalk.yellow;
-        case 'error': return chalk.red;
-        case 'debug': return chalk.cyan;
-        case 'success': return chalk.green;
-        default: return chalk.white;
+    case 'info': return chalk.blue;
+    case 'warn': return chalk.yellow;
+    case 'error': return chalk.red;
+    case 'debug': return chalk.cyan;
+    case 'success': return chalk.green;
+    default: return chalk.white;
     }
 }
 

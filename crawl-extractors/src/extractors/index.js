@@ -13,7 +13,7 @@ class ExtractorFactory {
      */
     getExtractor(name = 'default') {
         try {
-            let extractorName = name.toLowerCase();
+            var extractorName = name.toLowerCase();
             let extractor = require(`./${extractorName}/${extractorName}`);
 
             return extractor;

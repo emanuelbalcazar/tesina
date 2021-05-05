@@ -1,4 +1,4 @@
-const axios = require("axios");
+const axios = require('axios');
 const logger = require('../../services/logger.service');
 
 /**
