@@ -6,7 +6,8 @@
     "scripts": {
         "start": "node ./src",
         "dev": "nodemon ./src",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "./node_modules/.bin/eslint src/"
     },
     "author": "Emanuel Balcazar",
     "license": "ISC",
@@ -21,6 +22,7 @@
         "morgan": "^1.10.0"
     },
     "devDependencies": {
+        "eslint": "^7.25.0",
         "nodemon": "^2.0.4"
     },
     "nodemonConfig": {

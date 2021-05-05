@@ -23,7 +23,7 @@ class SearchService {
 
             return results;
         } catch (error) {
-            throw error;
+            throw new Error(error);
         }
     }
 }

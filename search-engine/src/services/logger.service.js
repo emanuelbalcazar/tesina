@@ -48,7 +48,9 @@ async function createLog(level, component, operation, message, equationId, q, st
     if (config.PRINT_LOGS_ON_CONSOLE)
         printOnConsole(log);
 
-    await rabbitmq.sendToQueue(config.LOGS_QUEUE_NAME, log);
+    if (config.CONNECT_TO_RABBIT)
+        await rabbitmq.sendToQueue(config.LOGS_QUEUE_NAME, log);
+
     return;
 }
 
@@ -68,12 +70,12 @@ function printOnConsole(log) {
  */
 function getChalk(level) {
     switch (level) {
-        case 'info': return chalk.blue;
-        case 'warn': return chalk.yellow;
-        case 'error': return chalk.red;
-        case 'debug': return chalk.cyan;
-        case 'success': return chalk.green;
-        default: return chalk.white;
+    case 'info': return chalk.blue;
+    case 'warn': return chalk.yellow;
+    case 'error': return chalk.red;
+    case 'debug': return chalk.cyan;
+    case 'success': return chalk.green;
+    default: return chalk.white;
     }
 }
 

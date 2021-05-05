@@ -11,7 +11,7 @@ async function filter(params, records) {
 
     try {
         let filtered = records.items.filter(article => {
-            let hasExcludedWord = new RegExp(config.excludedWords.join("|"), "gi").test(article.link);
+            let hasExcludedWord = new RegExp(config.excludedWords.join('|'), 'gi').test(article.link);
             return !hasExcludedWord;
         });
 

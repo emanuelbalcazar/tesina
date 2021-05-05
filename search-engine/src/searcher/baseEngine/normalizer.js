@@ -22,7 +22,7 @@ async function normalize(params, records) {
                 title: item.title,
                 link: item.link,
                 displayLink: item.displayLink
-            }
+            };
         });
 
         await logger.success('search engine', 'normalizer', `total: ${results.nextPage.totalResults} - cant. despues de normalizar: ${results.items.length}`, params.equation.id, params.equation.q, params.equation.start);

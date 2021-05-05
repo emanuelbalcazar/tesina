@@ -7,10 +7,10 @@ const compression = require('compression');
 const helmet = require('helmet');
 const logger = require('morgan');
 const chalk = require('chalk');
-const workerManagement =  require('./workers/index');
+const workerManagement = require('./workers/index');
 
 // load .env configuration
-require('dotenv').config()
+require('dotenv').config();
 const config = require('./config/config');
 
 const success = chalk.green;
@@ -31,7 +31,7 @@ const router = require('./routes/routes');
 app.use('/api', router);
 
 // catch all errors.
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
     console.log(error(err.stack));
     res.status(500).json({ code: 500, message: err.message });
 });
@@ -48,5 +48,7 @@ app.set('port', config.PORT);
 // listening application.
 app.listen(app.get('port'), async () => {
     console.log(success(`[Search Engine] - started in ${app.get('host')}:${app.get('port')}`));
-    await workerManagement.startAllWorkers();
+    
+    if (config.CONNECT_TO_RABBIT)
+        await workerManagement.startAllWorkers();
 });

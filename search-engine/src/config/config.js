@@ -6,6 +6,7 @@ module.exports.HOST = process.env.HOST || 'http://localhost';
 module.exports.PORT = process.env.PORT || 8001;
 
 // declare rabbitmq connection
+module.exports.CONNECT_TO_RABBIT = (process.env.CONNECT_TO_RABBIT === 'true') ?? true;
 module.exports.RABBITMQ = process.env.RABBITMQ || 'amqp://localhost:5672/tesina';
 module.exports.CONSUMER_EXCHANGE = 'equations';
 module.exports.PUBLISH_EXCHANGE = 'searches';
@@ -20,7 +21,7 @@ module.exports.KEY = process.env.KEY;
 
 // logs configuration
 module.exports.LOGS_QUEUE_NAME = 'logs';
-module.exports.PRINT_LOGS_ON_CONSOLE = true;
+module.exports.PRINT_LOGS_ON_CONSOLE = (process.env.PRINT_LOGS_ON_CONSOLE === 'true') ?? true;
 
 // excluded words for article links
 module.exports.excludedWords = ['/tag', '/tags', '/seccion', '/impresa/', '/noticias/buscar/', '/contenidos/terminos-condiciones'];

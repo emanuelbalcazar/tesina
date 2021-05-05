@@ -13,7 +13,7 @@ class SearchFactory {
      */
     getSearcher(name = 'google') {
         try {
-            let searchName = name.toLowerCase();
+            var searchName = name.toLowerCase();
             let searcher = require(`./${searchName}/${searchName}`);
             return searcher;
         } catch (error) {
