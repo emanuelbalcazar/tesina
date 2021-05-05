@@ -1,5 +1,6 @@
 const config = require('../../config/config');
 const logger = require('../../services/logger.service');
+const excludedWords = require('./excludedWords.json').excluded;
 
 /**
  * Filter the information received using some evaluation criteria.
@@ -11,7 +12,7 @@ async function filter(params, records) {
 
     try {
         let filtered = records.items.filter(article => {
-            let hasExcludedWord = new RegExp(config.excludedWords.join('|'), 'gi').test(article.link);
+            let hasExcludedWord = new RegExp(excludedWords.join('|'), 'gi').test(article.link);
             return !hasExcludedWord;
         });
 

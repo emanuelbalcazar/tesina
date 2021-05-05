@@ -1,0 +1,10 @@
+{
+    "excluded": [
+        "/tag",
+        "/tags",
+        "/seccion",
+        "/impresa/",
+        "/noticias/buscar/",
+        "/contenidos/terminos-condiciones"
+    ]
+}
