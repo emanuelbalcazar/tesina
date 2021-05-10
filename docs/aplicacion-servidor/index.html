@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Emanuel Balcazar">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Aplicación servidor - Tesina</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Aplicaci\u00f3n servidor";
+    var mkdocs_page_input_path = "aplicacion-servidor.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Tesina</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Principal</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../instalacion/">Instalación y despliegue</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Aplicación servidor</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Tesina</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Aplicación servidor</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>A continuación se le brindará información basica sobre como es el funcionamiento del framework y que debe hacer si desea agregar nuevas funcionalidades, esto es solo un vistazo por lo que se recomienda fuertemente que visite la documentación de la pagina oficial si desea tener mas detalles.</p>
+<p><a href="https://adonisjs.com/docs/4.1/about">https://adonisjs.com/docs/4.1/about</a></p>
+<h2 id="estructura-del-servidor">Estructura del servidor</h2>
+<p><a href="https://adonisjs.com/docs/4.1/folder-structure">Página de referencia</a></p>
+<p>La estructura generada por AdonisJS consiste en los siguientes directorios</p>
+<pre><code class="language-javascript">proyecto
+├── app
+├── config
+├── database
+├── node_modules
+├── providers
+├── start
+├── test
+├── .env
+├── .gitignore
+├── package.json
+├── ace
+├── server.js
+├── vowfile.js
+├── README.md
+
+</code></pre>
+<p>A continuación describiremos los directorios y archivos más importantes para que nos ayuden a entender más el funcionamiento del framework.</p>
+<ul>
+<li>
+<p><code>app</code>: Contiene los archivos necesarios para el funcionamiento basico de la aplicación. A su vez contiene las carpetas: <code>Controllers</code> como presenter, <code>Middleware</code> en donde se encuentran los middlewares propios y <code>Models</code> en donde se encuentran los modelos asociados a las tablas de la base de datos.</p>
+</li>
+<li>
+<p><code>config</code>: Como el nombre indica, contiene todos los archivos de configuracion de la aplicación.</p>
+</li>
+<li>
+<p><code>database</code>: Contiene los <code>migration</code> y <code>seeds</code> para la creación y carga de datos en la base de datos.</p>
+</li>
+<li>
+<p><code>providers</code>: Contiene los servicios que pueden inyectarse en los controladores u otros modulos de forma global.</p>
+</li>
+<li>
+<p><code>start</code>: Contiene los archivos que se utilizan al momento de levantarse la aplicación, ahi se puede configurar los services providers necesarios, registrar nuevos middlewares o plugins que se desee utilizar, etc.</p>
+</li>
+<li>
+<p><code>test</code>: Contiene las carpetas de test <code>unit</code> o <code>functional</code>.</p>
+</li>
+<li>
+<p><code>ace</code>: Es un ejecutable que hace de linea de comandos entre el AdonisJS y el proyecto, este archivo es propio del framework y no debe ser modificado.</p>
+</li>
+<li>
+<p><code>server.js</code>: Archivo JS que se ejecuta para iniciar la aplicación servidor.</p>
+</li>
+</ul>
+<h2 id="como-desarrollar-con-adonisjs">Como desarrollar con AdonisJS</h2>
+<h3 id="crear-un-modelo">Crear un modelo</h3>
+<p><a href="https://adonisjs.com/docs/4.1/lucid">Página de referencia</a></p>
+<p>Si desea crear un modelo, debe utilizar el comando:</p>
+<pre><code class="language-bash">adonis make:model User
+</code></pre>
+<p>Agregar en el modelo el siguiente metodo, como AdonisJS crea las tablas y por defecto le agrega las columnas <code>created_at</code> y <code>updated_at</code> exigiendo dichos datos, para evitar que el timestamp sea obligatorio se debe agregar el siguiente codigo:</p>
+<pre><code class="language-javascript">static boot() {
+    super.boot();
+    this.addTrait('NoTimestamp');
+}
+</code></pre>
+<h3 id="crear-una-migracion">Crear una migración</h3>
+<p><a href="https://adonisjs.com/docs/4.1/migrations">Pagina de referencia</a></p>
+<p>Para crear la migración, debe ejecutar el siguiente comando:</p>
+<pre><code class="language-bash">adonis make:migration User
+</code></pre>
+<p>o si desea crear la migración junto al modelo puede utilizar el comando:</p>
+<pre><code class="language-bash">adonis make:model User --migration
+</code></pre>
+<p>El parametro <code>--migration</code> te permite crear ademas la migración del modelo.</p>
+<p>El archivo se crea en la carpeta <code>database/migrations</code>, debe tener en cuenta que las migraciones se ejecutan en ORDEN, por lo que si posee foreing keys o referencias a otras tablas debe asegurarse que la migración de la tabla a la que hace referencia sea creada con anterioridad.</p>
+<p>IMPORTANTE: Si no desea que el timestamp este presente como vimos en la creación del modelo, elimine la linea que contiene el siguiente codigo: <code>table.timestamps()</code>.</p>
+<h3 id="crear-un-controlador">Crear un controlador</h3>
+<p><a href="https://adonisjs.com/docs/4.1/controllers">Página de referencia</a></p>
+<p>El controlador hace de presenter y es quien realiza la lógica de negocio de la aplicación, para crear el controlador debe ejecutar el comando:</p>
+<pre><code class="language-bash">adonis make:controller User
+</code></pre>
+<p>AdonisJS le preguntará si desea que el controlador sea de tipo HTTP o WebSocket, seleccione la que desea crear.</p>
+<p>Existe un tipo de controlador llamado "resource" que ya dispone de los metodos listos para realizar un CRUD del modelo si asi lo desea, para ello utilice el comando:</p>
+<pre><code class="language-bash">adonis make:controller User --resource
+</code></pre>
+<p>El controlador se crea en la carpeta <code>app/Controllers/Http</code> (si eligio http) y en caso de que sea un controlador de tipo resource vera que en el archivo ya se agregaron los metodos del CRUD con sus respectivos comentarios (leerlos para saber que hacen y como se mapean con las rutas rest).</p>
+<h3 id="agregar-la-ruta-http">Agregar la ruta HTTP</h3>
+<p><a href="https://adonisjs.com/docs/4.1/routing">Pagina de referencia</a></p>
+<p>Para agregar una nueva ruta, vaya al archivo <code>start/routes.js</code> y agregue la ruta que desea de la siguiente manera:</p>
+<pre><code class="language-javascript">Route.get('/users', 'UserController.index')
+</code></pre>
+<p>El primer parametro del objecto Route es el nombre de la ruta (por lo general /algo) y el segundo parametro indica el nombre del controlador y el método al que debe llamar cuando se realice la llamada HTTP con el método que haya indicado en el objeto route (get, post, put o delete).</p>
+<p>Si desea realizar un mapeo de rutas con un controlador de tipo resource, puede definir la ruta de la siguiente manera:</p>
+<pre><code class="language-javascript">Route.resource('/users', 'UserController');
+</code></pre>
+<p>Esto automáticamente llamara a los métodos del controlador que ya fueron creados y ademas realiza el mapeo de rutas dependiendo del tipo de llamada. Esto se hace para evitar crear rutas relacionadas a un CRUD y mapear una por una la ruta y el método del controlador facilitando así la definición de rutas y controladores en una sola linea.</p>
+<pre><code class="language-javascript">// Esto...
+Route.resource('users', 'UserController')
+
+// ...es equivalente a esto:
+Route.get('users', 'UserController.index')
+Route.post('users', 'UserController.store')
+Route.get('users/:id', 'UserController.show')
+Route.put('users/:id', 'UserController.update')
+Route.delete('users/:id', 'UserController.destroy')
+</code></pre>
+<p>Tambien puede agrupar las rutas para que todas posean un prefijo:</p>
+<pre><code class="language-javascript">Route.group(() =&gt; {
+    Route.resource('users', 'UserController')
+    Route.resource('roles', 'RoleController');
+}).prefix('api')
+</code></pre>
+<p>Dando como resultado las rutas <code>/api/users</code> y <code>/api/roles</code></p>
+<p>Si desea listar las rutas con sus controladores así como información de utilidad puede utilizar el comando:</p>
+<pre><code class="language-bash">adonis route:list
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../instalacion/" class="btn btn-neutral" title="Instalación y despliegue"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../instalacion/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

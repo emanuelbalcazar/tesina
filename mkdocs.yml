@@ -1,8 +1,10 @@
 site_name: Tesina
 docs_dir: wiki
 site_dir: docs
+site_author: Emanuel Balcazar
 nav:
   - Principal: index.md
   - Instalación y despliegue: instalacion.md
+  - Aplicación servidor: aplicacion-servidor.md
 
 theme: readthedocs

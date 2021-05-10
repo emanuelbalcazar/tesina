@@ -34,14 +34,14 @@ Al acceder a la configuración del buscador, podrá ver varios parámetros como 
 
 Actualmente los sitios con los que se trabaja son:
 
-* https://diariocronica.com.ar
-* https://www.eldiarioweb.com
-* https://www.diariojornada.com.ar
-* https://www.elpatagonico.com
-* https://www.elchubut.com.ar
-* https://radio3cadenapatagonia.com.ar
-* https://diariolaportada.com.ar
-* https://www.red43.com.ar
+* [https://diariocronica.com.ar](https://diariocronica.com.ar)
+* [https://www.eldiarioweb.com](https://diariocronica.com.ar)
+* [https://www.diariojornada.com.ar](https://diariocronica.com.ar)
+* [https://www.elpatagonico.com](https://diariocronica.com.ar)
+* [https://www.elchubut.com.ar](https://diariocronica.com.ar)
+* [https://radio3cadenapatagonia.com.ar](https://diariocronica.com.ar)
+* [https://diariolaportada.com.ar](https://diariocronica.com.ar)
+* [https://www.red43.com.ar](https://diariocronica.com.ar)
 
 #### Configurar RabbitMQ
 
@@ -107,10 +107,10 @@ Probablemente, usted quiera dejar ejecutando el proceso en background, para ello
 
 Para verificar si las aplicaciones están ejecutando, acceda desde el navegador a las siguientes rutas por defecto de las aplicaciones para comprobar si su api rest se encuentra activa.
 
-* Server: http://localhost:8000/
-* Search Engine: http://localhost:8001/api/
-* Crawl Extractors: http://localhost:8002/api/
-* Client: http://localhost:8080
+* Server: [http://localhost:8000/](http://localhost:8000/)
+* Search Engine: [http://localhost:8001/api/](http://localhost:8000/)
+* Crawl Extractors: [http://localhost:8002/api/](http://localhost:8000/)
+* Client: [http://localhost:8080](http://localhost:8000/)
 
 En cualquier caso, las aplicaciones mostraran un mensaje al comenzar su ejecución ya sea indicando que workers están activos o en que puerto estan escuchando, esta es otra manera de verificar que las aplicaciones están ejecutando y lograron conectarse a la base de datos y RabbitMQ.
 

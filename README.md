@@ -3,7 +3,7 @@ Extracción, Análisis y Procesamiento Automático de Información Periodística
 
 ## Documentación
 
-Acceda a la [wiki del proyecto](https://github.com/emanuelbalcazar/tesina/wiki) para obtener información.
+Acceda a la [wiki del proyecto](https://emanuelbalcazar.github.io/tesina/) para obtener información.
 
 ## Fundamentación
 
