@@ -6,5 +6,8 @@ nav:
   - Principal: index.md
   - Instalación y despliegue: instalacion.md
   - Aplicación servidor: aplicacion-servidor.md
+  - Script SH: script-sh.md
+  - Herramientas de desarrollo: herramientas-desarrollo.md
+  - Arquitectura: arquitectura.md
 
 theme: readthedocs

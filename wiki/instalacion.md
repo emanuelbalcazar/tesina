@@ -1,4 +1,6 @@
-### Requisitos previos
+## Instalación y despliegue
+
+#### Requisitos previos
 
 * NodeJS 10.X o superior [Página de descarga](https://nodejs.org/es/)
 * RabbitMQ [Página de descarga](https://bintray.com/rabbitmq/debian/rabbitmq-server)
