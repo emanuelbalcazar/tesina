@@ -1,0 +1,6 @@
+site_name: Tesina
+nav:
+  - Principal: index.md
+  - Instalación y despliegue: instalacion.md
+
+theme: readthedocs

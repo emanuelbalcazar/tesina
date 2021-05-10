@@ -1,4 +1,3 @@
-const config = require('../../config/config');
 const logger = require('../../services/logger.service');
 const excludedWords = require('./excludedWords.json').excluded;
 

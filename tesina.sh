@@ -124,6 +124,14 @@ case "$1" in
         forever logs $2
     ;;
 
+    mkdocs:build)
+        mkdocs build
+    ;;
+
+    mkdocs:serve)
+        mkdocs build && mkdocs serve -a localhost:3000
+    ;;
+
     *)
         echo "Comando no reconocido"
     ;;

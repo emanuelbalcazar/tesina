@@ -109,9 +109,6 @@ def process_article(article):
         without_prepositions = remove_prepositions.execute(text)
         normalized_article.update_removed_prepositions(without_prepositions, article[ID])
 
-        # FIXME: before lemmatizing, remove the words ending in AL??
-        #without_prepositions = remove_ends.execute(without_prepositions)
-
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
         print("[nlp] {now} - procesando articulo {id} con: lemmatized".format(id=article[ID], now=dt_string))

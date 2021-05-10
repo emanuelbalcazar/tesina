@@ -31,3 +31,5 @@ server/tmp
 server/.env
 server/database/*.sqlite
 server/package-lock.json
+
+site/
