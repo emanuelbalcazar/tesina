@@ -1,4 +1,6 @@
 site_name: Tesina
+docs_dir: wiki
+site_dir: docs
 nav:
   - Principal: index.md
   - Instalación y despliegue: instalacion.md

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Instalación y despliegue - Tesina</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Instalaci\u00f3n y despliegue";
+    var mkdocs_page_input_path = "instalacion.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Tesina</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Principal</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Instalación y despliegue</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#instalar-python-3">Instalar Python 3</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configurar-google-cse">Configurar Google CSE</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configurar-rabbitmq">Configurar RabbitMQ</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#instalacion">Instalación</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#despliegue">Despliegue</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#nlp">NLP</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#usando-screen">Usando screen</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#verificacion">Verificación</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuraciones-adicionales">Configuraciones adicionales</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Tesina</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Instalación y despliegue</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h3 id="requisitos-previos">Requisitos previos</h3>
+<ul>
+<li>NodeJS 10.X o superior <a href="https://nodejs.org/es/">Página de descarga</a></li>
+<li>RabbitMQ <a href="https://bintray.com/rabbitmq/debian/rabbitmq-server">Página de descarga</a></li>
+<li>PostgreSQL <a href="https://www.postgresql.org/download/">Página de descarga</a></li>
+<li>AdonisJS <a href="https://adonisjs.com/">Página de descarga</a></li>
+<li>VueJS <a href="https://cli.vuejs.org/guide/installation.html">Página de descarga</a></li>
+<li>(Opcional) forever: <code>npm install -g forever</code></li>
+</ul>
+<h4 id="instalar-python-3">Instalar Python 3</h4>
+<p>El proyecto hace uso de python 3.8 para el funcionamiento del NLP, para ello deberá instalarlo en su sistema.</p>
+<ol>
+<li>Instalar python 3: <code>apt-get install python3.8</code></li>
+<li>Instalar pip: <code>apt-get install python3-pip</code></li>
+<li>Actualizar pip: <code>python3 -m pip install --upgrade pip</code></li>
+<li>Instalar virtualenv: <code>pip3 install virtualenv</code></li>
+<li>En la carpeta <code>nlp</code> crear el virtualenv con el comando: <code>virtualenv venv</code></li>
+<li>En caso de error "setuptools pip failed with error code error" ejecutar: <code>pip3 install --upgrade setuptools</code></li>
+<li>(Opcional) Instalar spacy: <code>pip3 install spacy</code></li>
+<li>(Opcional) Instalar el modelo en español de spacy: <code>python -m spacy download es_core_news_lg</code></li>
+</ol>
+<h4 id="configurar-google-cse">Configurar Google CSE</h4>
+<p>El sistema hace uso del buscador personalizado de Google, para ello deberá crear un buscador en <a href="https://cse.google.com/cse/all">https://cse.google.com/cse/all</a>.</p>
+<p>Al crear un buscador, Google le brindará un ID de buscador único junto con su key necesarios para poder hacer uso del mismo desde llamadas http. Dichos datos deben ser incorporados en el .env de <code>search-engine</code> para poder ejecutar las búsquedas.</p>
+<p>Al acceder a la configuración del buscador, podrá ver varios parámetros como el nombre, descripción, idioma, etc. Una configuración muy importante es incorporar los sitios web en donde se realizaran las búsquedas para que así se pueda pre-filtrar los resultados por sitios específicos.</p>
+<p><strong>IMPORTANTE:</strong> si usa la versión gratuita, solo podrá realizar 100 búsquedas por día, en cambio si posee la versión paga, podrá realizar una mayor cantidad de búsquedas. Este factor es importante ya que determina cual es el limite de búsquedas diarias que deberá configurar en la base de datos (ver las siguientes secciones sobre como se configura).</p>
+<p><img alt="Google CSE Config" src="../archivos/imagenes/google-cse-config.png" /></p>
+<p>Actualmente los sitios con los que se trabaja son:</p>
+<ul>
+<li>https://diariocronica.com.ar</li>
+<li>https://www.eldiarioweb.com</li>
+<li>https://www.diariojornada.com.ar</li>
+<li>https://www.elpatagonico.com</li>
+<li>https://www.elchubut.com.ar</li>
+<li>https://radio3cadenapatagonia.com.ar</li>
+<li>https://diariolaportada.com.ar</li>
+<li>https://www.red43.com.ar</li>
+</ul>
+<h4 id="configurar-rabbitmq">Configurar RabbitMQ</h4>
+<p>Las aplicaciones hacen uso de RabbitMQ para comunicarse entre si, para ello deberá utilizar los siguientes comandos (quizás como root):</p>
+<ol>
+<li>Crear el virtualhost <code>tesina</code> con el comando: <code>rabbitmqctl add_vhost tesina</code></li>
+<li>Verificar que efectivamente el virtualhost fue creado con: <code>rabbitmqctl list_vhosts</code></li>
+<li>Agregar el usuario de RabbitMQ por defecto al virtualhost con todos los permisos: <code>rabbitmqctl set_permissions -p tesina guest ".*" ".*" ".*"</code></li>
+</ol>
+<h4 id="instalacion">Instalación</h4>
+<ol>
+<li>Clonar el proyecto <code>https://github.com/emanuelbalcazar/tesina.git</code>.</li>
+<li>Moverse a la carpeta raiz del proyecto <code>cd tesina</code>.</li>
+<li>Ejecutar el comando <code>./tesina.sh install</code> para instalar las dependencias de nodejs en todas las aplicaciones.</li>
+<li>
+<p>En el caso del nlp es diferente, debera moverse a la carpeta <strong>nlp</strong> y ejecutar los siguientes comandos:</p>
+</li>
+<li>
+<p>Activar el virtualenv con: <code>source venv/bin/activate</code></p>
+</li>
+<li>Instalar las dependencias con: <code>pip install -r requirements.txt</code></li>
+<li>
+<p>Descargar las librerias y corpus necesarios con: <code>python download.py</code></p>
+</li>
+<li>
+<p>Configurar archivos .env</p>
+</li>
+</ol>
+<p>Crear el archivo .env en las carpetas <code>server</code>, <code>client</code>, <code>search-engine</code> y <code>crawl-extractors</code>, utilizar el archivo <code>.env.example</code> como ejemplo completando los datos indicados incluyendo los parametros de conexión a la base de datos, conexión a RabbitMQ y claves de Google CSE previamente obtenidas.
+Si todos los datos fueron completados, las aplicaciones deberían poder ejecutarse sin problemas.</p>
+<ol>
+<li>Configurar los parámetros de conexión del NLP en <code>nlp/configuration.ini</code> modificando los datos que sean necesarios para permitir la conexión a la base de datos.</li>
+<li>Ejecutar el comando <code>./tesina.sh migrate</code> para crear las tablas en la base de datos (asegurarse de que los .env sean correctos).</li>
+<li>Ejecutar el comando <code>./tesina.sh seed</code> para cargar la base de datos con los datos iniciales necesarios para el funcionamiento de las aplicaciones.</li>
+</ol>
+<h4 id="despliegue">Despliegue</h4>
+<ol>
+<li>Ejecutar el comando <code>./tesina.sh forever:startall</code> para levantar todas las aplicaciones con forever.</li>
+<li>(Opcional) si no desea usar forever, puede ejecutar <code>npm start</code> en las carpetas <code>crawl-extractors</code>, <code>search-engine</code>, <code>server</code> y <code>client</code>.</li>
+<li>Para ejecutar el proceso de NLP ver en la siguiente sección.</li>
+</ol>
+<h4 id="nlp">NLP</h4>
+<p>El modulo de procesamiento de lenguaje general funciona de manera separada al resto de los componentes ya que no se integra al circuito de RabbitMQ. Para ejecutarlo debera hacer los siguientes pasos:</p>
+<ol>
+<li>Moverse a la carpeta nlp: <code>cd nlp</code></li>
+<li>Activar el virtualenv: <code>source venv/bin/activate</code></li>
+<li>Ejecutar el modulo principal con: <code>python main.py</code></li>
+</ol>
+<p>El proceso comenzará a recuperar los artículos que NO fueron procesados desde la base de datos y los ira normalizando y persistiendo en la tabla de <code>normalized_articles</code> en la base de datos. Cada fila insertada contiene el texto resultante de la normalización así como los pasos intermedios en cada columna.
+Al finalizar el proceso debería tener la misma cantidad de artículos normalizados como artículos extraídos en su base de datos.</p>
+<p><strong>AVISO</strong>: este proceso puede demorar bastante tiempo, se normalizan aproximadamente 10 artículos por minuto.</p>
+<h4 id="usando-screen">Usando screen</h4>
+<p>Probablemente, usted quiera dejar ejecutando el proceso en background, para ello utilizaremos screen.</p>
+<ol>
+<li>Instalar screen: <code>apt-get install screen</code></li>
+<li>Moverse a la carpeta de NLP: <code>cd nlp</code></li>
+<li>Escribir el comando screen: <code>screen</code> para entrar en la consola de screen.</li>
+<li>Activar el entorno virtual con: <code>source venv/bin/activate</code></li>
+<li>Ejecutar el archivo main: <code>python main.py</code></li>
+<li>Salir de screen presionando las teclas: <code>ctrl</code> + <code>A</code> + <code>D</code> al mismo tiempo, a partir de este punto puede cerrar su consola principal.</li>
+<li>Escriba el comando: <code>screen -ls</code> para comprobar que la consola de screen quedo en background</li>
+<li>Si desea retomar la consola, escriba: <code>screen -r</code></li>
+</ol>
+<h4 id="verificacion">Verificación</h4>
+<p>Para verificar si las aplicaciones están ejecutando, acceda desde el navegador a las siguientes rutas por defecto de las aplicaciones para comprobar si su api rest se encuentra activa.</p>
+<ul>
+<li>Server: http://localhost:8000/</li>
+<li>Search Engine: http://localhost:8001/api/</li>
+<li>Crawl Extractors: http://localhost:8002/api/</li>
+<li>Client: http://localhost:8080</li>
+</ul>
+<p>En cualquier caso, las aplicaciones mostraran un mensaje al comenzar su ejecución ya sea indicando que workers están activos o en que puerto estan escuchando, esta es otra manera de verificar que las aplicaciones están ejecutando y lograron conectarse a la base de datos y RabbitMQ.</p>
+<h4 id="configuraciones-adicionales">Configuraciones adicionales</h4>
+<p>Al seguir todos los pasos previos, el servidor creará en la base de datos una tabla de configuraciones relacionadas con el planificador y los request limite para los workers, así como la cantidad de workers disponibles. Estas configuraciones se pueden modificar si lo desea accediendo con el script y comando <code>./tesina.sh config</code> en donde puede configurar:</p>
+<p><img alt="Server Config" src="../archivos/imagenes/configuracion-server.png" /></p>
+<ul>
+<li>[requestCount] - Cantidad de request realizados en el dia - un contador que muestra cuantos request se van realizando entre todos los workers, se resetea cuando todos los workers cumplen con su cuota diaria de requests, esta configuración no es necesario que sea modificada.</li>
+<li>[requestLimit] - Cantidad de request limite por dia - utilice esta configuración para setear cuantos request se pueden realizar por cada día, tenga en cuenta es este valor se divide en partes iguales entre todos los workers para definir la cuota de request de cada uno.</li>
+<li>[workers] - Cantidad de workers disponibles - por defecto ya incluye todos los workers del sistema, en caso de incorporar nuevos workers deberá actualizar este valor. Esta configuración es importante ya que es utilizada para dividir la cantidad de request por cada worker por lo que su valor debe ser siempre el correcto.</li>
+<li>[scheduleOnStart] - ¿Iniciar planificador al iniciar el servidor? - esta configuración le permite habilitar o deshabilitar el planificador al iniciar el servidor.</li>
+<li>[scheduleEvery] - Periodicidad del planificador para el envió de ecuaciones - indica en forma de notación crontab cada cuanto el planificador debe enviar las ecuaciones a RabbitMQ para ser ejecutadas, por defecto el planificador debe ejecutar una vez al día cuando los workers hayan acabado su cuota diaria de requests.</li>
+<li>[nextDayCron] - Notacion Cron de ejecución una vez por día - notación que indica en formato de crontab cuando es una ejecución diaria, solo se guarda en caso de necesitar reemplazar el valor del [scheduleEvery] pero por el momento no se hace uso de esta configuración.</li>
+<li>[wordcloudSchedulerOnStart] - ¿Iniciar el planificador de construcción de nubes de palabras? - indica si se debe ejecutar el planificador que levanta los articulos normalizados y los procesa para armar la nube de palabras.</li>
+<li>[wordcloudSchedulerEvery] - Periodicidad del constructor de nubes de palabras - indica la periodicidad con la que se ejecutara el constructor de nube de palabras, por defecto se ejecuta cada 5 minutos procesando un máximo de 50 articulos.</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href=".." class="btn btn-neutral" title="Principal"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
