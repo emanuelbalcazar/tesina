@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Emanuel Balcazar">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Script SH - Tesina</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Script SH";
+    var mkdocs_page_input_path = "script-sh.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Tesina</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Principal</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../instalacion/">Instalación y despliegue</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../aplicacion-servidor/">Aplicación servidor</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Script SH</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../herramientas-desarrollo/">Herramientas de desarrollo</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../arquitectura/">Arquitectura</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Tesina</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Script SH</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="script-sh">Script SH</h2>
+<p>Para facilitar el manejo de comandos, se incluyo un script llamado <code>tesina.sh</code> en la raiz del proyecto, dicho script agrupa una serie de comandos de utilidad necesarios para facilitar la instalación y el uso del sistema.
+Los comandos disponibles son:</p>
+<ul>
+<li><code>./tesina.sh install</code> - instala las dependencias npm de todas las aplicaciones.</li>
+<li><code>./tesina.sh migrate</code> - crea las tablas en la base de datos segun esten configurados en <code>server/database/migrations</code>.</li>
+<li><code>./tesina.sh rollback</code> - deshace la ultima migración ejecutada en la base de datos.</li>
+<li><code>./tesina.sh seed</code> - carga los datos iniciales en la base de datos para el setup inicial del sistema.</li>
+<li><code>./tesina.sh config</code> - muestra en la linea de comandos las opciones disponibles de configuración del sistema, como periodicidad del planificador, cantidad de request limite a Google, cantidad de workers disponibles, etc.</li>
+<li><code>./tesina.sh forever:start &lt;PATH&gt;</code> - ejecuta con forever el script indicado en el PATH.</li>
+<li><code>./tesina.sh forever:startall</code> - ejecuta todas las aplicaciones con forever.</li>
+<li><code>./tesina.sh forever:stop &lt;PATH&gt;</code> - detiene la ejecución del script indicado en el PATH.</li>
+<li><code>./tesina.sh forever:stopall</code> - detiene todas las aplicaciones ejecutando con forever.</li>
+<li><code>./tesina.sh forever:restart &lt;PATH&gt;</code> - reinicia con forever la ejecución del script indicado en el PATH.</li>
+<li><code>./tesina.sh forever:restartall</code> - reinicia con forever todas las aplicaciones que estén ejecutándose con forever.</li>
+<li><code>./tesina.sh forever:list</code> - lista las aplicaciones que estén ejecutándose con forever.</li>
+<li><code>./tesina.sh forever:logs</code> - muestra donde están los logs de las aplicaciones.</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../herramientas-desarrollo/" class="btn btn-neutral float-right" title="Herramientas de desarrollo">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../aplicacion-servidor/" class="btn btn-neutral" title="Aplicación servidor"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../aplicacion-servidor/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../herramientas-desarrollo/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

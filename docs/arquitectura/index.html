@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Emanuel Balcazar">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Arquitectura - Tesina</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Arquitectura";
+    var mkdocs_page_input_path = "arquitectura.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Tesina</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Principal</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../instalacion/">Instalación y despliegue</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../aplicacion-servidor/">Aplicación servidor</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../script-sh/">Script SH</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../herramientas-desarrollo/">Herramientas de desarrollo</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Arquitectura</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#introduccion">Introducción</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#arquitectura-general">Arquitectura General</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Tesina</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Arquitectura</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h3 id="arquitectura">Arquitectura</h3>
+<h4 id="introduccion">Introducción</h4>
+<p>La arquitectura elegida es acorde a un esquema de micro-servicios en donde cada componente se encarga de realizar un trabajo especifico. A continuación se presentará la arquitectura general y las arquitecturas de cada componente que forma parte del sistema y como se comunican entre si mediante el uso de colas de mensajería.</p>
+<h4 id="arquitectura-general">Arquitectura General</h4>
+<p>El sistema esta compuesto por los siguientes componentes y vías de comunicación, la decisión de esta arquitectura fue para permitir agilizar el procesamiento de la extracción de los artículos repartiendo la carga de trabajo y utilizando un sistema de colas de mensajería que actúa como deposito de "información" permitiendo a cada componente funcionar de manera independiente y actuar cuando los datos estén disponibles.</p>
+<p><img alt="Arquitectura general" src="../archivos/imagenes/arquitectura-general.png" /></p>
+<p>Los componentes del diagrama son:</p>
+<ul>
+<li>
+<p><strong>client</strong>: Aplicación web que hace de interfaz entre el usuario y el sistema, se encarga de obtener del servidor los datos y presentarlos de manera visual en la pantalla para el uso de los usuarios finales.</p>
+</li>
+<li>
+<p><strong>server</strong>: Componente encargado de enviar las ecuaciones de búsqueda a la cola de mensajería y de recibir los artículos extraídos para persistir en la base de datos. Entre otras tareas también se encarga de brindar una API HTTP el cual es utilizado por el cliente web para la obtención y persistencia de los datos necesarios.</p>
+</li>
+<li>
+<p><strong>search-engine</strong>: Componente encargado de recibir las ecuaciones de búsqueda y ejecutar dichas búsquedas utilizando la API de Google Custom Search. Dicho componente se encuentra conectado a la cola de mensajería RabbitMQ para recibir las ecuaciones y dejar los resultados de búsqueda.</p>
+</li>
+<li>
+<p><strong>crawl-extractors</strong>: Componente encargado de recibir los resultados de búsqueda previamente mencionados, extraer el HTML en crudo y obtener los textos del articulo haciendo uso de selectores css, los datos se agregan a los resultados de búsqueda y se dejan en la cola de mensajería para ser obtenidos por la aplicación servidor.</p>
+</li>
+<li>
+<p><strong>rabbitmq</strong>: Este componente es el mas importante debido a que es el eje central en las comunicaciones de los demás componentes, RabbitMQ permite la creación de múltiples colas en donde se pueden intercambiar mensajes en formato de JSON facilitando la comunicación y coordinación entre los componentes.</p>
+</li>
+<li>
+<p><strong>NLP</strong>: Este componente se encuentra separado de los demás sin hacer uso de las colas de mensajería, su función es la de obtener los artículos de la base de datos y realizar una serie de normalizaciones en el texto como eliminar signos, puntuaciones, números, acentos, stopwords, preposiciones, palabras especificas, etc. Dicho procesamiento se realiza para poder en un paso posterior construir una nube de palabras de todos los artículos normalizados.</p>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../herramientas-desarrollo/" class="btn btn-neutral" title="Herramientas de desarrollo"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../herramientas-desarrollo/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
