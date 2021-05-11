@@ -2,12 +2,12 @@ site_name: Tesina
 docs_dir: wiki
 site_dir: docs
 site_author: Emanuel Balcazar
+lang: es
+theme: readthedocs
 nav:
   - Principal: index.md
-  - Instalación y despliegue: instalacion.md
   - Aplicación servidor: aplicacion-servidor.md
-  - Script SH: script-sh.md
-  - Herramientas de desarrollo: herramientas-desarrollo.md
   - Arquitectura: arquitectura.md
-
-theme: readthedocs
+  - Herramientas de desarrollo: herramientas-desarrollo.md
+  - Instalación y despliegue: instalacion.md
+  - Script SH: script-sh.md
