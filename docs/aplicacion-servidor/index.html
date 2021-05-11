@@ -54,6 +54,20 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Aplicación servidor</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#estructura-del-servidor">Estructura del servidor</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#como-desarrollar-con-adonisjs">Como desarrollar con AdonisJS</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#crear-un-modelo">Crear un modelo</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#crear-una-migracion">Crear una migración</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#crear-un-controlador">Crear un controlador</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#agregar-la-ruta-http">Agregar la ruta HTTP</a>
+    </li>
+        </ul>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -108,7 +122,7 @@
                 <h2 id="aplicacion-servidor">Aplicación servidor</h2>
 <p>A continuación se le brindará información basica sobre como es el funcionamiento del framework y que debe hacer si desea agregar nuevas funcionalidades, esto es solo un vistazo por lo que se recomienda fuertemente que visite la documentación de la pagina oficial si desea tener mas detalles.</p>
 <p><a href="https://adonisjs.com/docs/4.1/about">https://adonisjs.com/docs/4.1/about</a></p>
-<h2 id="estructura-del-servidor">Estructura del servidor</h2>
+<h3 id="estructura-del-servidor">Estructura del servidor</h3>
 <p><a href="https://adonisjs.com/docs/4.1/folder-structure">Página de referencia</a></p>
 <p>La estructura generada por AdonisJS consiste en los siguientes directorios</p>
 <pre><code class="language-javascript">proyecto
@@ -155,8 +169,8 @@
 <p><code>server.js</code>: Archivo JS que se ejecuta para iniciar la aplicación servidor.</p>
 </li>
 </ul>
-<h2 id="como-desarrollar-con-adonisjs">Como desarrollar con AdonisJS</h2>
-<h3 id="crear-un-modelo">Crear un modelo</h3>
+<h3 id="como-desarrollar-con-adonisjs">Como desarrollar con AdonisJS</h3>
+<h4 id="crear-un-modelo">Crear un modelo</h4>
 <p><a href="https://adonisjs.com/docs/4.1/lucid">Página de referencia</a></p>
 <p>Si desea crear un modelo, debe utilizar el comando:</p>
 <pre><code class="language-bash">adonis make:model User
@@ -167,7 +181,7 @@
     this.addTrait('NoTimestamp');
 }
 </code></pre>
-<h3 id="crear-una-migracion">Crear una migración</h3>
+<h4 id="crear-una-migracion">Crear una migración</h4>
 <p><a href="https://adonisjs.com/docs/4.1/migrations">Pagina de referencia</a></p>
 <p>Para crear la migración, debe ejecutar el siguiente comando:</p>
 <pre><code class="language-bash">adonis make:migration User
@@ -178,7 +192,7 @@
 <p>El parametro <code>--migration</code> te permite crear ademas la migración del modelo.</p>
 <p>El archivo se crea en la carpeta <code>database/migrations</code>, debe tener en cuenta que las migraciones se ejecutan en ORDEN, por lo que si posee foreing keys o referencias a otras tablas debe asegurarse que la migración de la tabla a la que hace referencia sea creada con anterioridad.</p>
 <p>IMPORTANTE: Si no desea que el timestamp este presente como vimos en la creación del modelo, elimine la linea que contiene el siguiente codigo: <code>table.timestamps()</code>.</p>
-<h3 id="crear-un-controlador">Crear un controlador</h3>
+<h4 id="crear-un-controlador">Crear un controlador</h4>
 <p><a href="https://adonisjs.com/docs/4.1/controllers">Página de referencia</a></p>
 <p>El controlador hace de presenter y es quien realiza la lógica de negocio de la aplicación, para crear el controlador debe ejecutar el comando:</p>
 <pre><code class="language-bash">adonis make:controller User
@@ -188,7 +202,7 @@
 <pre><code class="language-bash">adonis make:controller User --resource
 </code></pre>
 <p>El controlador se crea en la carpeta <code>app/Controllers/Http</code> (si eligio http) y en caso de que sea un controlador de tipo resource vera que en el archivo ya se agregaron los metodos del CRUD con sus respectivos comentarios (leerlos para saber que hacen y como se mapean con las rutas rest).</p>
-<h3 id="agregar-la-ruta-http">Agregar la ruta HTTP</h3>
+<h4 id="agregar-la-ruta-http">Agregar la ruta HTTP</h4>
 <p><a href="https://adonisjs.com/docs/4.1/routing">Pagina de referencia</a></p>
 <p>Para agregar una nueva ruta, vaya al archivo <code>start/routes.js</code> y agregue la ruta que desea de la siguiente manera:</p>
 <pre><code class="language-javascript">Route.get('/users', 'UserController.index')

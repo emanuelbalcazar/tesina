@@ -4,7 +4,7 @@ A continuación se le brindará información basica sobre como es el funcionamie
 
 [https://adonisjs.com/docs/4.1/about](https://adonisjs.com/docs/4.1/about)
 
-## Estructura del servidor
+### Estructura del servidor
 
 [Página de referencia](https://adonisjs.com/docs/4.1/folder-structure)
 
@@ -47,9 +47,9 @@ A continuación describiremos los directorios y archivos más importantes para q
 
 - `server.js`: Archivo JS que se ejecuta para iniciar la aplicación servidor.
 
-## Como desarrollar con AdonisJS
+### Como desarrollar con AdonisJS
 
-### Crear un modelo
+#### Crear un modelo
 
 [Página de referencia](https://adonisjs.com/docs/4.1/lucid)
 
@@ -68,7 +68,7 @@ static boot() {
 }
 ```
 
-### Crear una migración
+#### Crear una migración
 
 [Pagina de referencia](https://adonisjs.com/docs/4.1/migrations)
 
@@ -90,7 +90,7 @@ El archivo se crea en la carpeta `database/migrations`, debe tener en cuenta que
 
 IMPORTANTE: Si no desea que el timestamp este presente como vimos en la creación del modelo, elimine la linea que contiene el siguiente codigo: `table.timestamps()`.
 
-### Crear un controlador
+#### Crear un controlador
 
 [Página de referencia](https://adonisjs.com/docs/4.1/controllers)
 
@@ -109,7 +109,7 @@ adonis make:controller User --resource
 ```
 El controlador se crea en la carpeta `app/Controllers/Http` (si eligio http) y en caso de que sea un controlador de tipo resource vera que en el archivo ya se agregaron los metodos del CRUD con sus respectivos comentarios (leerlos para saber que hacen y como se mapean con las rutas rest).
 
-### Agregar la ruta HTTP
+#### Agregar la ruta HTTP
 
 [Pagina de referencia](https://adonisjs.com/docs/4.1/routing)
 
