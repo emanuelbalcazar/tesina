@@ -1,10 +1,12 @@
 import json
 import os
 
+# remove all the words
 def execute(text):
     try:
         fileDir = os.path.dirname(os.path.realpath('__file__'))
 
+        # get word list
         with open(os.path.join(fileDir, 'controllers/process/words.json')) as f:
             stopwords = json.load(f)
 

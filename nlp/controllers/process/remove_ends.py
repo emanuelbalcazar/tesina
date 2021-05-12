@@ -1,6 +1,7 @@
 from nltk.tokenize import word_tokenize
 import re
 
+# remove all words ending in AL
 def execute(text):
     try:
         new_sentence = []

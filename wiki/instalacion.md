@@ -8,6 +8,7 @@
 * AdonisJS [Página de descarga](https://adonisjs.com/)
 * VueJS [Página de descarga](https://cli.vuejs.org/guide/installation.html)
 * (Opcional) forever: `npm install -g forever`
+* (Opcional) instalar mkdocs para la wiki: [Página de descarga](https://www.mkdocs.org/#installation)
 
 #### Instalar Python 3
 El proyecto hace uso de python 3.8 para el funcionamiento del NLP, para ello deberá instalarlo en su sistema.

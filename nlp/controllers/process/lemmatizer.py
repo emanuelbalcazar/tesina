@@ -1,5 +1,6 @@
 import spacy
 
+# apply stemming using spacy (spanish)
 def execute(text):
     try:
         nlp = spacy.load('es_core_news_lg')

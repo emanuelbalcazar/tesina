@@ -1,6 +1,7 @@
 import unidecode
 import re
 
+# remove accents
 def execute(text):
     try:
         unaccented_string = unidecode.unidecode(text)

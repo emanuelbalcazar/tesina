@@ -15,14 +15,12 @@ import controllers.process.stemmer as stemmer
 import controllers.process.text_distance as text_distance
 import controllers.process.remove_ends as remove_ends
 
-from multiprocessing import Pool
 from config import get_config
+from .enum import Enum
 
-# TODO mover a otra parte (quizas un enum o constantes en una clase/configuración)
-ID = 0
-LINK = 3
-TEXT = 5
-    
+# limit to process articles
+LIMIT = get_config('CONSTANTS', 'limit')
+
 # execute nlp process
 def execute():
     try:
@@ -32,12 +30,11 @@ def execute():
         print("[NLP] {now} - cantidad de articulos sin procesar: {total}".format(total=total, now=dt_string))
 
         count = 1
-        limit = 50
 
         while count <= total:
-            articles = article.get_by_limit(limit)
+            articles = article.get_by_limit(LIMIT)
             process(articles, count, total)
-            count = count + limit
+            count = count + LIMIT
 
     except (Exception) as error:
         print(error)
@@ -48,9 +45,9 @@ def process(articles, count, total):
     for record in articles:
             now = datetime.now()
             dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-            print("\n[NLP] {now} - normalizando articulo con ID {id}, van: ({count}/{total}) ".format(id=record[ID], count=local_count, total=total, now=dt_string))
+            print("\n[NLP] {now} - normalizando articulo con ID {id}, van: ({count}/{total}) ".format(id=record[Enum.ID], count=local_count, total=total, now=dt_string))
             text = process_article(record)
-            article.set_analyzed(record[ID])
+            article.set_analyzed(record[Enum.ID])
             local_count = local_count + 1
 
 # applying the different filters to normalize the text
@@ -62,76 +59,76 @@ def process_article(article):
         # first, persist article link for future updates
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("[nlp] {now} - guardando articulo {id} con su link original".format(id=article[ID], now=dt_string))
-        normalized_article.create_article_link(article[LINK], article[ID])
+        print("[nlp] {now} - guardando articulo {id} con su link original".format(id=article[Enum.ID], now=dt_string))
+        normalized_article.create_article_link(article[Enum.LINK], article[Enum.ID])
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("[nlp] {now} - procesando articulo {id} con: lower_case".format(id=article[ID], now=dt_string))
-        text = article[TEXT]
+        print("[nlp] {now} - procesando articulo {id} con: lower_case".format(id=article[Enum.ID], now=dt_string))
+        text = article[Enum.TEXT]
         text = lower_case.execute(text)
         text = remove_whitespaces.execute(text)
-        normalized_article.update_lower_case(text, article[ID])
+        normalized_article.update_lower_case(text, article[Enum.ID])
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("[nlp] {now} - procesando articulo {id} con: remove_numbers".format(id=article[ID], now=dt_string))
+        print("[nlp] {now} - procesando articulo {id} con: remove_numbers".format(id=article[Enum.ID], now=dt_string))
         text = remove_numbers.execute(text)
-        normalized_article.update_removed_numbers(text, article[ID])
+        normalized_article.update_removed_numbers(text, article[Enum.ID])
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("[nlp] {now} - procesando articulo {id} con: remove_stopwords".format(id=article[ID], now=dt_string))
+        print("[nlp] {now} - procesando articulo {id} con: remove_stopwords".format(id=article[Enum.ID], now=dt_string))
         text = remove_stopwords.execute(text)
-        normalized_article.update_removed_stopwords(text, article[ID])
+        normalized_article.update_removed_stopwords(text, article[Enum.ID])
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("[nlp] {now} - procesando articulo {id} con: remove_accents".format(id=article[ID], now=dt_string))
+        print("[nlp] {now} - procesando articulo {id} con: remove_accents".format(id=article[Enum.ID], now=dt_string))
         text = remove_accents.execute(text)
-        normalized_article.update_removed_accents(text, article[ID])
+        normalized_article.update_removed_accents(text, article[Enum.ID])
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("[nlp] {now} - procesando articulo {id} con: remove_characters".format(id=article[ID], now=dt_string))
+        print("[nlp] {now} - procesando articulo {id} con: remove_characters".format(id=article[Enum.ID], now=dt_string))
         text = remove_characters.execute(text)
-        normalized_article.update_removed_characters(text, article[ID])
+        normalized_article.update_removed_characters(text, article[Enum.ID])
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("[nlp] {now} - procesando articulo {id} con: remove_words".format(id=article[ID], now=dt_string))
+        print("[nlp] {now} - procesando articulo {id} con: remove_words".format(id=article[Enum.ID], now=dt_string))
         text = remove_words.execute(text)
-        normalized_article.update_removed_words(text, article[ID])
+        normalized_article.update_removed_words(text, article[Enum.ID])
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("[nlp] {now} - procesando articulo {id} con: remove_prepositions".format(id=article[ID], now=dt_string))
+        print("[nlp] {now} - procesando articulo {id} con: remove_prepositions".format(id=article[Enum.ID], now=dt_string))
         without_prepositions = remove_prepositions.execute(text)
-        normalized_article.update_removed_prepositions(without_prepositions, article[ID])
+        normalized_article.update_removed_prepositions(without_prepositions, article[Enum.ID])
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("[nlp] {now} - procesando articulo {id} con: lemmatized".format(id=article[ID], now=dt_string))
+        print("[nlp] {now} - procesando articulo {id} con: lemmatized".format(id=article[Enum.ID], now=dt_string))
         lemmatized = lemmatizer.execute(without_prepositions)
-        normalized_article.update_lemmatized(lemmatized, article[ID])
+        normalized_article.update_lemmatized(lemmatized, article[Enum.ID])
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("[nlp] {now} - procesando articulo {id} con: remove_ends".format(id=article[ID], now=dt_string))
+        print("[nlp] {now} - procesando articulo {id} con: remove_ends".format(id=article[Enum.ID], now=dt_string))
         removed_endings = remove_ends.execute(lemmatized)
-        normalized_article.update_remove_ends(removed_endings, article[ID])
+        normalized_article.update_remove_ends(removed_endings, article[Enum.ID])
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("[nlp] {now} - procesando articulo {id} con: stemmer".format(id=article[ID], now=dt_string))
+        print("[nlp] {now} - procesando articulo {id} con: stemmer".format(id=article[Enum.ID], now=dt_string))
         stemmed = stemmer.execute(removed_endings)
-        normalized_article.update_stemmer(stemmed, article[ID])
+        normalized_article.update_stemmer(stemmed, article[Enum.ID])
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("[nlp] {now} - procesando articulo {id} con: text_distance".format(id=article[ID], now=dt_string))
+        print("[nlp] {now} - procesando articulo {id} con: text_distance".format(id=article[Enum.ID], now=dt_string))
         final_text = text_distance.execute(stemmed, lemmatized)
-        normalized_article.update_word_cloud(final_text, article[ID])
+        normalized_article.update_word_cloud(final_text, article[Enum.ID])
 
         return final_text
     except (Exception) as error:

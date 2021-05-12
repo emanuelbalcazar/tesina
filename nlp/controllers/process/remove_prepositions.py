@@ -1,5 +1,6 @@
 import spacy
 
+# remove all prepositions
 def execute(text):
     try:
         nlp = spacy.load('es_core_news_lg')
