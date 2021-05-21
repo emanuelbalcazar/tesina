@@ -55,6 +55,11 @@ class Scheduler {
         });
     }
 
+    /**
+     * Re schedule
+     * @param {String} scheduleAt 
+     * @returns state
+     */
     async reschedule(scheduleAt) {
         Logger.info('[scheduler] - replanificando en ' + scheduleAt);
         this.setScheduleEvery(scheduleAt);
@@ -62,6 +67,9 @@ class Scheduler {
         return state;
     }
 
+    /**
+     * Cancel the scheduler
+     */
     async cancel() {
         Logger.info('[scheduler] - cancelando planificador');
         await this.job.cancel();

@@ -16,3 +16,5 @@ Los comandos disponibles son:
 * `./tesina.sh forever:restartall` - reinicia con forever todas las aplicaciones que estén ejecutándose con forever.
 * `./tesina.sh forever:list` - lista las aplicaciones que estén ejecutándose con forever.
 * `./tesina.sh forever:logs` - muestra donde están los logs de las aplicaciones.
+* `./tesina.sh mkdocs:build` - construye la documentación convirtiendo los archivos .md de la carpeta wiki a html y js en la carpeta docs.
+* `./tesina.sh mkdocs:serve` - construye y despliega la documentación del proyecto, por defecto levanta en http://localhost:3000

@@ -14,6 +14,13 @@ class GlobalWordService {
 
     }
 
+    /**
+     * Search a global word by criteria
+     * @param {String} criteria 
+     * @param {Number} page 
+     * @param {Number} perPage 
+     * @returns global words
+     */
     async searchByCriteria(criteria = '', page = 1, perPage = 10) {
         try {
             let words = await GlobalWord.searchByCriteria(criteria, page, perPage);
@@ -23,6 +30,10 @@ class GlobalWordService {
         }
     }
 
+    /**
+     * 
+     * @returns number of global words
+     */
     async count() {
         try {
             let count = await GlobalWord.getCount();
@@ -32,6 +43,10 @@ class GlobalWordService {
         }
     }
 
+    /**
+     * @param {Number} limit 
+     * @returns get most frequent words
+     */
     async getMostFrecuentWords(limit = 10) {
         try {
             let words = await GlobalWord.query().orderBy('total', 'desc').paginate(1, limit);

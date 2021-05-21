@@ -6,8 +6,16 @@ const NormalizedArticle = use('App/Models/NormalizedArticle');
 // TODO optimizar
 const MAX_ARTICLE_LIMIT = 50;
 
+/**
+ * @class WordCloudScheduler
+ * @author Emanuel Balcazar
+ */
 class WordCloudScheduler {
 
+    /**
+     * Creates an instance of WordCloudScheduler.
+     * @memberof WordCloudScheduler
+     */
     constructor() {
         this.job = {}
         this.scheduleEvery = '';
@@ -20,7 +28,7 @@ class WordCloudScheduler {
     getScheduleEvery() {
         return this.scheduleEvery;
     }
-
+    
     async start() {
         this.job = nodeScheduler.scheduleJob(this.scheduleEvery, async (fireDate) => {
             Logger.info(`[${this.scheduleEvery}] - ejecutando constructor de nube de palabras ${fireDate}`);

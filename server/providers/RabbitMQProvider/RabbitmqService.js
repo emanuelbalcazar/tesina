@@ -59,6 +59,11 @@ class RabbitMQService {
         });
     }
 
+    /**
+     * Consume from server queue
+     * @return {void}
+     * @memberof RabbitMQService
+     */
     async consumeServerQueue() {
         connection = await this.getConnection();
         let channel = await connection.createChannel();

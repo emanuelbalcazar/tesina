@@ -65,7 +65,6 @@ class Util {
             return hash;
         }, {});
 
-        // create array of objects for wordcloud
         for (const key in words) {
             if (words.hasOwnProperty(key) && key.length > 3) {
                 result.push({ text: key, value: words[key] });
