@@ -8,7 +8,7 @@ ADD . ./client
 WORKDIR /client
 
 # copiar 'package.json' y 'package-lock.json' (si están disponibles)
-COPY package*.json ./
+COPY package.json ./
 
 # instalar dependencias del proyecto
 RUN npm install
