@@ -70,6 +70,13 @@ services:
             - "8080:8080"
         environment:
             TZ: America/Argentina/Buenos_Aires
+    
+    nlp:
+        build: ./nlp
+        container_name: nlp
+        environment:
+            TZ: America/Argentina/Buenos_Aires
+
 
 # https://stackoverflow.com/questions/53342053/starting-postgres-container-with-persistant-volume-docker-compose
 # docker volume inspect tesina_db-data
