@@ -34,6 +34,17 @@ export const navigationRoutes = {
             ]
         },
         {
+            name: 'statistics',
+            displayName: 'Estadisticas',
+            meta: {
+                iconClass: 'fa fa-bar-chart-o'
+            },
+            disabled: true,
+            children: [
+                
+            ]
+        },
+        {
             name: 'wordcloud',
             displayName: 'Nube de palabras',
             meta: {
@@ -49,6 +60,17 @@ export const navigationRoutes = {
                     name: 'wordcloud-site',
                     displayName: 'Nube de palabras por sitio'
                 },
+                
+            ]
+        },
+        {
+            name: 'words',
+            displayName: 'Palabras',
+            meta: {
+                iconClass: 'fa fa-font'
+            },
+            disabled: true,
+            children: [
                 {
                     name: 'global-words',
                     displayName: 'Palabras globales'

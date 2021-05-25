@@ -105,7 +105,7 @@ export default {
             });
         },
         view(article) {
-            console.log(article)
+            this.$router.push({ name: "view-normalized-article", params: { id: article.id } });
         },
         formatLink(value = "") {
             return value.substring(0, 60);

@@ -38,5 +38,10 @@
         "key": "wordcloudSchedulerOnStart",
         "value": true,
         "description": "¿Iniciar el planificador de construcción de nube de palabras?"
+    },
+    {
+        "key": "wordSchedulerLimit",
+        "value": 40,
+        "description": "Cantidad de articulos normalizados a procesar por ciclo/ejecucion"
     }
 ]

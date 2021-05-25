@@ -90,12 +90,24 @@ export default new Router({
                     path: ':id',
                     component: () => import('../components/articles/View.vue')
                 },
+
+            ],
+        },
+        {
+            path: '/normalizedArticles',
+            component: AppLayout,
+            children: [
                 {
                     name: 'list-normalized-articles',
-                    path: 'normalized',
+                    path: 'list',
                     component: () => import('../components/normalizedArticles/List.vue')
-                }
-            ],
+                },
+                {
+                    name: 'view-normalized-article',
+                    path: ':id',
+                    component: () => import('../components/normalizedArticles/View.vue')
+                },
+            ]
         },
         {
             path: '/wordcloud',

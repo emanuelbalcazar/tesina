@@ -18,8 +18,11 @@ async function start() {
     let wordCloudEvery = await Config.query().where('key', 'wordcloudSchedulerEvery').first();
 
     if (wordcloudSchedulerOnStart.value == 'true') {
-        Logger.info(`[server] - iniciando constructor de nubes de palabras con periodicidad: ${wordCloudEvery.value}`);
+        let limit = await Config.query().where('key', 'wordSchedulerLimit').first();
+
+        Logger.info(`[server] - iniciando constructor de nubes de palabras con periodicidad: ${wordCloudEvery.value} y limite de articulos: ${limit.value}`);
         WordCloudScheduler.setScheduleEvery(wordCloudEvery.value);
+        WordCloudScheduler.setLimit(limit.value);
         WordCloudScheduler.start();
     }
 }
