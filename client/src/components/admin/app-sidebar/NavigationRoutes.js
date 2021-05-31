@@ -33,7 +33,7 @@ export const navigationRoutes = {
                 }
             ]
         },
-        {
+        /* {
             name: 'statistics',
             displayName: 'Estadisticas',
             meta: {
@@ -46,7 +46,7 @@ export const navigationRoutes = {
                     displayName: 'Estadisticas de articulos'
                 },
             ]
-        },
+        }, */
         {
             name: 'wordcloud',
             displayName: 'Nube de palabras',

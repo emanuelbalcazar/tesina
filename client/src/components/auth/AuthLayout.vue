@@ -2,7 +2,7 @@
   <div class="auth-layout row align-content--center">
     <div class="flex xs12 pa-1 flex-center">
       <router-link class="py-5 flex-center" to="/auth/login">
-        <p class="display-2" style="color:white">Acceder al sistema</p>
+        <p class="display-2" style="color:white">Analisís periodístico COVID-19 en Chubut</p>
       </router-link>
     </div>
 
