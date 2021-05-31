@@ -11,7 +11,9 @@
       />
     </div>
     <div class="row justify--center">
-      <va-button type="submit" class="my-0">{{ $t('auth.recover_password') }}</va-button>
+      <va-button type="submit" class="my-0">{{
+        $t("auth.recover_password")
+      }}</va-button>
     </div>
   </form>
 </template>
@@ -24,7 +26,7 @@ export default {
   data() {
     return {
       email: "",
-      emailErrors: []
+      emailErrors: [],
     };
   },
   methods: {
@@ -32,24 +34,31 @@ export default {
       this.emailErrors = this.email ? [] : ["Email es requerido"];
 
       if (this.emailErrors.length)
-        return this.logError("Ingrese su correo electronico");
-
-      let response = await axios
-        .post("/api/auth/recover", { email: this.email })
-        .catch(error => {
-          this.logError("Usuario o contraseña invalidos", {
-            text: "¿No esta registrado?",
-            href: "signup"
-          });
+        return this.showToast("Ingrese su correo electronico", {
+          position: "bottom-right",
+          icon: "fa-times",
+          duration: 5000,
         });
 
-      this.logSuccess(
-        "Revise su correo electronico para recibir su nueva contraseña"
-      );
+      let response = await axios
+        .post("/auth/recover", { email: this.email })
+        .catch((error) => {
+          this.showToast("Usuario o contraseña invalidos", {
+            position: "bottom-right",
+            icon: "fa-times",
+            duration: 5000,
+          });
+          return;
+        });
+
+      this.showToast("Contraseña restaurada, revise su correo electronico", {
+        position: "bottom-right",
+        icon: "fa-check",
+      });
 
       this.$router.push({ name: "login" });
-    }
-  }
+    },
+  },
 };
 </script>
 

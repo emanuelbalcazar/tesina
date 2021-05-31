@@ -25,6 +25,7 @@ Route.group(() => {
 
     Route.post('/auth/login', 'AuthController.login');
     Route.post('/auth/register', 'AuthController.register');
+    Route.post('/auth/recover', 'AuthController.recover');
 
 }).prefix('api');
 
@@ -36,6 +37,7 @@ Route.group(() => {
     Route.post('/articles/findByExpectedDate', 'ArticleController.findByExpectedDate');
     Route.get('/articles/totalPerSite', 'ArticleController.totalPerSite');
     Route.get('/articles/sites', 'ArticleController.sitesAvailables');
+    Route.get('/articles/perMonth', 'ArticleController.perMonth');
 
     Route.get('/extractions/execute/:id', 'ExtractionController.execute');
 

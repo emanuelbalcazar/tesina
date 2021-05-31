@@ -117,9 +117,11 @@ export default {
 
 .input {
     width: 45%;
+    min-width: 275px;
 }
 
 .pickers {
+    min-width: 275px;
     display: flex; /* or inline-flex */
     flex-direction: row;
 }

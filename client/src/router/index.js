@@ -110,6 +110,17 @@ export default new Router({
             ]
         },
         {
+            path: '/statistics',
+            component: AppLayout,
+            children: [
+                {
+                    name: 'statistics-articles',
+                    path: 'articles',
+                    component: () => import('../components/statistics/Articles.vue')
+                },
+            ]
+        },
+        {
             path: '/wordcloud',
             component: AppLayout,
             children: [

@@ -41,7 +41,10 @@ export const navigationRoutes = {
             },
             disabled: true,
             children: [
-                
+                {
+                    name: 'statistics-articles',
+                    displayName: 'Estadisticas de articulos'
+                },
             ]
         },
         {

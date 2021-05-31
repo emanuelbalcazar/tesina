@@ -170,6 +170,15 @@ class ArticleController {
             return response.unauthorized({ error: error.message });
         }
     }
+
+    async perMonth({ request, response }) {
+        try {
+            let perMonth = await Article.perMonth();
+            return response.json(perMonth);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
+    }
 }
 
 module.exports = ArticleController
