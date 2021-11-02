@@ -1,5 +1,5 @@
 <template>
-    <va-card title="Exportar articulos">
+    <va-card titleOnImage="Exportar articulos">
         <div class="filters">
             <h3>Seleccione el rango de fechas</h3>
             <br />

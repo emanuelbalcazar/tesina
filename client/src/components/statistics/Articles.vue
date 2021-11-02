@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class=" chart-card">
-      <va-card title="Cantidad de articulos por mes">
+      <va-card titleOnImage="Cantidad de articulos por mes">
         <va-chart
           class="chart chart--donut"
           :data="articlesPerMonth"

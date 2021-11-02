@@ -23,7 +23,7 @@
             </div>
 
             <va-card
-                title="Top 5 palabras más frecuentes"
+                titleOnImage="Top 5 palabras más frecuentes"
                 class=" xs6 sm4 d-flex dashboard-contributors-list"
             >
                 <va-inner-loading :loading="loading">
@@ -44,7 +44,7 @@
             </va-card>
 
             <div class="xs6 xl6 d-flex chart-card">
-                <va-card title="Cantidad de articulos por sitio">
+                <va-card titleOnImage="Cantidad de articulos por sitio">
                     <va-chart
                         class="chart chart--donut"
                         :data="articlesPerSite"

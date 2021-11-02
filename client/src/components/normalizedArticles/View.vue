@@ -1,5 +1,5 @@
 <template>
-    <va-card title="Ver articulo normalizado">
+    <va-card titleOnImage="Ver articulo normalizado">
         <div>
             <va-button color="info" class="button" @click="back()"
                 >Volver</va-button
