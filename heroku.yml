@@ -1,0 +1,9 @@
+setup:
+  config:
+    env_file: ./search-engine/.env
+
+build:
+  docker:
+    search-engine: ./search-engine/Dockerfile
+run:
+  search-engine: npm start
