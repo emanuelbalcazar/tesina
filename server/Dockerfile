@@ -7,5 +7,9 @@ ADD . ./server
 # me muevo a la carpeta correspondiente
 WORKDIR /server
 
+# instalo las dependencias
+RUN npm install -g adonis
+RUN npm install
+
 # inicio el servicio
 CMD npm start

@@ -31,9 +31,9 @@ const router = require('./routes/routes');
 app.use('/api', router);
 
 // catch all errors.
-app.use(function (err, req, res) {
-    console.log(error(err.stack));
-    res.status(500).json({ code: 500, message: err.message });
+app.use(function (err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).send({ code: 500, message: err.message });
 });
 
 // catch unhandled rejection from promises.
@@ -48,7 +48,7 @@ app.set('port', config.PORT);
 // listening application.
 app.listen(app.get('port'), async () => {
     console.log(success(`[Search Engine] - started in ${app.get('host')}:${app.get('port')}`));
-    
+
     if (config.CONNECT_TO_RABBIT)
         await workerManagement.startAllWorkers();
 });

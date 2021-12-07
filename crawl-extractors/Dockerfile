@@ -7,5 +7,8 @@ ADD . ./crawl-extractors
 # me muevo a la carpeta correspondiente
 WORKDIR /crawl-extractors
 
+# instalo las dependencias
+RUN npm install
+
 # inicio el servicio
 CMD npm start
