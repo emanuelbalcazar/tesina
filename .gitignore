@@ -7,12 +7,12 @@ crawl-extractors/node_modules/
 crawl-extractors/package-lock.json
 crawl-extractors/.env
 
-nlp/venv/
-nlp/__pycache__
-nlp/controllers/__pycache__
-nlp/controllers/process/__pycache__
-nlp/models/__pycache__
-nlp/database/__pycache__
+article-normalizer/venv/
+article-normalizer/__pycache__
+article-normalizer/controllers/__pycache__
+article-normalizer/controllers/process/__pycache__
+article-normalizer/models/__pycache__
+article-normalizer/database/__pycache__
 
 postgres/.env
 
