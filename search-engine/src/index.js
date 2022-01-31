@@ -15,6 +15,7 @@ const config = require('./config/config');
 
 const success = chalk.green;
 const error = chalk.red;
+const info = chalk.cyan;
 
 // create our app with express.
 const app = express();
@@ -53,6 +54,7 @@ app.set('port', config.PORT);
 // listening application.
 app.listen(app.get('port'), async () => {
     console.log(success(`[Search Engine] - started in ${app.get('host')}:${app.get('port')}`));
+    console.log(info(`Swagger available in ${app.get('host')}:${app.get('port')}/api-docs`));
 
     if (config.CONNECT_TO_RABBIT)
         await workerManagement.startAllWorkers();
