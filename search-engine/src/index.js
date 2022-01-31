@@ -30,6 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 // add swagger
 const swaggerUI = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/swagger-search-engine.json');
+swaggerDocument.host = config.HOST + ':' + config.PORT;
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // import all routes.
@@ -53,8 +54,8 @@ app.set('port', config.PORT);
 
 // listening application.
 app.listen(app.get('port'), async () => {
-    console.log(success(`[Search Engine] - started in ${app.get('host')}:${app.get('port')}`));
-    console.log(info(`Swagger available in ${app.get('host')}:${app.get('port')}/api-docs`));
+    console.log(success(`[Search Engine] - started in http://${app.get('host')}:${app.get('port')}`));
+    console.log(info(`Swagger available in http://${app.get('host')}:${app.get('port')}/api-docs`));
 
     if (config.CONNECT_TO_RABBIT)
         await workerManagement.startAllWorkers();
