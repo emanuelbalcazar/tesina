@@ -1,0 +1,195 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API REST del componente search-engine",
+        "version": "1.0.0",
+        "title": "Search Engine"
+    },
+    "host": "localhost:8001",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "routes",
+            "description": "API REST"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "routes"
+                ],
+                "summary": "Indica el estado de la aplicación",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operacion correcta",
+                        "schema": {
+                            "$ref": "#/definitions/Status"
+                        }
+                    }
+                }
+            }
+        },
+        "/search": {
+            "post": {
+                "tags": [
+                    "routes"
+                ],
+                "summary": "Realiza una busqueda en Google CSE",
+                "description": "",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Ecuacion de busqueda",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Ecuation"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Status": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "format": "int64",
+                    "example": "search engine"
+                },
+                "version": {
+                    "type": "string",
+                    "format": "int64",
+                    "example": "2022-02"
+                },
+                "status": {
+                    "type": "string",
+                    "format": "int64",
+                    "example": "active"
+                }
+            },
+            "xml": {
+                "name": "Status"
+            }
+        },
+        "Selector": {
+            "type": "object",
+            "properties": {
+                "selector": {
+                    "type": "string",
+                    "description": "Selector CSS",
+                    "example": ".news-amp-body"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "Sitio en donde se aplica el selector",
+                    "example": "https://www.elchubut.com.ar"
+                },
+                "section": {
+                    "type": "string",
+                    "description": "Sección del texto al que hace referencia el selector",
+                    "enum": [
+                        "titulo",
+                        "bajada",
+                        "cuerpo",
+                        "fecha"
+                    ],
+                    "example": "cuerpo"
+                }
+            }
+        },
+        "Ecuation": {
+            "type": "object",
+            "properties": {
+                "equation": {
+                    "properties": {
+                        "id": {
+                            "type": "integer",
+                            "example": 8,
+                            "description": "ID de la ecuación de busqueda"
+                        },
+                        "q": {
+                            "type": "string",
+                            "example": "10/03/2020",
+                            "description": "Parametros a buscar en Google CSE"
+                        },
+                        "siteSearch": {
+                            "type": "string",
+                            "example": "https://www.elchubut.com.ar",
+                            "description": "Sitio en donde realizar la busqueda"
+                        },
+                        "siteSearchFilter": {
+                            "type": "string",
+                            "example": "i",
+                            "default": "i",
+                            "description": "Indica si incluye o no el sitio especificado en el parametro siteSearch"
+                        },
+                        "start": {
+                            "type": "number",
+                            "example": 1,
+                            "description": "Numero de resultado en donde comenzar la busqueda",
+                            "default": 1
+                        }
+                    }
+                },
+                "selectors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Selector"
+                    },
+                    "description": "Selectores CSS del sitio",
+                    "example": [
+                        {
+                            "selector": "#title",
+                            "site": "https://www.elchubut.com.ar",
+                            "section": "titulo"
+                        },
+                        {
+                            "selector": ".np_nota_descripcion",
+                            "site": "https://www.elchubut.com.ar",
+                            "section": "bajada"
+                        },
+                        {
+                            "selector": ".notapage_cuerpo p",
+                            "site": "https://www.elchubut.com.ar",
+                            "section": "cuerpo"
+                        },
+                        {
+                            "selector": ".news-amp-body",
+                            "site": "https://www.elchubut.com.ar",
+                            "section": "cuerpo"
+                        },
+                        {
+                            "selector": ".np_fecha",
+                            "site": "https://www.elchubut.com.ar",
+                            "section": "fecha"
+                        }
+                    ]
+                },
+                "requestLimit": {
+                    "type": "number",
+                    "description": "Cantidad de request maximos por cada worker",
+                    "example": 10
+                }
+            }
+        }
+    }
+}

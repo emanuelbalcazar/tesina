@@ -26,6 +26,11 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// add swagger
+const swaggerUI = require('swagger-ui-express');
+const swaggerDocument = require('./swagger/swagger-search-engine.json');
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
 // import all routes.
 const router = require('./routes/routes');
 app.use('/api', router);

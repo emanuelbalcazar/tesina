@@ -8,7 +8,7 @@ const service = require('../services/search.service');
 
 // information route about the application.
 router.get('/', (req, res) => {
-    let info = { name: 'search engine', version: '2021-05', status: 'active' };
+    let info = { name: 'search engine', version: '2022-02', status: 'active' };
     return res.json(info);
 });
 
