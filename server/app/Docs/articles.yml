@@ -1,0 +1,54 @@
+/articles/count:
+    get:
+        summary: Cantidad de articulos disponibles
+        security:
+            - bearerAuth: []
+        tags:
+            - Articles
+        produces:
+            - application/json
+        responses:
+            200:
+                description: objeto con la cantidad de articulos
+
+/articles/export:
+    get:
+        summary: Articulos para ser exportados por CSV
+        security:
+            - bearerAuth: []
+        tags:
+            - Articles
+        produces:
+            - application/json
+        parameters:
+            - name: from
+              description: fecha desde.
+              in: query
+              type: string
+              example: 01/03/2020
+
+            - name: to
+              description: fecha hasta.
+              in: query
+              type: string
+              example: 03/03/2020
+
+            - name: limit
+              description: cantidad limite de articulos.
+              in: query
+              required: true
+              type: number
+              example: 3
+
+            - name: sites
+              description: sitios a los que deben pertenecer los articulos
+              in: query
+              required: true
+              type: array
+              items:
+                type: string
+                example: ["www.elpatagonico.com", "www.eldiarioweb.com"]
+
+        responses:
+            200:
+                description: articulos listos para ser exportados

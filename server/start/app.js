@@ -20,6 +20,7 @@ const providers = [
     '@adonisjs/validator/providers/ValidatorProvider',
     '@adonisjs/mail/providers/MailProvider',
     '@adonisjs/framework/providers/ViewProvider',
+    'adonis-swagger/providers/SwaggerProvider',
     path.join(__dirname, '..', 'providers', 'RabbitMQProvider', 'Provider'),
     path.join(__dirname, '..', 'providers', 'UtilProvider', 'Provider'),
     path.join(__dirname, '..', 'providers', 'SchedulerProvider', 'Provider'),

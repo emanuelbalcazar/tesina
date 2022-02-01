@@ -31,7 +31,7 @@ class Article extends Model {
         let limit = params.limit || 100000;
 
         if (params.sites && params.sites !== undefined && params.sites.length > 0) {
-            result = await this.query().whereBetween('expected_date', [params.from, params.to]).whereIn('displayLink', params.sites).orderBy('id', 'asc').paginate(1, limit);
+            result = await this.query().whereBetween('expected_date', [params.from, params.to]).whereIn('displayLink', params.sites.split(',')).orderBy('id', 'asc').paginate(1, limit);
             return result;
         }
 
@@ -82,22 +82,22 @@ class Article extends Model {
         });
 
         /*
-        
+
         let temporal = {};
- 
+
          // accumulate similar months
          articlesPerMonthData.forEach(row => {
              temporal[row.month] = (temporal[row.month] === undefined) ? Number(row.total) : (Number(temporal[row.month]) + Number(row.total));
          });
- 
-         
+
+
          let result = [];
- 
+
          // store temporal data into array objects
          Object.entries(temporal).forEach(([key, value]) => {
              result.push({ month: key, total: value });
          });
- 
+
          // sort asc
          result = result.sort((a, b) => {
              let aa = a.month.split('/').reverse().join(),

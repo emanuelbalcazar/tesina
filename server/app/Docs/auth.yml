@@ -1,0 +1,72 @@
+/auth/login:
+    post:
+        summary: Inicio de sesión del usuario
+        tags:
+            - Auth
+        produces:
+            - application/json
+        parameters:
+            - name: email
+              description: email del usuario para autenticar.
+              in: formData
+              required: true
+              type: string
+              example: emanuelbalcazar13@gmail.com
+            - name: password
+              description: Contraseña.
+              in: formData
+              required: true
+              type: string
+              example: ebalcazar
+        responses:
+            200:
+                description: login exitoso
+
+/auth/register:
+    post:
+        summary: Registro de nuevo usuario
+        tags:
+            - Auth
+        produces:
+            - application/json
+        parameters:
+            - name: name
+              description: Nombre del usuario.
+              in: formData
+              required: true
+              type: string
+            - name: surname
+              description: Apellido del usuario.
+              in: formData
+              required: true
+              type: string
+            - name: email
+              description: email del usuario para registrar.
+              in: formData
+              required: true
+              type: string
+            - name: password
+              description: Contraseña.
+              in: formData
+              required: true
+              type: string
+        responses:
+            200:
+                description: registro exitoso
+
+/auth/recover:
+    post:
+        summary: Recuperación de la contraseña
+        tags:
+            - Auth
+        produces:
+            - application/json
+        parameters:
+            - name: email
+              description: email del usuario a recuperar la contraseña.
+              in: formData
+              required: true
+              type: string
+        responses:
+            200:
+                description: envio de email con nueva contraseña exitoso

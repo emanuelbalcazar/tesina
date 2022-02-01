@@ -17,7 +17,7 @@
 const Route = use('Route')
 
 Route.get('/', () => {
-    return { name: 'server', version: '2021-05', status: 'active' };
+    return { name: 'server', version: '2022-02', status: 'active' };
 });
 
 // routes without jwt
