@@ -16,7 +16,7 @@ class WordCloudController {
 
             return response.json(wordcloud);
         } catch (error) {
-            return response.unauthorized({ error: 'No se pudo obtener la nube de palabras por rango de fechas' });
+            return response.unauthorized({ error: error });
         }
     }
 

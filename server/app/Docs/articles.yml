@@ -52,3 +52,61 @@
         responses:
             200:
                 description: articulos listos para ser exportados
+
+/articles/findByExpectedDate:
+    post:
+        summary: Buscar IDS de los articulos por fecha esperada
+        security:
+            - bearerAuth: []
+        tags:
+            - Articles
+        produces:
+            - application/json
+        parameters:
+            - name: date
+              description: fecha experada
+              in: formData
+              type: string
+              example: 01/03/2020
+        responses:
+            200:
+                description: devuelve los IDs de los articulos que corresponden a la fecha esperada
+
+/articles/totalPerSite:
+    get:
+        summary: Cantidad de articulos por sitio
+        security:
+            - bearerAuth: []
+        tags:
+            - Articles
+        produces:
+            - application/json
+        responses:
+            200:
+                description: objeto con la cantidad de articulos por sitio
+
+/articles/sites:
+    get:
+        summary: Listado de sitios a los que pertenecen los articulos
+        security:
+            - bearerAuth: []
+        tags:
+            - Articles
+        produces:
+            - application/json
+        responses:
+            200:
+                description: Arreglo de sitios a los que pertenecen los articulos
+
+/articles/perMonth:
+    get:
+        summary: Cantidad de articulos por mes
+        security:
+            - bearerAuth: []
+        tags:
+            - Articles
+        produces:
+            - application/json
+        responses:
+            200:
+                description: Cantidad de articulos obtenidos por mes

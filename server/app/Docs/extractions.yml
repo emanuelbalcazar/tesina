@@ -1,0 +1,18 @@
+/extractions/execute/{id}:
+    get:
+        summary: Envia a ejecutar una ecuación de busqueda por su ID
+        security:
+            - bearerAuth: []
+        tags:
+            - Extractions
+        produces:
+            - application/json
+        parameters:
+            - name: id
+              description: ID de la ecuación de busqueda
+              in: path
+              type: number
+              example: 1
+        responses:
+            200:
+                description: Ecuación enviada a la cola de mensajeria

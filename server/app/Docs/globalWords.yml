@@ -1,0 +1,32 @@
+/globalwords/count:
+    get:
+        summary: Cantidad de palabras globales disponibles
+        security:
+            - bearerAuth: []
+        tags:
+            - Global Words
+        produces:
+            - application/json
+        responses:
+            200:
+                description: cantidad de palabras globales recuperadas
+
+/globalwords/mostfrecuent:
+    get:
+        summary: Las palabras mas frecuentes ordenadas por frecuencia de mayor a menor
+        security:
+            - bearerAuth: []
+        tags:
+            - Global Words
+        produces:
+            - application/json
+        parameters:
+            - name: limit
+              description: Limite de cantidad de palabras a devolver
+              in: query
+              type: number
+              example: 5
+
+        responses:
+            200:
+                description: Devuelve las primeras N palabras mas frecuentes de la tabla global

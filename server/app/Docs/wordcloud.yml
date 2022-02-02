@@ -1,0 +1,69 @@
+/wordcloud/byDateRange:
+    get:
+        summary: Nube de palabras por rango de fechas
+        security:
+            - bearerAuth: []
+        tags:
+            - WordCloud
+        produces:
+            - application/json
+        parameters:
+            - name: from
+              description: Fecha desde
+              in: query
+              type: string
+              example: 01/03/2020
+
+            - name: to
+              description: Fecha hasta
+              in: query
+              type: string
+              example: 03/03/2020
+
+            - name: minPercentage
+              description: Porcentaje minimo de frecuencia de aparicion de las palabras
+              in: query
+              type: number
+              example: 30
+        responses:
+            200:
+                description: nube de palabras filtradas por rango de fechas y porcentaje minimo
+
+/wordcloud/bySite:
+    get:
+        summary: Nube de palabras por sitio
+        security:
+            - bearerAuth: []
+        tags:
+            - WordCloud
+        produces:
+            - application/json
+        parameters:
+            - name: site
+              description: Sitio por el cual filtrar
+              in: query
+              type: string
+              example: https://www.diariojornada.com.ar
+
+            - name: minPercentage
+              description: Porcentaje minimo de frecuencia de aparicion de las palabras
+              in: query
+              type: number
+              example: 30
+        responses:
+            200:
+                description: nube de palabras filtradas por sitio y porcentaje minimo
+
+/wordcloud/sites:
+    get:
+        summary: Sitios disponibles en las nubes de palabras
+        security:
+            - bearerAuth: []
+        tags:
+            - WordCloud
+        produces:
+            - application/json
+        responses:
+            200:
+                description: sitios web disponibles en las nubes de palabras
+

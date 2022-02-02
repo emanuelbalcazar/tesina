@@ -1,0 +1,13 @@
+/normalizedArticles/count:
+    get:
+        summary: Cantidad de articulos normalizados disponibles
+        security:
+            - bearerAuth: []
+        tags:
+            - Normalized Articles
+        produces:
+            - application/json
+        responses:
+            200:
+                description: Objecto con la cantidad de articulos normalizados disponibles
+
