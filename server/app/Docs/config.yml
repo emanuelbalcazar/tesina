@@ -1,0 +1,127 @@
+/configs:
+    get:
+        summary: Listado de configuraciónes con paginación
+        security:
+            - bearerAuth: []
+        tags:
+            - Configs
+        produces:
+            - application/json
+        parameters:
+        - name: page
+          description: Numero de pagina (opcional)
+          in: query
+          type: number
+          example: 1
+
+        - name: perPage
+          description: Cantidad de configuraciones por pagina (opcional)
+          in: query
+          type: number
+          example: 10
+        responses:
+            200:
+                description: listado de las configuraciones disponibles
+
+    post:
+        summary: Guardar una nueva configuración
+        security:
+            - bearerAuth: []
+        tags:
+            - Configs
+        produces:
+            - application/json
+        parameters:
+            - name: key
+              description: Clave de la configuracion (unico)
+              in: formData
+              type: string
+              required: true
+
+            - name: value
+              description: Valor de la configuracion
+              in: formData
+              type: string
+              required: true
+
+            - name: description
+              description: Descripcion de la configuracion (opcional)
+              in: formData
+              type: string
+
+        responses:
+            200:
+                description: configuracion creada en la base de datos
+
+/configs/{id}:
+    get:
+        summary: Buscar configuracion por ID
+        security:
+            - bearerAuth: []
+        tags:
+            - Configs
+        produces:
+            - application/json
+        parameters:
+            - name: id
+              description: ID de la configuración
+              in: path
+              type: number
+              example: 1
+        responses:
+            200:
+                description: configuracion recuperada por su ID
+
+    put:
+        summary: Actualizar configuracion por su ID
+        security:
+            - bearerAuth: []
+        tags:
+            - Configs
+        produces:
+            - application/json
+        parameters:
+            - name: id
+              description: ID de la configuración
+              in: path
+              type: number
+              example: 1
+
+            - name: key
+              description: Clave de la configuracion (unico)
+              in: formData
+              type: string
+              required: true
+
+            - name: value
+              description: Valor de la configuracion
+              in: formData
+              type: string
+              required: true
+
+            - name: description
+              description: Descripcion de la configuracion (opcional)
+              in: formData
+              type: string
+
+        responses:
+            200:
+                description: configuracion actualizada
+
+    delete:
+        summary: Eliminar configuracion por ID
+        security:
+            - bearerAuth: []
+        tags:
+            - Configs
+        produces:
+            - application/json
+        parameters:
+            - name: id
+              description: ID de la configuración
+              in: path
+              type: number
+              example: 1
+        responses:
+            200:
+                description: configuracion eliminada por su ID

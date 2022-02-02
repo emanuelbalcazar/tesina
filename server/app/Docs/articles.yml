@@ -1,3 +1,53 @@
+/articles:
+    get:
+        summary: Articulos disponibles con filtros y paginación
+        security:
+            - bearerAuth: []
+        tags:
+            - Articles
+        produces:
+            - application/json
+        parameters:
+            - name: page
+              description: Numero de pagina (opcional)
+              in: query
+              type: number
+              example: 1
+
+            - name: perPage
+              description: Cantidad de articulos por pagina (opcional)
+              in: query
+              type: number
+              example: 10
+
+            - name: criteria
+              description: criterio de busqueda (opcional)
+              in: query
+              type: string
+        responses:
+            200:
+                description: los articulos recuperados en base al criterio y numero de pagina
+
+/articles/{id}:
+    get:
+        summary: Buscar articulo por ID
+        security:
+            - bearerAuth: []
+        tags:
+            - Articles
+        produces:
+            - application/json
+        parameters:
+            - name: id
+              description: ID del articulo
+              in: path
+              type: number
+              example: 1
+        responses:
+            200:
+                description: articulo recuperado por su ID
+
+
 /articles/count:
     get:
         summary: Cantidad de articulos disponibles
