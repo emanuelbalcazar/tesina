@@ -89,7 +89,10 @@ class EquationController {
     async show({ params, request, response, view }) {
         try {
             let equation = await Equation.findWithPopulate({ id: params.id });
-            return response.json(equation);
+            if (equation && equation[0])
+                return response.json(equation[0]);
+            else
+                return response.json({ status: `ecuación con ID ${params.id} no encontrada` });
         } catch (error) {
             return response.unauthorized({ error: error.message });
         }

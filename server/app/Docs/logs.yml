@@ -1,0 +1,43 @@
+/logs:
+    get:
+        summary: Listado de logs con paginación
+        security:
+            - bearerAuth: []
+        tags:
+            - Logs
+        produces:
+            - application/json
+        parameters:
+        - name: page
+          description: Numero de pagina (opcional)
+          in: query
+          type: number
+          example: 1
+
+        - name: perPage
+          description: Cantidad de logs por pagina (opcional)
+          in: query
+          type: number
+          example: 10
+        responses:
+            200:
+                description: listado de logs disponibles
+
+/logs/{id}:
+    get:
+        summary: Buscar log por ID
+        security:
+            - bearerAuth: []
+        tags:
+            - Logs
+        produces:
+            - application/json
+        parameters:
+            - name: id
+              description: ID del log
+              in: path
+              type: number
+              example: 1
+        responses:
+            200:
+                description: log recuperado por su ID

@@ -11,3 +11,46 @@
             200:
                 description: Objecto con la cantidad de articulos normalizados disponibles
 
+/normalizedArticles:
+    get:
+        summary: Listado de articulos normalizados con paginación
+        security:
+            - bearerAuth: []
+        tags:
+            - Normalized Articles
+        produces:
+            - application/json
+        parameters:
+        - name: page
+          description: Numero de pagina (opcional)
+          in: query
+          type: number
+          example: 1
+
+        - name: perPage
+          description: Cantidad de articulos normalizados por pagina (opcional)
+          in: query
+          type: number
+          example: 10
+        responses:
+            200:
+                description: listado de los articulos normalizados disponibles
+
+/normalizedArticles/{id}:
+    get:
+        summary: Buscar un articulo normalizado por ID
+        security:
+            - bearerAuth: []
+        tags:
+            - Normalized Articles
+        produces:
+            - application/json
+        parameters:
+            - name: id
+              description: ID del articulo normalizado
+              in: path
+              type: number
+              example: 1
+        responses:
+            200:
+                description: articulo normalizado recuperado por su ID

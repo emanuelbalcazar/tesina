@@ -1,0 +1,89 @@
+/sites:
+    get:
+        summary: Listado de sitios con paginación
+        security:
+            - bearerAuth: []
+        tags:
+            - Sites
+        produces:
+            - application/json
+        parameters:
+            - name: page
+              description: Numero de pagina (opcional)
+              in: query
+              type: number
+              example: 1
+
+            - name: perPage
+              description: Cantidad de sitios por pagina (opcional)
+              in: query
+              type: number
+              example: 10
+        responses:
+            200:
+                description: listado de los sitios webs disponibles
+
+    post:
+        summary: Guardar un nuevo sitio web
+        security:
+            - bearerAuth: []
+        tags:
+            - Sites
+        produces:
+            - application/json
+        parameters:
+            - name: site
+              description: URL del sitio web
+              in: formData
+              type: string
+              required: true
+              example: www.example.com
+
+        responses:
+            200:
+                description: sitio creado en la base de datos
+
+/sites/{id}:
+    get:
+        summary: Buscar sitio por ID
+        security:
+            - bearerAuth: []
+        tags:
+            - Sites
+        produces:
+            - application/json
+        parameters:
+            - name: id
+              description: ID del sitio
+              in: path
+              type: number
+              example: 1
+        responses:
+            200:
+                description: sitio recuperado por su ID
+
+    put:
+        summary: Actualizar un sitio por su ID
+        security:
+            - bearerAuth: []
+        tags:
+            - Sites
+        produces:
+            - application/json
+        parameters:
+            - name: id
+              description: ID del sitio
+              in: path
+              type: number
+              example: 1
+
+            - name: site
+              description: URL del sitio web
+              in: formData
+              type: string
+              required: true
+              example: www.example.com
+
+        responses:
+            200:
+                description: sitio web actualizado

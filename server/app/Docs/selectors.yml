@@ -1,0 +1,125 @@
+/selectors:
+    get:
+        summary: Listado de selectores con paginación
+        security:
+            - bearerAuth: []
+        tags:
+            - Selectors
+        produces:
+            - application/json
+        parameters:
+        - name: page
+          description: Numero de pagina (opcional)
+          in: query
+          type: number
+          example: 1
+
+        - name: perPage
+          description: Cantidad de selectores por pagina (opcional)
+          in: query
+          type: number
+          example: 10
+        responses:
+            200:
+                description: listado de los selectores disponibles
+
+    post:
+        summary: Guardar un nuevo selector css
+        security:
+            - bearerAuth: []
+        tags:
+            - Selectors
+        produces:
+            - application/json
+        parameters:
+            - name: selector
+              description: Selector css
+              in: formData
+              type: string
+              required: true
+              example: .notapage_cuerpo p
+
+            - name: section
+              description: Sección a la que corresponde el selector
+              in: formData
+              type: string
+              required: true
+              enum: [titulo, bajada, cuerpo, fecha]
+
+            - name: site_id
+              description: ID del sitio al que pertenece el selector
+              in: formData
+              type: number
+              example: 1
+
+        responses:
+            200:
+                description: selector creado en la base de datos
+
+/selectors/{id}:
+    get:
+        summary: Buscar selector por ID
+        security:
+            - bearerAuth: []
+        tags:
+            - Selectors
+        produces:
+            - application/json
+        parameters:
+            - name: id
+              description: ID del selector
+              in: path
+              type: number
+              example: 1
+        responses:
+            200:
+                description: selector recuperado por su ID
+
+    put:
+        summary: Actualizar un selector por su ID
+        security:
+            - bearerAuth: []
+        tags:
+            - Selectors
+        produces:
+            - application/json
+        parameters:
+            - name: id
+              description: ID del selector
+              in: path
+              type: number
+              example: 1
+
+            - name: selector
+              description: Selector css
+              in: formData
+              type: string
+              example: .notapage_cuerpo p
+
+            - name: section
+              description: Sección a la que corresponde el selector
+              in: formData
+              type: string
+              enum: [titulo, bajada, cuerpo, fecha]
+
+        responses:
+            200:
+                description: selector actualizado
+
+    delete:
+        summary: Eliminar selector por ID
+        security:
+            - bearerAuth: []
+        tags:
+            - Selectors
+        produces:
+            - application/json
+        parameters:
+            - name: id
+              description: ID del selector
+              in: path
+              type: number
+              example: 1
+        responses:
+            200:
+                description: selector eliminado por su ID

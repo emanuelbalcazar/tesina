@@ -1,0 +1,102 @@
+/equations:
+    get:
+        summary: Listado de ecuaciones con paginación
+        security:
+            - bearerAuth: []
+        tags:
+            - Equations
+        produces:
+            - application/json
+        parameters:
+        - name: page
+          description: Numero de pagina (opcional)
+          in: query
+          type: number
+          example: 1
+
+        - name: perPage
+          description: Cantidad de configuraciones por pagina (opcional)
+          in: query
+          type: number
+          example: 10
+        responses:
+            200:
+                description: listado de las ecuaciones disponibles
+
+    post:
+        summary: Guardar una nueva ecuación
+        security:
+            - bearerAuth: []
+        tags:
+            - Equations
+        produces:
+            - application/json
+        parameters:
+            - name: dateToFind
+              description: Fecha de busqueda de la ecuación
+              in: formData
+              type: string
+              required: true
+              example: 2020-10-21
+
+            - name: site_id
+              description: ID del sitio web en donde se buscará la información
+              in: formData
+              type: number
+              required: true
+              example: 1
+
+        responses:
+            200:
+                description: ecuación creada en la base de datos
+
+/equations/{id}:
+    get:
+        summary: Buscar ecuación por ID
+        security:
+            - bearerAuth: []
+        tags:
+            - Equations
+        produces:
+            - application/json
+        parameters:
+            - name: id
+              description: ID de la ecuación
+              in: path
+              type: number
+              example: 1
+        responses:
+            200:
+                description: ecuación recuperada por su ID
+
+    put:
+        summary: Actualizar una ecuación por su ID
+        security:
+            - bearerAuth: []
+        tags:
+            - Equations
+        produces:
+            - application/json
+        parameters:
+            - name: id
+              description: ID de la ecuación
+              in: path
+              type: number
+              example: 1
+
+            - name: dateToFind
+              description: Fecha de busqueda de la ecuación
+              in: formData
+              type: string
+              required: true
+              example: 2020-10-21
+
+            - name: site_id
+              description: ID del sitio web en donde se buscará la información
+              in: formData
+              type: number
+              required: true
+              example: 1
+        responses:
+            200:
+                description: ecuación actualizada

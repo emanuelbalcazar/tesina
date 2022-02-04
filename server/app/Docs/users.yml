@@ -1,0 +1,24 @@
+/users:
+    get:
+        summary: Listado de usuarios con paginación
+        security:
+            - bearerAuth: []
+        tags:
+            - Users
+        produces:
+            - application/json
+        parameters:
+            - name: page
+              description: Numero de pagina (opcional)
+              in: query
+              type: number
+              example: 1
+
+            - name: perPage
+              description: Cantidad de usuarios por pagina (opcional)
+              in: query
+              type: number
+              example: 10
+        responses:
+            200:
+                description: listado de los sitios webs disponibles
