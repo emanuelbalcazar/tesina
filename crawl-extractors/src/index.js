@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 const swaggerUI = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/swagger-crawl-extractors.json');
 swaggerDocument.host = config.HOST + ':' + config.PORT;
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // import all routes.
 const router = require('./routes/routes');
@@ -55,7 +55,7 @@ app.set('port', config.PORT);
 // listening application.
 app.listen(app.get('port'), async () => {
     console.log(success(`[Crawl Extractors] - started in http://${app.get('host')}:${app.get('port')}`));
-    console.log(info(`Swagger available in http://${app.get('host')}:${app.get('port')}/api-docs`));
+    console.log(info(`Swagger available in http://${app.get('host')}:${app.get('port')}/docs`));
 
     if (config.CONNECT_TO_RABBIT)
         await workerManagement.startAllWorkers();
