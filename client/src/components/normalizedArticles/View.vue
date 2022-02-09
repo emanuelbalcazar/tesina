@@ -44,7 +44,6 @@ export default {
             try {
                 let response = await axios.get("/normalizedArticles/" + id);
                 this.article = response.data;
-                console.log(this.article);
             } catch (error) {
                 if (error.response && error.response.data) {
                     return this.showToast(error.response.data.error, {

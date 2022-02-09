@@ -19,10 +19,10 @@ export const navigationRoutes = {
             },
             disabled: true,
             children: [
-                {
+               /*  {
                     name: 'export-articles',
-                    displayName: 'Exportar articulos'
-                },
+                    displayName: 'Exportar articulos',
+                }, */
                 {
                     name: 'list-articles',
                     displayName: 'Listar articulos'
@@ -63,7 +63,7 @@ export const navigationRoutes = {
                     name: 'wordcloud-site',
                     displayName: 'Nube de palabras por sitio'
                 },
-                
+
             ]
         },
         {
