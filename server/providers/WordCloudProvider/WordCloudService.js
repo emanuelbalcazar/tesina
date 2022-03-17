@@ -3,7 +3,7 @@ const NormalizedArticle = use('App/Models/NormalizedArticle');
 const Logger = use('Logger');
 const WordCloudBuilder = require('./builders/WordCloudBuilder');
 const Database = use('Database');
-const GlobalWord = use('App/Models/GlobalWord');
+const moment = require('moment');
 
 /**
  * @class WordCloudService
@@ -49,7 +49,7 @@ class WordCloudService {
      */
     async getByDateRange(from, to, minPercentage = 0) {
         try {
-            let wordcloud = await WordCloud.query().whereBetween('date', [from, to]).orderBy('frecuency', 'desc').fetch();
+            let wordcloud = await WordCloud.query().whereBetween('date', [moment(from, 'DD-MM-YYYY').format('YYYY-MM-DD'), moment(to, 'DD-MM-YYYY').format('YYYY-MM-DD')]).orderBy('frecuency', 'desc').fetch();
             wordcloud = wordcloud.toJSON();
 
             if (wordcloud.length == 0) {
@@ -77,6 +77,7 @@ class WordCloudService {
 
             return result;
         } catch (error) {
+            console.log(error)
             throw error;
         }
     }
