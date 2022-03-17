@@ -64,6 +64,11 @@ class WordCloudService {
                 return (w.frecuency >= percentage);
             });
 
+            /* TODO eliminar */
+            result = wordcloud.filter(w => {
+                return (w.word !== 'radiar' || w.word !== 'cadenapatagonia' || w.word !== 'content' || w.word !== 'jpeg' );
+            });
+
             result = result.map(word => {
                 return { text: word.word, value: word.frecuency, date: word.date };
             });
