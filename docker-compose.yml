@@ -68,6 +68,7 @@ services:
             - ./client/.env
         ports:
             - "8080:8080"
+            - "8005:8005"
         environment:
             TZ: America/Argentina/Buenos_Aires
     

@@ -1,48 +1,48 @@
 [
     {
-        "dateToFind": "01/03/2020",
+        "dateToFind": "01/01/2020",
         "site": "https://www.eldiarioweb.com",
         "start": 1,
         "active": true
     },
     {
-        "dateToFind": "01/03/2020",
+        "dateToFind": "01/01/2020",
         "site": "https://www.diariojornada.com.ar",
         "start": 1,
         "active": true
     },
     {
-        "dateToFind": "01/03/2020",
+        "dateToFind": "01/01/2020",
         "site": "https://www.elpatagonico.com",
         "start": 1,
         "active": true
     },
     {
-        "dateToFind": "01/03/2020",
+        "dateToFind": "01/01/2020",
         "site": "https://www.elchubut.com.ar",
         "start": 1,
         "active": true
     },
     {
-        "dateToFind": "01/03/2020",
+        "dateToFind": "01/01/2020",
         "site": "https://diariocronica.com.ar",
         "start": 1,
         "active": true
     },
     {
-        "dateToFind": "01/03/2020",
+        "dateToFind": "01/01/2020",
         "site": "https://radio3cadenapatagonia.com.ar",
         "start": 1,
         "active": true
     },
     {
-        "dateToFind": "01/03/2020",
+        "dateToFind": "01/01/2020",
         "site": "https://diariolaportada.com.ar",
         "start": 1,
         "active": true
     },
     {
-        "dateToFind": "01/03/2020",
+        "dateToFind": "01/01/2020",
         "site": "https://www.red43.com.ar",
         "start": 1,
         "active": true
