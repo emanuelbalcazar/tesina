@@ -94,8 +94,6 @@ class Worker {
             if (this.requestCount > requestLimit) {
                 await logger.success('search engine', `worker ${this.routingKey}`, `termino su cuota diaria con ${this.requestCount} de ${requestLimit} realizados`, params.equation.id, params.equation.q, params.equation.start);
                 this.requestCount = 0;
-                //await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'resetRequestCount', data: '' });
-                //await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' });
             }
 
             return;
@@ -106,7 +104,7 @@ class Worker {
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' });
             }
 
-            await logger.error('search engine', `worker ${this.routingKey}`, error.message, error.stack);
+            await logger.error('search engine', `worker ${this.routingKey}`, (isJson(error.message) ? JSON.stringify(error.message) : error.message), error.stack);
         }
     }
 }
@@ -115,6 +113,15 @@ function sleep(ms) {
     return new Promise((resolve) => {
         setTimeout(resolve, ms);
     });
+}
+
+function isJson(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
 }
 
 module.exports = Worker;

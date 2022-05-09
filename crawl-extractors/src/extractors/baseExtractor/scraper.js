@@ -20,23 +20,23 @@ async function scraping(params, records) {
                 try {
                     let elements = root.querySelectorAll(selector.selector);
 
-                    if (selector.section == 'titulo') {
+                    if (selector.section == 'titulo' && elements.length) {
                         article.title = elements[0].text || elements[0].innerText || elements[0].childNodes[0].rawText;
                     }
 
-                    if (selector.section == 'bajada') {
+                    if (selector.section == 'bajada' && elements.length) {
                         article.snippet = elements[0].text || elements[0].innerText || elements[0].childNodes[0].rawText || '';
                     }
 
-                    if (selector.section == 'cuerpo') {
+                    if (selector.section == 'cuerpo' && elements.length) {
                         let text = elements.map(elem => {
-                            return elem.text || elem.innerText || elem.childNodes[0].rawText;
+                            return elem.text || elem.innerText || elements[0].innerText || elem.childNodes[0].rawText;
                         });
 
                         article.body += text.join('\n').trim();
                     }
 
-                    if (selector.section == 'fecha') {
+                    if (selector.section == 'fecha' && elements.length) {
                         article.published = elements[0].text || elements[0].innerText || elements[0].childNodes[0].rawText;
                     }
                 } catch (error) {

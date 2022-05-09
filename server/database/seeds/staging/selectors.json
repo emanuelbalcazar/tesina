@@ -5,7 +5,17 @@
         "section": "titulo"
     },
     {
+        "selector": "article h1",
+        "site": "https://diariocronica.com.ar",
+        "section": "titulo"
+    },
+    {
         "selector": ".td-post-content #bajada",
+        "site": "https://diariocronica.com.ar",
+        "section": "bajada"
+    },
+    {
+        "selector": ".copete",
         "site": "https://diariocronica.com.ar",
         "section": "bajada"
     },
@@ -15,7 +25,17 @@
         "section": "cuerpo"
     },
     {
+        "selector": ".contenido p",
+        "site": "https://diariocronica.com.ar",
+        "section": "cuerpo"
+    },
+    {
         "selector": "div span time",
+        "site": "https://diariocronica.com.ar",
+        "section": "fecha"
+    },
+    {
+        "selector": ".fecha",
         "site": "https://diariocronica.com.ar",
         "section": "fecha"
     },
@@ -25,12 +45,22 @@
         "section": "titulo"
     },
     {
+        "selector": ".titulos_notas",
+        "site": "https://www.eldiarioweb.com",
+        "section": "titulo"
+    },
+    {
         "selector": "section .contenido p",
         "site": "https://www.eldiarioweb.com",
         "section": "cuerpo"
     },
     {
-        "selector": "div time",
+        "selector": ".col p",
+        "site": "https://www.eldiarioweb.com",
+        "section": "cuerpo"
+    },
+    {
+        "selector": "time",
         "site": "https://www.eldiarioweb.com",
         "section": "fecha"
     },
@@ -40,7 +70,17 @@
         "section": "titulo"
     },
     {
+        "selector": "body > app-root > div > app-noticia > div:nth-child(4) > div > h1",
+        "site": "https://www.diariojornada.com.ar",
+        "section": "titulo"
+    },
+    {
         "selector": "#ContentPlaceHolder1_lbl_Copete",
+        "site": "https://www.diariojornada.com.ar",
+        "section": "bajada"
+    },
+    {
+        "selector": "body > app-root > div > app-noticia > div:nth-child(4) > div > h2",
         "site": "https://www.diariojornada.com.ar",
         "section": "bajada"
     },
@@ -50,7 +90,17 @@
         "section": "cuerpo"
     },
     {
+        "selector": "body > app-root > div > app-noticia > div.d-none.d-sm-block.mb-3.mt-3-desktop > div.row > div.col-md-8 > div:nth-child(4) div",
+        "site": "https://www.diariojornada.com.ar",
+        "section": "cuerpo"
+    },
+    {
         "selector": "#ContentPlaceHolder1_lbl_Fecha",
+        "site": "https://www.diariojornada.com.ar",
+        "section": "fecha"
+    },
+    {
+        "selector": "body > app-root > div > app-noticia > div.d-none.d-sm-block.mb-3.mt-3-desktop > div.row > div.col-md-8 > div:nth-child(3) > div",
         "site": "https://www.diariojornada.com.ar",
         "section": "fecha"
     },
@@ -60,12 +110,27 @@
         "section": "titulo"
     },
     {
+        "selector": ".nota__titulo h1",
+        "site": "https://www.elchubut.com.ar",
+        "section": "titulo"
+    },
+    {
         "selector": ".np_nota_descripcion",
         "site": "https://www.elchubut.com.ar",
         "section": "bajada"
     },
     {
+        "selector": ".articulo__intro p",
+        "site": "https://www.elchubut.com.ar",
+        "section": "bajada"
+    },
+    {
         "selector": ".notapage_cuerpo p",
+        "site": "https://www.elchubut.com.ar",
+        "section": "cuerpo"
+    },
+    {
+        "selector": ".articulo__cuerpo p",
         "site": "https://www.elchubut.com.ar",
         "section": "cuerpo"
     },
@@ -76,6 +141,11 @@
     },
     {
         "selector": ".np_fecha",
+        "site": "https://www.elchubut.com.ar",
+        "section": "fecha"
+    },
+    {
+        "selector": ".nota__fecha",
         "site": "https://www.elchubut.com.ar",
         "section": "fecha"
     },
