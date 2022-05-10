@@ -3,12 +3,12 @@ import logging as log
 from config import get_config
 
 # get all connection parameters
-host = get_config('DATABASE', 'host')
-port = get_config('DATABASE', 'port')
-database = get_config('DATABASE', 'database')
-user = get_config('DATABASE', 'user')
-password = get_config('DATABASE', 'password')
-sslmode = get_config('DATABASE', 'sslmode')
+host = get_config('DB_HOST')
+port = get_config('DB_PORT')
+database = get_config('DB_NAME')
+user = get_config('DB_USER')
+password = get_config('DB_PASSWORD')
+sslmode = get_config('SSL_MODE')
 
 _connection = None
 

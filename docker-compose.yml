@@ -6,13 +6,13 @@ services:
         build: ./postgres
         container_name: postgres
         ports:
-        - "5432:5432"
-        volumes: 
-            -  db-data:/var/lib/postgresql/data:z
+            - "5432:5432"
+        volumes:
+            - db-data:/var/lib/postgresql/data:z
         stdin_open: true
-        env_file: 
+        env_file:
             - ./postgres/.env
-        
+
     rabbitmq:
         image: rabbitmq:3-management-alpine
         container_name: rabbitmq
@@ -27,57 +27,59 @@ services:
     crawl-extractors:
         build: ./crawl-extractors
         container_name: crawl-extractors
-        env_file: 
+        env_file:
             - ./crawl-extractors/.env
         ports:
             - "8002:8002"
         environment:
             TZ: America/Argentina/Buenos_Aires
-        depends_on: 
+        depends_on:
             - rabbitmq
 
     search-engine:
         build: ./search-engine
         container_name: search-engine
-        env_file: 
+        env_file:
             - ./search-engine/.env
         ports:
             - "8001:8001"
         environment:
             TZ: America/Argentina/Buenos_Aires
-        depends_on: 
+        depends_on:
             - rabbitmq
 
     server:
         build: ./server
         container_name: server
-        env_file: 
+        env_file:
             - ./server/.env
-        ports: 
+        ports:
             - "8000:8000"
         environment:
             TZ: America/Argentina/Buenos_Aires
-        depends_on: 
+        depends_on:
             - rabbitmq
             - postgres
 
     client:
         build: ./client
         container_name: client
-        env_file: 
+        env_file:
             - ./client/.env
         ports:
             - "8080:8080"
             - "8005:8005"
         environment:
             TZ: America/Argentina/Buenos_Aires
-    
-    #article-normalizer:
-    #    build: ./article-normalizer
-    #    container_name: article-normalizer
-    #    environment:
-    #        TZ: America/Argentina/Buenos_Aires
 
+    article-normalizer:
+        build: ./article-normalizer
+        container_name: article-normalizer
+        restart: always
+        env_file:
+            - ./article-normalizer/.env
+        environment:
+            TZ: America/Argentina/Buenos_Aires
 
 # https://stackoverflow.com/questions/53342053/starting-postgres-container-with-persistant-volume-docker-compose
 # docker volume inspect tesina_db-data

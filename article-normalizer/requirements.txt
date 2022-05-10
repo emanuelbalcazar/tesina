@@ -15,10 +15,11 @@ numpy==1.20.2
 packaging==20.9
 pathy==0.5.2
 preshed==3.0.5
-psycopg2-binary==2.8.6
 psycopg2==2.8.6
+psycopg2-binary==2.8.6
 pydantic==1.7.3
 pyparsing==2.4.7
+python-decouple==3.6
 regex==2021.4.4
 requests==2.25.1
 smart-open==3.0.0

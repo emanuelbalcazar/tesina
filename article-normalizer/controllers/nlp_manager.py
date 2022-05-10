@@ -19,7 +19,7 @@ from config import get_config
 from .enum import Enum
 
 # limit to process articles
-LIMIT = int(get_config('CONSTANTS', 'limit'))
+LIMIT = int(get_config('LIMIT'))
 
 # execute nlp process
 def execute():

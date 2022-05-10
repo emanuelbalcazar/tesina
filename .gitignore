@@ -33,4 +33,6 @@ server/.env
 server/database/*.sqlite
 server/package-lock.json
 
+article-normalizer/.env
+
 site/
