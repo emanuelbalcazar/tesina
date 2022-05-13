@@ -68,7 +68,7 @@ class Worker {
             while ((this.requestCount <= requestLimit) && hasPages) {
 
                 let results = await service.search(params);
-                this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
+                await this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
                 await this.channel.publish(config.PUBLISH_EXCHANGE, this.routingKey, Buffer.from(JSON.stringify(results)));
 
                 // check if has next page
