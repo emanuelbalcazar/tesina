@@ -63,18 +63,14 @@ export default {
                     title: "ID"
                 },
                 {
-                    name: "link",
-                    title: "Link",
-                    callback: this.formatLink
+                    name: "lower_case",
+                    title: "Texto",
+                    callback: this.formatLowerCase
                 },
                 {
                     name: "wordcloud",
                     title: "Texto final",
                     callback: this.formatMessage
-                },
-                {
-                    name: "article_id",
-                    title: "ID articulo original"
                 },
                 {
                     name: "__slot:actions",
@@ -107,8 +103,8 @@ export default {
         view(article) {
             this.$router.push({ name: "view-normalized-article", params: { id: article.id } });
         },
-        formatLink(value = "") {
-            return value.substring(0, 60);
+        formatLowerCase(value = "") {
+            return value.substring(0, 100);
         },
         formatMessage(value = "") {
             return value.substring(0, 100);
