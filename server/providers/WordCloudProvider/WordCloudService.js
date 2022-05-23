@@ -4,6 +4,7 @@ const Logger = use('Logger');
 const WordCloudBuilder = require('./builders/WordCloudBuilder');
 const Database = use('Database');
 const moment = require('moment');
+const filteredWords = require('./config/filteredWords.json');
 
 /**
  * @class WordCloudService
@@ -64,10 +65,7 @@ class WordCloudService {
                 return (w.frecuency >= percentage);
             });
 
-            /* TODO eliminar */
-            result = wordcloud.filter(w => {
-                return (w.word !== 'radiar' || w.word !== 'cadenapatagonia' || w.word !== 'content' || w.word !== 'jpeg' );
-            });
+            result = wordcloud.filter(filterWords);
 
             result = result.map(word => {
                 return { text: word.word, value: word.frecuency, date: word.date };
@@ -103,6 +101,8 @@ class WordCloudService {
             let result = wordcloud.filter(w => {
                 return (w.frecuency >= percentage);
             });
+
+            result = wordcloud.filter(filterWords);
 
             result = result.map(word => {
                 return { text: word.word, value: word.frecuency, site: word.site };
@@ -148,6 +148,10 @@ function mergeWords(words) {
     }
 
     return result;
+}
+
+function filterWords(word) {
+    return !filteredWords.includes(word);
 }
 
 module.exports = WordCloudService;
