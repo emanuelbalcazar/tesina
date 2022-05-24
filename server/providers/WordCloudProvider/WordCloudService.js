@@ -128,6 +128,32 @@ class WordCloudService {
             throw error;
         }
     }
+
+    async getWordBySite(word, site) {
+        try {
+            let databaseResult = await Database.raw(`
+                select *
+                from word_clouds wc
+                where site = '${site}' and word = '${word}'
+                order by date;
+            `);
+
+            let words = databaseResult.rows.map(row => {
+                try {
+                    row.date = moment(row.date).format('DD/MM/YYYY');
+                    row.label = word;
+                    delete row.normalized_article_id;
+                    return row;
+                } catch (error) {
+                    throw error;
+                }
+            });
+
+            return words;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 function mergeWords(words) {

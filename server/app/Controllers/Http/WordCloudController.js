@@ -44,6 +44,16 @@ class WordCloudController {
             return response.unauthorized({ error: error });
         }
     }
+
+    async getWordBySite({ request, response }) {
+        try {
+            let params = request.all();
+            let words = await WordCloudService.getWordBySite(params.word, params.site);
+            return response.json(words);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
+    }
 }
 
 module.exports = WordCloudController

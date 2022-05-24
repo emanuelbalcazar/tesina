@@ -160,3 +160,22 @@
         responses:
             200:
                 description: Cantidad de articulos obtenidos por mes
+
+/articles/countByDate:
+    get:
+        summary: Cantidad de articulos agrupados por sitio y fecha
+        security:
+            - bearerAuth: []
+        tags:
+            - Articles
+        produces:
+            - application/json
+        parameters:
+            - name: site
+              description: Sitio web
+              in: query
+              type: string
+              example: www.elchubut.com.ar
+        responses:
+            200:
+                description: cantidad de articulos agrupados por sitio y fecha

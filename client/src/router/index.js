@@ -116,7 +116,7 @@ export default new Router({
                 {
                     name: 'statistics-articles',
                     path: 'articles',
-                    component: () => import('../components/statistics/Articles.vue')
+                    component: () => import('../components/articles/Statistics.vue')
                 },
             ]
         },

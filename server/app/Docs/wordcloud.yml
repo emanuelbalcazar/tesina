@@ -67,3 +67,27 @@
             200:
                 description: sitios web disponibles en las nubes de palabras
 
+/wordcloud/getWordBySite:
+    get:
+        summary: Obtener una palabra y su frecuencia por sitio y ordenadas por fechas
+        security:
+            - bearerAuth: []
+        tags:
+            - WordCloud
+        produces:
+            - application/json
+        parameters:
+            - name: word
+              description: Palabra
+              in: query
+              type: string
+              example: provincia
+
+            - name: site
+              description: Sitio web
+              in: query
+              type: string
+              example: www.elchubut.com.ar
+        responses:
+            200:
+                description: palabra ordenada por sitio y fechas

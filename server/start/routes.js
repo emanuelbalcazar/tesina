@@ -38,6 +38,7 @@ Route.group(() => {
     Route.get('/articles/totalPerSite', 'ArticleController.totalPerSite');
     Route.get('/articles/sites', 'ArticleController.sitesAvailables');
     Route.get('/articles/perMonth', 'ArticleController.perMonth');
+    Route.get('/articles/countByDate', 'ArticleController.countByDate');
 
     Route.get('/extractions/execute/:id', 'ExtractionController.execute');
 
@@ -49,6 +50,7 @@ Route.group(() => {
     Route.get('/wordcloud/byDateRange', 'WordCloudController.getByDateRange');
     Route.get('/wordcloud/bySite', 'WordCloudController.getBySite');
     Route.get('/wordcloud/sites', 'WordCloudController.getSites');
+    Route.get('/wordcloud/getWordBySite', 'WordCloudController.getWordBySite');
 
     // resource routes
     Route.resource('/articles', 'ArticleController');

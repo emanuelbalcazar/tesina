@@ -179,6 +179,16 @@ class ArticleController {
             return response.unauthorized({ error: error.message });
         }
     }
+
+    async countByDate({ request, response }) {
+        try {
+            let params = request.all();
+            let articles = await Article.countByDate(params.site);
+            return response.json(articles);
+        } catch (error) {
+            return response.unauthorized({ error: error.message });
+        }
+    }
 }
 
 module.exports = ArticleController
