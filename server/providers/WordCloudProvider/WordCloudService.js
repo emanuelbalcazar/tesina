@@ -57,15 +57,15 @@ class WordCloudService {
                 throw `No se encontraron nubes de palabras con la fecha desde ${from} a ${to}`;
             }
 
-            let maxValue = wordcloud[0].frecuency;
-            let percentage = (minPercentage * maxValue / 100);
+            let maxValue = Number(wordcloud[0].frecuency);
+            let percentage = ((Number(minPercentage) * maxValue) / 100);
 
             // filter by minimum percentage
             let result = wordcloud.filter(w => {
                 return (w.frecuency >= percentage);
             });
 
-            result = wordcloud.filter(filterWords);
+            result = result.filter(filterWords);
 
             result = result.map(word => {
                 return { text: word.word, value: word.frecuency, date: word.date };
@@ -94,15 +94,15 @@ class WordCloudService {
                 throw 'No se encontro una nube de palabras con el sitio ' + site;
             }
 
-            let maxValue = wordcloud[0].frecuency;
-            let percentage = (minPercentage * maxValue / 100);
+            let maxValue = Number(wordcloud[0].frecuency);
+            let percentage = ((Number(minPercentage) * maxValue) / 100);
 
             // filter by minimum percentage
             let result = wordcloud.filter(w => {
                 return (w.frecuency >= percentage);
             });
 
-            result = wordcloud.filter(filterWords);
+            result = result.filter(filterWords);
 
             result = result.map(word => {
                 return { text: word.word, value: word.frecuency, site: word.site };
