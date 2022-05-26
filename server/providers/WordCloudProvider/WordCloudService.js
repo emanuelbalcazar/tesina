@@ -177,7 +177,7 @@ function mergeWords(words) {
 }
 
 function filterWords(word) {
-    return !filteredWords.includes(word);
+    return !filteredWords.includes(word.word);
 }
 
 module.exports = WordCloudService;
