@@ -41,5 +41,12 @@
     "content",
     "radiar",
     "captions",
-    "caption"
+    "caption",
+    "radio",
+    "class",
+    "height",
+    "srcset",
+    "link",
+    "full",
+    "attachment"
 ]
