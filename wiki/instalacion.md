@@ -67,7 +67,7 @@ Las aplicaciones hacen uso de RabbitMQ para comunicarse entre si, para ello debe
 
 5. Configurar archivos .env
 
-Crear el archivo .env en las carpetas `server`, `client`, `search-engine` y `crawl-extractors`, utilizar el archivo `.env.example` como ejemplo completando los datos indicados incluyendo los parametros de conexión a la base de datos, conexión a RabbitMQ y claves de Google CSE previamente obtenidas.
+Crear el archivo .env en las carpetas `server`, `client`, `search-engine`, `crawl-extractors` y `article-normalizer`, utilizar el archivo `.env.example` como ejemplo completando los datos indicados incluyendo los parametros de conexión a la base de datos, conexión a RabbitMQ y claves de Google CSE previamente obtenidas.
 Si todos los datos fueron completados, las aplicaciones deberían poder ejecutarse sin problemas.
 
 6. Configurar los parámetros de conexión del NLP en `nlp/configuration.ini` modificando los datos que sean necesarios para permitir la conexión a la base de datos.
