@@ -65,7 +65,7 @@ class Worker {
             let requestLimit = message.requestLimit || 10;
             let hasPages = true;
 
-            while ((this.requestCount <= requestLimit) && hasPages) {
+            while ((this.requestCount < requestLimit) && hasPages) {
 
                 let results = await service.search(params);
                 await this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
@@ -86,7 +86,7 @@ class Worker {
                 await sleep(config.WORKER_SLEEP_TIME);
             }
 
-            if (!hasPages && this.requestCount < requestLimit) {
+            if (!hasPages && this.requestCount <= requestLimit) {
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateEquationStart', data: { id: params.equation.id, start: 1 } });
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'getNextEquationDate', data: { id: params.equation.id } });
             }
