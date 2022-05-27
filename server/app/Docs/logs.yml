@@ -1,6 +1,6 @@
 /logs:
     get:
-        summary: Listado de logs con paginación
+        summary: Listado de logs con filtro y paginación
         security:
             - bearerAuth: []
         tags:
@@ -19,6 +19,11 @@
           in: query
           type: number
           example: 10
+
+        - name: criteria
+          description: criterio de busqueda (opcional)
+          in: query
+          type: string
         responses:
             200:
                 description: listado de logs disponibles
