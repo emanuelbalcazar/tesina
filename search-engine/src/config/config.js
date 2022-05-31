@@ -24,4 +24,4 @@ module.exports.LOGS_QUEUE_NAME = 'logs';
 module.exports.PRINT_LOGS_ON_CONSOLE = (process.env.PRINT_LOGS_ON_CONSOLE === 'true') ?? true;
 
 // timeout of each request in the worker
-module.exports.WORKER_SLEEP_TIME = 8000;
+module.exports.WORKER_SLEEP_TIME = 10000;

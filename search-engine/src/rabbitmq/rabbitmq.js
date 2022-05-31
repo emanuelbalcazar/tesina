@@ -1,6 +1,7 @@
 const amqplib = require('amqplib');
 const config = require('../config/config');
 let connection = null;
+let channel = null;
 
 /**
  * @class RabbitMQConnector
@@ -32,8 +33,11 @@ class RabbitMQConnector {
      * @memberof RabbitMQConnector
      */
     async sendToQueue(queueName, message) {
-        let channel = await connection.createChannel();
-        channel.assertQueue(queueName, { durable: true });
+        if (!channel) {
+            channel = await connection.createChannel();
+        }
+
+        await channel.assertQueue(queueName, { durable: true });
         let status = await channel.sendToQueue(queueName, Buffer.from(JSON.stringify(message)));
         return status;
     }
