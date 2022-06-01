@@ -70,7 +70,7 @@
         "section": "titulo"
     },
     {
-        "selector": "body > app-root > div > app-noticia > div:nth-child(4) > div > h1",
+        "selector": "div .row h1",
         "site": "https://www.diariojornada.com.ar",
         "section": "titulo"
     },
@@ -80,7 +80,7 @@
         "section": "bajada"
     },
     {
-        "selector": "body > app-root > div > app-noticia > div:nth-child(4) > div > h2",
+        "selector": "div .row h2",
         "site": "https://www.diariojornada.com.ar",
         "section": "bajada"
     },
@@ -90,7 +90,7 @@
         "section": "cuerpo"
     },
     {
-        "selector": "body > app-root > div > app-noticia > div.d-none.d-sm-block.mb-3.mt-3-desktop > div.row > div.col-md-8 > div:nth-child(4) div",
+        "selector": "div .row .col-md-8",
         "site": "https://www.diariojornada.com.ar",
         "section": "cuerpo"
     },
@@ -100,7 +100,7 @@
         "section": "fecha"
     },
     {
-        "selector": "body > app-root > div > app-noticia > div.d-none.d-sm-block.mb-3.mt-3-desktop > div.row > div.col-md-8 > div:nth-child(3) > div",
+        "selector": "div .mb-1.interior_noticia_fecha",
         "site": "https://www.diariojornada.com.ar",
         "section": "fecha"
     },
