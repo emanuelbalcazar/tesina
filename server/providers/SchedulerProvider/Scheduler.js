@@ -45,6 +45,8 @@ class Scheduler {
             requestLimit = Math.floor(requestLimit.value / workers.value);
             let messages = [];
 
+            Logger.info(`[${this.scheduleEvery}] - request limite por ecuacion: ${requestLimit}`);
+
             for (const equation of equations) {
                 let message = Util.normalizeEquation(equation);
                 message.requestLimit = requestLimit;
@@ -57,7 +59,7 @@ class Scheduler {
 
     /**
      * Re schedule
-     * @param {String} scheduleAt 
+     * @param {String} scheduleAt
      * @returns state
      */
     async reschedule(scheduleAt) {
