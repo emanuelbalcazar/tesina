@@ -173,7 +173,7 @@ export default {
           labels: labels,
           datasets: [
             {
-              label: "Cantidad de articulos por sitio",
+              label: "Articulos por sitio",
               backgroundColor: [
                 this.$themes.danger,
                 this.$themes.dark,

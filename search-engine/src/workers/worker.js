@@ -18,6 +18,7 @@ class Worker {
         this.routingKey = routingKey;
         this.channel = null;
         this.requestCount = 0;
+        this.requestLimit = null;
     }
 
     /**
@@ -62,10 +63,10 @@ class Worker {
     async search(message) {
         try {
             let params = message;
-            let requestLimit = message.requestLimit || 10;
+            this.requestLimit = (this.requestLimit) ? this.requestLimit : message.requestLimit;
             let hasPages = true;
 
-            while ((this.requestCount < requestLimit) && hasPages) {
+            while ((this.requestCount < this.requestLimit) && hasPages) {
 
                 let results = await service.search(params);
                 await this.channel.assertExchange(config.PUBLISH_EXCHANGE, 'direct', { durable: true });
@@ -86,16 +87,14 @@ class Worker {
                 await sleep(config.WORKER_SLEEP_TIME);
             }
 
-            if (!hasPages && this.requestCount <= requestLimit) {
+            if (!hasPages && this.requestCount < this.requestLimit) {
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'updateEquationStart', data: { id: params.equation.id, start: 1 } });
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'getNextEquationDate', data: { id: params.equation.id } });
             }
 
-            if (this.requestCount >= requestLimit) {
-                await logger.success('search engine', `worker ${this.routingKey}`, `termino su cuota diaria con ${this.requestCount} de ${requestLimit} realizados`, params.equation.id, params.equation.q, params.equation.start);
+            if (this.requestCount >= this.requestLimit) {
+                await logger.success('search engine', `worker ${this.routingKey}`, `termino su cuota diaria con ${this.requestCount} de ${this.requestLimit} realizados`, params.equation.id, params.equation.q, params.equation.start);
                 this.requestCount = 0;
-                /* await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'resetRequestCount', data: '' });
-                await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' }); */
             }
 
             return;
