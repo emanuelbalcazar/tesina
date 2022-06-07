@@ -95,6 +95,7 @@ class Worker {
             if (this.requestCount >= this.requestLimit) {
                 await logger.success('search engine', `worker ${this.routingKey}`, `termino su cuota diaria con ${this.requestCount} de ${this.requestLimit} realizados`, params.equation.id, params.equation.q, params.equation.start);
                 this.requestCount = 0;
+                this.requestLimit = null;
             }
 
             return;
@@ -103,6 +104,7 @@ class Worker {
             if (error.code == 429) {
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'resetRequestCount', data: '' });
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' });
+                this.requestLimit = null;
             }
 
             await logger.error('search engine', `worker ${this.routingKey}`, (isJson(error.message) ? JSON.stringify(error.message) : error.message), error.stack);

@@ -9,9 +9,15 @@
             >
             <br />
             <br />
-            <h2>{{ article.article.title }}</h2>
+            ¿Se encuentra en una nube de palabras?:&nbsp;<b>{{ (article.in_wordcloud) ? "Si" : "No"}}</b>
             <br />
-            <b>¿Se encuentra en una nube de palabras?:&nbsp;{{ (article.in_wordcloud) ? "Si" : "No"}}</b>
+            <br />
+            <h2>{{ article.article.title }}</h2>
+             <br />
+            <b>Fecha de publicación:&nbsp;</b>{{ article.article.published }}
+            <br />
+            <br />
+            <b>Sitio web:</b>&nbsp;{{ article.article.displayLink }}
             <br />
             <br />
             <b>Texto original:</b>
