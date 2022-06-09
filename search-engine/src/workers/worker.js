@@ -104,6 +104,7 @@ class Worker {
             if (error.code == 429) {
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'resetRequestCount', data: '' });
                 await rabbitmq.sendToQueue(config.SERVER_QUEUE, { type: 'rescheduleNextDay', data: '' });
+                this.requestCount = 0;
                 this.requestLimit = null;
             }
 
