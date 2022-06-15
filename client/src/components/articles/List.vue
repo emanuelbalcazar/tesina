@@ -1,5 +1,5 @@
 <template>
-    <va-card :titleOnImage="title.table">
+    <va-card>
         <div class="row align--center">
             <div class="flex xs12 md4">
                 <va-input
