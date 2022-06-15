@@ -33,6 +33,20 @@ export const navigationRoutes = {
                 }
             ]
         },
+        {
+            name: 'equations',
+            displayName: 'Ecuaciones',
+            meta: {
+                iconClass: 'fa fa-search'
+            },
+            disabled: true,
+            children: [
+                {
+                    name: 'list-equations',
+                    displayName: 'Listar ecuaciones'
+                }
+            ]
+        },
         /* {
             name: 'statistics',
             displayName: 'Estadisticas',

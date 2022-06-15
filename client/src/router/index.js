@@ -94,6 +94,17 @@ export default new Router({
             ],
         },
         {
+          path: '/equations',
+          component: AppLayout,
+          children: [
+            {
+                name: 'list-equations',
+                path: 'list',
+                component: () => import('../components/equations/List.vue')
+            },
+          ]
+        },
+        {
             path: '/normalizedArticles',
             component: AppLayout,
             children: [
