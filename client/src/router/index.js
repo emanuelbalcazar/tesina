@@ -129,6 +129,11 @@ export default new Router({
                     path: 'articles',
                     component: () => import('../components/articles/Statistics.vue')
                 },
+                {
+                    name: 'statistics-words',
+                    path: 'words',
+                    component: () => import('../components/statistics/Words.vue')
+                },
             ]
         },
         {

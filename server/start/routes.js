@@ -51,6 +51,7 @@ Route.group(() => {
     Route.get('/wordcloud/bySite', 'WordCloudController.getBySite');
     Route.get('/wordcloud/sites', 'WordCloudController.getSites');
     Route.get('/wordcloud/getWordBySite', 'WordCloudController.getWordBySite');
+    Route.get('/wordcloud/getCountWordOrderedBySite', 'WordCloudController.getCountWordOrderedBySite');
 
     // resource routes
     Route.resource('/articles', 'ArticleController');

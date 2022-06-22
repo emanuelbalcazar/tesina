@@ -47,7 +47,7 @@ export const navigationRoutes = {
                 }
             ]
         },
-        /* {
+        {
             name: 'statistics',
             displayName: 'Estadisticas',
             meta: {
@@ -56,11 +56,11 @@ export const navigationRoutes = {
             disabled: true,
             children: [
                 {
-                    name: 'statistics-articles',
-                    displayName: 'Estadisticas de articulos'
+                    name: 'statistics-words',
+                    displayName: 'Estadisticas de palabras'
                 },
             ]
-        }, */
+        },
         {
             name: 'wordcloud',
             displayName: 'Nube de palabras',

@@ -154,6 +154,27 @@ class WordCloudService {
             throw error;
         }
     }
+
+    async getCountWordOrderedBySite(word) {
+        try {
+            let databaseResult = await Database.raw(`
+                SELECT count(word), word, site
+                FROM word_clouds wc
+                WHERE wc.word = '${word}'
+                GROUP BY word, site;
+            `);
+
+            databaseResult.rows = databaseResult.rows.map(record => {
+                let site = record.site.replace('.com.ar', '').replace('.com', '').replace('www', '');
+                record.site = site;
+                return record;
+            });
+
+            return databaseResult.rows;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 function mergeWords(words) {

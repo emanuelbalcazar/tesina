@@ -91,3 +91,22 @@
         responses:
             200:
                 description: palabra ordenada por sitio y fechas
+
+/wordcloud/getCountWordOrderedBySite:
+    get:
+        summary: Obtener una palabra la cantidad de veces que aparece por sitio
+        security:
+            - bearerAuth: []
+        tags:
+            - WordCloud
+        produces:
+            - application/json
+        parameters:
+            - name: word
+              description: Palabra
+              in: query
+              type: string
+              example: provincia
+        responses:
+            200:
+                description: palabra y su cantidad de apariciones en cada sitio

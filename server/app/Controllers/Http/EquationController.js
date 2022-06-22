@@ -23,7 +23,7 @@ class EquationController {
     async index({ request, response, view }) {
         try {
             let params = request.all();
-            let equations = await Equation.query().with('site').paginate(params.page, params.perPage);
+            let equations = await Equation.query().with('site').orderBy('id', 'asc').paginate(params.page, params.perPage);
             return response.json(equations);
         } catch (error) {
             return response.unauthorized({ error: error.message });
