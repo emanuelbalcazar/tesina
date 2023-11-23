@@ -20,28 +20,24 @@
 
       <va-card class="xs6 sm4 d-flex dashboard-contributors-list">
         <va-card-title><b>Top 5 palabras más frecuentes</b></va-card-title>
-        <br />
-        <va-card-content>
-          <va-inner-loading :loading="loading">
-            <div
-              class="mb-3"
-              v-for="(word, idx) in mostFrecuentWords"
-              :key="idx"
+        <br /><br />
+        <va-inner-loading :loading="loading">
+          <div class="mb-3" v-for="(word, idx) in mostFrecuentWords" :key="idx">
+            <va-progress-bar
+              :value="getPercent(word.total)"
+              :color="getRandomColor()"
             >
-              <va-progress-bar
-                :value="getPercent(word.total)"
-                :color="getRandomColor()"
-              >
-                {{ word.word }}
-              </va-progress-bar>
-              {{ word.total }}
-            </div>
-          </va-inner-loading>
-        </va-card-content>
+              {{ word.word }}
+            </va-progress-bar>
+            {{ word.total }}
+          </div>
+        </va-inner-loading>
       </va-card>
 
       <div class="xs6 xl6 d-flex chart-card">
         <va-card>
+          <va-card-title><b>Articulos por sitio</b></va-card-title>
+          <br />
           <va-chart
             class="chart chart--donut"
             :data="articlesPerSite"
@@ -180,8 +176,8 @@ export default {
                 this.$themes.primary,
                 this.$themes.info,
                 this.$themes.secondary,
-                this.$themes.success,
                 this.$themes.warning,
+                this.$themes.success,
                 this.$themes.danger,
               ],
               data: data,

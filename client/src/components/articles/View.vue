@@ -15,6 +15,7 @@
             <b>Fecha de publicación:</b>&nbsp;{{ article.published }}
             <br /><br />
             <b>Sitio web:</b>&nbsp;{{ article.displayLink }} <br /><br />
+            <b>Resumen:</b>&nbsp;{{ article.snippet }}<br /><br />
             <p>{{ article.body }}</p>
         </div>
     </va-card>
