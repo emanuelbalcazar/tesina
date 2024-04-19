@@ -1,5 +1,5 @@
 # indico que version de node usar
-FROM node:14
+FROM node:20
 
 # agrego la carpeta dentro del contenedor
 ADD . ./crawl-extractors
