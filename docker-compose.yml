@@ -61,6 +61,16 @@ services:
             - rabbitmq
             - postgres
 
+    server-ts:
+        build: ./server-ts
+        container_name: server
+        env_file:
+            - ./server-ts/.env
+        ports:
+            - "8000:8000"
+        environment:
+            TZ: America/Argentina/Buenos_Aires
+
     client:
         build: ./client
         container_name: client
