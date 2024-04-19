@@ -10,8 +10,8 @@
 import router from '@adonisjs/core/services/router'
 
 router.get('/', async () => {
-  return {
-    name: 'server-ts',
-    status: 'active',
-  }
+    return {
+        name: 'server-ts',
+        status: 'active',
+    }
 })
