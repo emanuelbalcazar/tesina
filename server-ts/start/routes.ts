@@ -1,3 +1,4 @@
+/* eslint-disable @adonisjs/prefer-lazy-controller-import */
 /*
 |--------------------------------------------------------------------------
 | Routes file
@@ -7,6 +8,8 @@
 |
 */
 
+import SitesController from '#controllers/sites_controller'
+import UsersController from '#controllers/users_controller'
 import router from '@adonisjs/core/services/router'
 
 router.get('/', async () => {
@@ -15,3 +18,11 @@ router.get('/', async () => {
         status: 'active',
     }
 })
+
+/* router group /api */
+router
+    .group(() => {
+        router.resource('sites', SitesController)
+        router.resource('users', UsersController)
+    })
+    .prefix('api')

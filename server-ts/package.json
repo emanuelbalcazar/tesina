@@ -65,7 +65,8 @@
         "rules": {
             "unicorn/prefer-module": "off",
             "no-console": "warn",
-            "prettier/prettier": "off"
+            "prettier/prettier": "off",
+            "@typescript-eslint/explicit-member-accessibility": "off"
         }
     },
     "prettier": "@adonisjs/prettier-config"
