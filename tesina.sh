@@ -7,6 +7,7 @@ root="$(pwd)"
 case "$1" in
 
     install)
+
         echo "[install] instalando dependencias en crawl-extractors"
         cd $root/crawl-extractors
         npm install
@@ -25,32 +26,32 @@ case "$1" in
     ;;
 
     migrate)
-        echo -e "Ejecutando migración en el servidor"
-        cd $root/server
-        adonis migration:run
+        echo -e "[migrate] ejecutando migración en el servidor"
+        cd $root/server-ts
+        node ace migration:run
     ;;
 
     rollback)
-        echo -e "Deshaciendo migración en el servidor"
-        cd $root/server
-        adonis migration:rollback
+        echo -e "[migrate] deshaciendo migración en el servidor"
+        cd $root/server-ts
+        node ace migration:rollback
     ;;
 
     seed)
         echo -e "Ejecutando seeder en el servidor"
-        cd $root/server
-        adonis seed
+        cd $root/server-ts
+        node ace seed
     ;;
 
     routes)
-        echo -e "Listando las rutas rest del servidor"
-        cd $root/server
-        adonis route:list
+        echo -e "[routes] listando las rutas rest del servidor"
+        cd $root/server-ts
+        node ace list:routes
     ;;
 
     config)
         echo -e "Accediendo a la configuración del servidor..."
-        cd $root/server
+        cd $root/server-ts
         adonis config
     ;;
 

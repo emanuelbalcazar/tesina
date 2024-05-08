@@ -7,7 +7,8 @@
         "start": "node ./src",
         "dev": "nodemon ./src",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "lint": "./node_modules/.bin/eslint src/"
+        "lint": "npx eslint src/",
+        "lint:fix": "npx eslint --fix src/"
     },
     "author": "Emanuel Balcazar",
     "license": "ISC",
@@ -23,7 +24,9 @@
         "swagger-ui-express": "^5.0.0"
     },
     "devDependencies": {
-        "eslint": "^9.0.0",
+        "@eslint/js": "^9.2.0",
+        "eslint": "^9.2.0",
+        "globals": "^15.1.0",
         "nodemon": "^3.1.0"
     },
     "nodemonConfig": {
