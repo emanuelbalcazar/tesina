@@ -38,7 +38,7 @@ class RabbitMQConnector {
         }
 
         await channel.assertQueue(queueName, { durable: true });
-        let status = await channel.sendToQueue(queueName, Buffer.from(JSON.stringify(message)));
+        const status = await channel.sendToQueue(queueName, Buffer.from(JSON.stringify(message)));
         return status;
     }
 }
