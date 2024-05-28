@@ -14,7 +14,7 @@
     "license": "ISC",
     "dependencies": {
         "amqplib": "^0.10.4",
-        "axios": "^1.6.8",
+        "axios": "^1.7.2",
         "chalk": "^4.1.2",
         "compression": "^1.7.4",
         "dotenv": "^16.4.5",
@@ -24,10 +24,10 @@
         "swagger-ui-express": "^5.0.0"
     },
     "devDependencies": {
-        "@eslint/js": "^9.2.0",
-        "eslint": "^9.2.0",
-        "globals": "^15.1.0",
-        "nodemon": "^3.1.0"
+        "@eslint/js": "^9.3.0",
+        "eslint": "^9.3.0",
+        "globals": "^15.3.0",
+        "nodemon": "^3.1.1"
     },
     "nodemonConfig": {
         "watch": [

@@ -54,7 +54,7 @@
                         "description": "Ecuacion de busqueda",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Ecuation"
+                            "$ref": "#/definitions/Equation"
                         }
                     }
                 ],
@@ -116,7 +116,7 @@
                 }
             }
         },
-        "Ecuation": {
+        "Equation": {
             "type": "object",
             "properties": {
                 "equation": {
