@@ -63,7 +63,7 @@ services:
 
     server-ts:
         build: ./server-ts
-        container_name: server
+        container_name: server-ts
         env_file:
             - ./server-ts/.env
         ports:

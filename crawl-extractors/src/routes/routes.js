@@ -8,7 +8,7 @@ const service = require('../services/extractor.service');
 
 // information route about the application.
 router.get('/', (req, res) => {
-    let info = { name: 'crawl extractors', version: '2024-04', status: 'active' };
+    let info = { name: 'crawl extractors', version: '2024', status: 'active' };
     return res.json(info);
 });
 
