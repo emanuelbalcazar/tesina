@@ -31,3 +31,7 @@ Se hace uso de la [API Rest](https://developers.google.com/custom-search/v1/usin
 
 - El uso `ilimitado` utiliza el endpoint `https://www.googleapis.com/customsearch/v1/siterestrict?` con un costo de $5 dolares cada 1000 consultas pero
 no posee un limite de consultas diarias [Documentación](https://developers.google.com/custom-search/v1/site_restricted_api?hl=es-419).
+
+## Mejoras pendientes
+
+- [ ] - Incorporar tests unitarios.
