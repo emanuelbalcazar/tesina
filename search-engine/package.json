@@ -9,7 +9,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "lint": "eslint ./src",
         "lint:fix": "eslint ./src --fix",
-        "prettier": "npx prettier ./src --write"
+        "prettier": "npx prettier --write \"**/*.js\"",
+        "prettier:check": "npx prettier --check \"**/*.js\""
     },
     "author": "Emanuel Balcazar",
     "license": "ISC",
