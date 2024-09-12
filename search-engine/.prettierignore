@@ -1,0 +1,47 @@
+# Ignorar node_modules y otras dependencias
+node_modules/
+
+# Ignorar archivos de salida y build
+dist/
+coverage/
+build/
+
+# Ignorar archivos generados automáticamente por Nx
+.angular/
+nx-deps.ts
+*.js
+
+# Ignorar archivos de configuración y lock files
+*.lock
+*.config.js
+*.config.ts
+*.config.mjs
+
+# Ignorar archivos de prueba y de configuración de prueba
+*.spec.ts
+*.test.ts
+*.test.js
+
+# Ignorar archivos de configuración de linters
+.eslintignore
+.eslintrc.js
+.eslintrc.json
+.prettierrc
+.prettierignore
+
+# Ignorar archivos de documentación y otros archivos estáticos
+docs/
+README.md
+
+# Ignorar archivos específicos de editor/IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+Jenkinsfile
+jest.config.ts
+
+deployment/

@@ -13,20 +13,14 @@
             "description": "API REST"
         }
     ],
-    "schemes": [
-        "http"
-    ],
+    "schemes": ["http"],
     "paths": {
         "/": {
             "get": {
-                "tags": [
-                    "routes"
-                ],
+                "tags": ["routes"],
                 "summary": "Indica el estado de la aplicación",
                 "description": "",
-                "produces": [
-                    "application/json"
-                ],
+                "produces": ["application/json"],
                 "responses": {
                     "200": {
                         "description": "Operacion correcta",
@@ -39,14 +33,10 @@
         },
         "/search": {
             "post": {
-                "tags": [
-                    "routes"
-                ],
+                "tags": ["routes"],
                 "summary": "Realiza una busqueda en Google CSE",
                 "description": "",
-                "produces": [
-                    "application/json"
-                ],
+                "produces": ["application/json"],
                 "parameters": [
                     {
                         "in": "body",
@@ -106,12 +96,7 @@
                 "section": {
                     "type": "string",
                     "description": "Sección del texto al que hace referencia el selector",
-                    "enum": [
-                        "titulo",
-                        "bajada",
-                        "cuerpo",
-                        "fecha"
-                    ],
+                    "enum": ["titulo", "bajada", "cuerpo", "fecha"],
                     "example": "cuerpo"
                 }
             }

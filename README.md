@@ -78,4 +78,3 @@ Se esperan alcanzar los siguientes hitos, como parte del proceso pedagógico con
 | 6  | Diseño, implementación y prueba de analizador  | 3 semanas  |
 | 7  | Integración, pruebas y correcciones de visualizador  | 3 semanas  |
 |   | Total  |  15 semanas  |
-
