@@ -1,7 +1,7 @@
 {
     "name": "search-engine",
     "version": "1.0.0",
-    "description": "",
+    "description": "Componente encargado de realizar las busquedas en Google utilizando la API de Google CSE",
     "main": "index.js",
     "scripts": {
         "start": "node ./src",
