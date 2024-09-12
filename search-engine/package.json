@@ -9,8 +9,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "lint": "eslint ./src",
         "lint:fix": "eslint ./src --fix",
-        "prettier": "npx prettier --write \"**/*.js\"",
-        "prettier:check": "npx prettier --check \"**/*.js\""
+        "prettier": "prettier --write 'src/**/*.{js,jsx}'",
+        "prettier:check": "prettier --check 'src/**/*.{js,jsx}'"
     },
     "author": "Emanuel Balcazar",
     "license": "ISC",
@@ -28,10 +28,12 @@
     "devDependencies": {
         "@eslint/js": "^9.10.0",
         "eslint": "^9.10.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
         "globals": "^15.9.0",
         "lint-staged": "^15.2.10",
         "nodemon": "^3.1.0",
-        "prettier": "3.3.3",
+        "prettier": "^3.3.3",
         "pretty-quick": "^4.0.0"
     },
     "nodemonConfig": {

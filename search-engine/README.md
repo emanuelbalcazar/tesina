@@ -20,6 +20,7 @@ Componente encargado de realizar las busquedas en Google utilizando la API de Go
 - Ejecutar comprobación del linter: `npm run lint`.
 - Ejecutar correcciones del linter: `npm run lint:fix`.
 - Ejecutar formateador de codigo: `npm run prettier`.
+- Ejecutar comprobación de formato de codigo: `npm run prettier:check`.
 
 ## Consideraciones particulares
 
